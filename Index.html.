@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signature Cask | The Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #020202; color: #f5f5f5; font-family: 'Montserrat', sans-serif; margin: 0; }
+        .serif { font-family: 'Playfair Display', serif; }
+        .gold-text { color: #D4AF37; }
+        .gold-border { border: 1px solid #D4AF37; }
+    </style>
+</head>
+<body>
+    <div class="max-w-md mx-auto min-h-screen flex flex-col p-8">
+        <div class="flex flex-col items-center py-12">
+            <svg width="200" height="80" viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 40 L30 40 L30 32 L35 32 L35 22 L40 22 L40 32 L45 32 L45 40 L60 40 L60 28 L65 28 L65 18 L75 18 L75 28 L80 28 L80 40 L100 40 L100 35 L115 35 L115 25 L125 25 L125 15 L135 15 L135 25 L145 25 L145 40 L180 40" stroke="#D4AF37" stroke-width="1" />
+                <text x="50%" y="65" text-anchor="middle" fill="#D4AF37" class="serif italic" style="font-size: 28px;">Signature Cask</text>
+                <text x="50%" y="78" text-anchor="middle" fill="white" opacity="0.5" style="font-size: 10px; letter-spacing: 3px; text-transform: uppercase;">The Experience</text>
+            </svg>
+        </div>
+
+        <div class="flex-grow flex flex-col justify-center text-center space-y-8">
+            <h1 class="text-5xl serif italic">Reuniting <br><span class="gold-text">Spirit & Wood.</span></h1>
+            <p class="text-zinc-500 font-light leading-relaxed">Cask #812264B: 16-Year-Old Inchgower.<br>Matched-Provenance Ritual.</p>
+            
+            <div class="pt-8">
+                <input type="number" id="bottleId" placeholder="Enter Bottle ID" class="bg-transparent border-b border-zinc-800 text-4xl serif italic text-center w-full focus:border-[#D4AF37] outline-none pb-4 text-white">
+                <button onclick="verify()" class="mt-10 w-full py-5 gold-border gold-text uppercase text-[10px] tracking-[0.5em] font-bold hover:bg-[#D4AF37] hover:text-black transition-all">Verify Provenance</button>
+            </div>
+        </div>
+
+        <div id="result" class="hidden mt-12 p-6 bg-zinc-950 border border-zinc-900 animate-pulse">
+            <p class="gold-text serif italic text-2xl" id="status">Verified Authentic</p>
+            <p class="text-[10px] uppercase tracking-widest text-zinc-600 mt-2">Bottle <span id="displayId">88</span> of 89 • Series 01</p>
+        </div>
+    </div>
+
+    <script>
+        function verify() {
+            const id = document.getElementById('bottleId').value;
+            if(id > 0 && id <= 89) {
+                document.getElementById('displayId').innerText = id;
+                document.getElementById('result').classList.remove('hidden');
+            } else {
+                alert("Bottle ID not found in Series 01 Registry.");
+            }
+        }
+    </script>
+</body>
+</html>
