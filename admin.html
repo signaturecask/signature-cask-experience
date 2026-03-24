@@ -1,20 +1,61 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://cdn.tailwindcss.com"></script>
-<title>Admin | Signature Cask</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Admin | Signature Cask</title>
 </head>
 <body class="bg-black text-white p-6 font-sans">
     <div class="max-w-md mx-auto">
-        <h1 class="text-[#D4AF37] text-2xl italic mb-8">Registry Admin</h1>
-        <div class="bg-zinc-900 p-6 rounded-lg border border-zinc-800">
-            <label class="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Bottle Number</label>
-            <input type="number" id="bn" class="w-full bg-transparent border-b border-zinc-700 text-3xl mb-6 outline-none text-[#D4AF37]">
-            <label class="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Assign Owner</label>
-            <input type="text" id="ow" placeholder="e.g. Old Course Hotel" class="w-full bg-transparent border-b border-zinc-700 mb-8 outline-none pb-2">
-            <button onclick="alert('Synced to Ledger')" class="w-full py-4 bg-[#D4AF37] text-black font-bold uppercase text-xs tracking-widest">Commit to Ledger</button>
+        <h1 class="text-[#D4AF37] text-2xl italic mb-8 uppercase tracking-widest">Registry Admin</h1>
+        <div class="bg-zinc-900 p-6 rounded-lg border border-zinc-800 shadow-2xl">
+            <label class="block text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-2">Bottle Number</label>
+            <input type="number" id="bn" placeholder="e.g. 88" class="w-full bg-transparent border-b border-zinc-700 text-3xl mb-6 outline-none text-[#D4AF37] pb-2">
+            
+            <label class="block text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-2">Assign Owner</label>
+            <input type="text" id="ow" placeholder="e.g. Old Course Hotel" class="w-full bg-transparent border-b border-zinc-700 mb-8 outline-none pb-2 text-xl">
+            
+            <button onclick="saveToCloud()" id="btn" class="w-full py-4 bg-[#D4AF37] text-black font-bold uppercase text-[10px] tracking-[0.3em] transition-all active:scale-95">Update Global Ledger</button>
         </div>
+        <p class="text-zinc-600 text-[9px] mt-6 text-center uppercase tracking-widest">Secure Encrypted Entry</p>
     </div>
+
+    <script>
+        async function saveToCloud() {
+            const btn = document.getElementById('btn');
+            const num = document.getElementById('bn').value;
+            const owner = document.getElementById('ow').value;
+
+            if(!num || !owner) return alert("Please enter both Bottle ID and Owner.");
+            
+            btn.innerHTML = "SYNCING TO CLOUD...";
+            btn.style.opacity = "0.5";
+            btn.disabled = true;
+
+            try {
+                // This connects to the api/edge.js file you created
+                const res = await fetch('/api/edge', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ key: 'bottle_' + num, value: owner })
+                });
+                
+                if (res.ok) {
+                    alert("✓ SUCCESS: Bottle #" + num + " is now live globally.");
+                    document.getElementById('bn').value = '';
+                    document.getElementById('ow').value = '';
+                } else {
+                    throw new Error();
+                }
+            } catch (e) {
+                alert("Connection Error. Make sure Vercel KV is connected.");
+            }
+            
+            btn.innerHTML = "Update Global Ledger";
+            btn.style.opacity = "1";
+            btn.disabled = false;
+        }
+    </script>
 </body>
 </html>
