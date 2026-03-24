@@ -1,106 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signature Cask | The Experience</title>
+    <title>Signature Cask Experience</title>
     <style>
-        :root { --gold: #c5a059; --dark: #0a0a0a; --soft-gold: #8e7341; }
-        * { box-sizing: border-box; }
-        body { background: var(--dark); color: white; font-family: 'Georgia', serif; margin: 0; scroll-behavior: smooth; }
-        
-        .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; border-bottom: 1px solid rgba(197, 160, 89, 0.2); }
-        
-        /* Logo Styling - Matches your uploaded filename */
-        .logo-container { width: 100%; display: flex; justify-content: center; margin-bottom: 10px; }
-        .logo { width: 240px; max-width: 85%; mix-blend-mode: lighten; filter: brightness(1.1); }
-        
-        h1 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); margin: 20px 0 40px 0; }
-        
-        .search-container { width: 100%; max-width: 350px; padding: 30px; background: rgba(255,255,255,0.03); border: 1px solid rgba(197, 160, 89, 0.3); }
-        input { background: transparent; border: none; border-bottom: 1px solid var(--soft-gold); color: white; width: 100%; padding: 10px; font-size: 1.2rem; text-align: center; outline: none; margin-bottom: 20px; }
-        button { background: var(--gold); color: black; border: none; padding: 15px; width: 100%; font-weight: bold; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; }
-        
-        #result { margin-top: 25px; display: none; border-top: 1px solid rgba(197, 160, 89, 0.4); padding-top: 20px; }
-        .owner-name { font-size: 1.6rem; margin: 10px 0; font-style: italic; }
-
-        /* INTERACTIVE TABS */
-        .content-section { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
-        .tab { background: rgba(255,255,255,0.02); border: 1px solid rgba(197,160,89,0.2); margin-bottom: 15px; border-radius: 2px; }
-        .tab-header { padding: 20px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
-        .tab-content { padding: 0 20px; max-height: 0; overflow: hidden; transition: 0.4s ease-out; color: #bbb; line-height: 1.6; }
-        .tab.active .tab-content { max-height: 1000px; padding: 20px; }
-        .tab.active { border-color: var(--gold); background: rgba(197,160,89,0.05); }
-
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        td { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
-        .label { color: var(--gold); width: 45%; font-weight: bold; }
-
-        .ritual-box { background: rgba(197,160,89,0.1); padding: 15px; margin-top: 10px; border-left: 3px solid var(--gold); }
-        .footer { padding: 60px; font-size: 0.6rem; color: #444; letter-spacing: 3px; text-align: center; }
+        body { background: #0a0a0a; color: #c5a059; font-family: serif; text-align: center; padding: 40px 20px; }
+        .registry-box { border: 1px solid #c5a059; padding: 40px 20px; max-width: 400px; margin: 50px auto; background: #111; }
+        input { background: none; border: none; border-bottom: 1px solid #c5a059; color: #fff; font-size: 1.5rem; width: 80%; text-align: center; margin-bottom: 30px; outline: none; }
+        button { background: #c5a059; color: #000; border: none; padding: 15px 40px; letter-spacing: 2px; font-weight: bold; cursor: pointer; }
+        #display { margin-top: 30px; min-height: 80px; }
     </style>
 </head>
 <body>
-
-    <section class="hero">
-        <div class="logo-container">
-            <img src="Screenshot_20260324_140929_Gallery.jpg" class="logo" alt="Signature Cask">
-        </div>
-        <h1>Global Registry</h1>
-        
-        <div class="search-container">
-            <input type="number" id="idInput" placeholder="BOTTLE NUMBER">
-            <button onclick="checkRegistry()">Verify Entry</button>
-            <div id="result">
-                <span style="font-size: 0.7rem; color: var(--gold); letter-spacing: 2px;">AUTHENTICATED OWNER</span>
-                <div id="ownerDisplay" class="owner-name"></div>
-            </div>
-        </div>
-        <div style="margin-top: 40px; font-size: 0.6rem; color: var(--gold); letter-spacing: 2px; opacity: 0.6;">EXPLORE THE COLLECTION ↓</div>
-    </section>
-
-    <div class="content-section">
-        
-        <div class="tab" onclick="this.classList.toggle('active')">
-            <div class="tab-header">The Provenance <span>+</span></div>
-            <div class="tab-content">
-                <p>Matured for 16 years, this coastal Speyside malt from Inchgower offers a rare balance of maritime brine and rich Oloroso sherry sweetness.</p>
-                <table>
-                    <tr><td class="label">Distillery</td><td>Inchgower</td></tr>
-                    <tr><td class="label">Age Statement</td><td>16 Years</td></tr>
-                    <tr><td class="label">Cask Type</td><td>Oloroso Sherry Finish</td></tr>
-                    <tr><td class="label">Character</td><td>Coastal / Rich Fruit</td></tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="tab" onclick="this.classList.toggle('active')">
-            <div class="tab-header">The Ritual <span>+</span></div>
-            <div class="tab-content">
-                <p>Enhance the maritime notes of the Inchgower with our signature smoke ritual.</p>
-                <div class="ritual-box">
-                    <strong style="color:white; display:block; margin-bottom:5px;">SMOKING TIME: 15 SECONDS</strong>
-                    Prepare the glass chimney with oak chips. Ignite and trap smoke for 15 seconds before pouring. Let the smoke settle into the spirit for 1 minute.
-                </div>
-            </div>
-        </div>
-
+    <div class="registry-box">
+        <h2 style="letter-spacing: 3px;">GLOBAL REGISTRY</h2>
+        <input type="number" id="num" placeholder="0">
+        <br>
+        <button onclick="check()">VERIFY ENTRY</button>
+        <div id="display"></div>
     </div>
-
-    <div class="footer">SIGNATURE CASK | SECURE REGISTRY v3.7</div>
-
     <script>
-        async function checkRegistry() {
-            const id = document.getElementById('idInput').value;
-            const resDiv = document.getElementById('result');
-            const ownerDisp = document.getElementById('ownerDisplay');
-            if(!id) return;
+        async function check() {
+            const n = document.getElementById('num').value;
+            const d = document.getElementById('display');
+            if(!n) return;
+            d.innerText = "VERIFYING...";
             try {
-                const response = await fetch(`/api/edge?key=${id}`);
-                const data = await response.json();
-                ownerDisp.innerText = data.value || "Entry Not Found";
-                resDiv.style.display = 'block';
-            } catch (e) { alert("System Error"); }
+                const res = await fetch(`/api/edge?key=${n}`);
+                const data = await res.json();
+                if(data.result) {
+                    d.innerHTML = `<small>AUTHENTICATED OWNER</small><br><span style="font-size:1.8rem; color:#fff; font-style:italic;">${data.result.toUpperCase()}</span>`;
+                } else {
+                    d.innerHTML = "Entry Not Found";
+                }
+            } catch { d.innerHTML = "OFFLINE"; }
         }
     </script>
 </body>
