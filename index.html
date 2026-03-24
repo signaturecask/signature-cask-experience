@@ -1,54 +1,84 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signature Cask</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Signature Cask | The Experience</title>
     <style>
-        body { background-color: #000; color: #D4AF37; font-family: serif; text-align: center; padding: 50px 20px; }
-        .gold-border { border: 1px solid #D4AF37; padding: 40px 20px; margin-top: 40px; }
+        :root { --gold: #c5a059; --dark: #0a0a0a; --soft-gold: #8e7341; }
+        * { box-sizing: border-box; }
+        body { background: var(--dark); color: white; font-family: 'Georgia', serif; margin: 0; scroll-behavior: smooth; }
+        
+        /* Hero Section */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; border-bottom: 1px solid var(--soft-gold); }
+        .logo { width: 140px; margin-bottom: 30px; filter: drop-shadow(0 0 10px var(--gold)); }
+        h1 { font-size: 1.4rem; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); margin-bottom: 40px; }
+        
+        /* Search Box */
+        .search-container { width: 100%; max-width: 350px; padding: 30px; background: rgba(255,255,255,0.03); border: 1px solid rgba(197, 160, 89, 0.3); border-radius: 2px; }
+        input { background: transparent; border: none; border-bottom: 1px solid var(--soft-gold); color: white; width: 100%; padding: 10px; font-size: 1.2rem; text-align: center; outline: none; margin-bottom: 20px; }
+        button { background: var(--gold); color: black; border: none; padding: 15px; width: 100%; font-weight: bold; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; }
+        
+        /* Result Area */
+        #result { margin-top: 25px; display: none; border-top: 1px solid var(--soft-gold); padding-top: 20px; }
+        .owner-name { font-size: 1.6rem; margin: 10px 0; font-style: italic; }
+
+        /* Story Sections */
+        .content-section { padding: 80px 30px; text-align: center; max-width: 600px; margin: 0 auto; line-height: 1.8; border-bottom: 1px solid rgba(197, 160, 89, 0.1); }
+        .section-title { color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-size: 1rem; margin-bottom: 20px; display: block; }
+        p { color: #ccc; font-size: 1rem; }
+
+        .footer { padding: 40px; font-size: 0.6rem; color: #444; letter-spacing: 2px; text-align: center; }
     </style>
 </head>
 <body>
-    <div class="max-w-sm mx-auto">
-        <h1 class="text-4xl italic mb-2">Signature Cask</h1>
-        <p class="text-white tracking-[0.3em] uppercase text-[10px] mb-12">The Experience</p>
-        
-        <div class="gold-border">
-            <h2 class="text-2xl italic text-white mb-8">Reuniting<br>Spirit & Wood</h2>
-            <input type="number" id="idInput" placeholder="Enter Bottle ID" class="bg-transparent border-b border-[#D4AF37] text-white text-center w-full mb-10 pb-2 outline-none text-xl italic">
-            <button onclick="checkCloud()" id="vbtn" class="w-full py-4 border border-[#D4AF37] text-[#D4AF37] tracking-widest text-xs uppercase font-bold hover:bg-[#D4AF37] hover:text-black transition-all">Verify Provenance</button>
+
+    <section class="hero">
+        <img src="https://signaturecask.com/wp-content/uploads/2023/10/Signature-Cask-Logo-Gold.png" class="logo" alt="Signature Cask">
+        <h1>Global Registry</h1>
+        <div class="search-container">
+            <input type="number" id="idInput" placeholder="ENTER BOTTLE NO.">
+            <button onclick="checkRegistry()">Verify Entry</button>
+            <div id="result">
+                <span style="font-size: 0.7rem; color: var(--gold); letter-spacing: 2px;">AUTHENTICATED OWNER</span>
+                <div id="ownerDisplay" class="owner-name"></div>
+            </div>
         </div>
-    </div>
+        <div style="margin-top: 50px; font-size: 0.7rem; color: var(--gold);">↓ SCROLL TO EXPLORE</div>
+    </section>
+
+    <section class="content-section">
+        <span class="section-title">The Provenance</span>
+        <p>From the heart of the Highlands to the touch of the master cooper, every drop in this cask has been aged to perfection. Our registry ensures that the journey of your bottle is recorded for eternity, preserving the legacy of the liquid within.</p>
+    </section>
+
+    <section class="content-section">
+        <span class="section-title">Authenticity</span>
+        <p>Each Signature Cask release is protected by a secure digital fingerprint. By verifying your bottle number, you are accessing the immutable record of its origin, confirming its status as a genuine masterpiece of distillation.</p>
+    </section>
+
+    <section class="content-section">
+        <span class="section-title">The Ritual</span>
+        <p>To enjoy Signature Cask is to pause time. We recommend a tulip-shaped glass, a drop of pure spring water, and the company of those who appreciate the finer details of life. Pour slowly, breathe deeply, and savor the heritage.</p>
+    </section>
+
+    <div class="footer">SIGNATURE CASK | SECURE LEDGER SYSTEM</div>
 
     <script>
-        async function checkCloud() {
+        async function checkRegistry() {
             const id = document.getElementById('idInput').value;
-            const btn = document.getElementById('vbtn');
-            
-            if(!id) return alert("Please enter a Bottle ID.");
-            
-            btn.innerHTML = "CONSULTING LEDGER...";
-            btn.style.opacity = "0.5";
+            const resDiv = document.getElementById('result');
+            const ownerDisp = document.getElementById('ownerDisplay');
+            if(!id) return;
 
             try {
-                // This fetches the data from your api/edge.js "Bridge"
-                const res = await fetch('/api/edge?key=bottle_' + id);
-                const data = await res.json();
-
-                if (data && data.value) {
-                    alert("✓ VERIFIED AUTHENTIC\n\nOwner: " + data.value + "\nStatus: Secured in Ledger");
-                } else {
-                    alert("Bottle ID not found in current ledger.");
-                }
+                const response = await fetch(`/api/edge?key=${id}`);
+                const data = await response.json();
+                ownerDisp.innerText = data.value || "Entry Not Found";
+                resDiv.style.display = 'block';
             } catch (e) {
-                alert("Connection Error. Please check your signal.");
+                alert("System Offline");
             }
-
-            btn.innerHTML = "Verify Provenance";
-            btn.style.opacity = "1";
         }
     </script>
 </body>
