@@ -9,12 +9,14 @@
         * { box-sizing: border-box; }
         body { background: var(--dark); color: white; font-family: 'Georgia', serif; margin: 0; scroll-behavior: smooth; }
         
-        /* Hero & Registry Section */
         .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; border-bottom: 1px solid rgba(197, 160, 89, 0.2); }
-        .logo { width: 280px; max-width: 90%; margin-bottom: 20px; mix-blend-mode: lighten; }
-        h1 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); margin-bottom: 40px; }
         
-        /* Search Box */
+        /* Fixed Logo Styling */
+        .logo-container { width: 100%; display: flex; justify-content: center; margin-bottom: 10px; }
+        .logo { width: 220px; max-width: 80%; mix-blend-mode: lighten; filter: brightness(1.1); }
+        
+        h1 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); margin: 20px 0 40px 0; }
+        
         .search-container { width: 100%; max-width: 350px; padding: 30px; background: rgba(255,255,255,0.03); border: 1px solid rgba(197, 160, 89, 0.3); }
         input { background: transparent; border: none; border-bottom: 1px solid var(--soft-gold); color: white; width: 100%; padding: 10px; font-size: 1.2rem; text-align: center; outline: none; margin-bottom: 20px; }
         button { background: var(--gold); color: black; border: none; padding: 15px; width: 100%; font-weight: bold; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; }
@@ -22,27 +24,30 @@
         #result { margin-top: 25px; display: none; border-top: 1px solid rgba(197, 160, 89, 0.4); padding-top: 20px; }
         .owner-name { font-size: 1.6rem; margin: 10px 0; font-style: italic; }
 
-        /* INTERACTIVE TABS (Accordions) */
-        .content-section { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .tab { background: rgba(255,255,255,0.02); border: 1px solid rgba(197,160,89,0.2); margin-bottom: 10px; border-radius: 4px; overflow: hidden; }
-        .tab-header { padding: 20px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: bold; }
-        .tab-content { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: rgba(0,0,0,0.3); color: #bbb; line-height: 1.6; }
+        /* INTERACTIVE TABS */
+        .content-section { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+        .tab { background: rgba(255,255,255,0.02); border: 1px solid rgba(197,160,89,0.2); margin-bottom: 15px; border-radius: 2px; transition: 0.3s; }
+        .tab-header { padding: 20px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
+        .tab-content { padding: 0 20px; max-height: 0; overflow: hidden; transition: 0.4s ease-out; color: #bbb; line-height: 1.6; }
         .tab.active .tab-content { max-height: 1000px; padding: 20px; }
-        .tab.active .tab-header { background: rgba(197,160,89,0.1); }
+        .tab.active { border-color: var(--gold); background: rgba(197,160,89,0.05); }
 
-        /* Spec Table */
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
-        td { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .label { color: var(--gold); width: 40%; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        td { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
+        .label { color: var(--gold); width: 45%; font-weight: bold; }
 
+        .ritual-box { background: rgba(197,160,89,0.1); padding: 15px; margin-top: 10px; border-left: 3px solid var(--gold); }
         .footer { padding: 60px; font-size: 0.6rem; color: #444; letter-spacing: 3px; text-align: center; }
     </style>
 </head>
 <body>
 
     <section class="hero">
-        <img src="1000088664.jpg" class="logo" alt="Signature Cask">
+        <div class="logo-container">
+            <img src="1000088664.jpg" class="logo" alt="Signature Cask Logo">
+        </div>
         <h1>Global Registry</h1>
+        
         <div class="search-container">
             <input type="number" id="idInput" placeholder="BOTTLE NUMBER">
             <button onclick="checkRegistry()">Verify Entry</button>
@@ -51,7 +56,7 @@
                 <div id="ownerDisplay" class="owner-name"></div>
             </div>
         </div>
-        <div style="margin-top: 40px; font-size: 0.6rem; color: var(--gold); letter-spacing: 2px;">EXPLORE THE COLLECTION ↓</div>
+        <div style="margin-top: 40px; font-size: 0.6rem; color: var(--gold); letter-spacing: 2px; opacity: 0.6;">EXPLORE THE COLLECTION ↓</div>
     </section>
 
     <div class="content-section">
@@ -59,44 +64,30 @@
         <div class="tab" onclick="this.classList.toggle('active')">
             <div class="tab-header">The Provenance <span>+</span></div>
             <div class="tab-content">
-                <p>This expression represents the pinnacle of Highland craftsmanship. Matured in hand-selected European Oak, it offers a profile of deep complexity and historical significance.</p>
+                <p>Matured for 16 years, this coastal Speyside malt from Inchgower offers a rare balance of maritime brine and rich sherry sweetness.</p>
                 <table>
                     <tr><td class="label">Distillery</td><td>Inchgower</td></tr>
-                    <tr><td class="label">Age</td><td>16 Years Old</td></tr>
-                    <tr><td class="label">Region</td><td>Speyside (Coastal)</td></tr>
+                    <tr><td class="label">Age Statement</td><td>16 Years</td></tr>
                     <tr><td class="label">Cask Type</td><td>Oloroso Sherry Finish</td></tr>
-                    <tr><td class="label">ABV</td><td>46% Alc./Vol.</td></tr>
-                    <tr><td class="label">Tasting Notes</td><td>Brine, Orchard Fruit, Toffee</td></tr>
+                    <tr><td class="label">Character</td><td>Coastal / Rich Fruit</td></tr>
                 </table>
-            </div>
-        </div>
-
-        <div class="tab" onclick="this.classList.toggle('active')">
-            <div class="tab-header">Authenticity <span>+</span></div>
-            <div class="tab-content">
-                <p>Every Signature Cask bottle is secured by an encrypted digital ledger. The entry you verified above is the immutable record of origin, ensuring your bottle is a genuine Inchgower masterpiece.</p>
             </div>
         </div>
 
         <div class="tab" onclick="this.classList.toggle('active')">
             <div class="tab-header">The Ritual <span>+</span></div>
             <div class="tab-content">
-                <p>To fully unlock the Inchgower character, we recommend the <strong>Oak-Smoke Ritual</strong> using our signature smoking chips.</p>
-                <div style="background: rgba(197,160,89,0.1); padding: 15px; margin-top: 10px;">
-                    <span style="color:var(--gold); display:block; margin-bottom:10px;">THE SMOKING TIMELINE:</span>
-                    <ul style="padding-left:15px; margin:0; font-size:0.9rem;">
-                        <li><strong>Step 1:</strong> Ignite chips in the glass chimney.</li>
-                        <li><strong>Step 2:</strong> Trap smoke for <strong>15 Seconds</strong>.</li>
-                        <li><strong>Step 3:</strong> Pour Inchgower 16 directly over smoke.</li>
-                        <li><strong>Step 4:</strong> Let rest for 1 minute before first sip.</li>
-                    </ul>
+                <p>Enhance the maritime notes of the Inchgower with our signature smoke ritual.</p>
+                <div class="ritual-box">
+                    <strong style="color:white; display:block; margin-bottom:5px;">SMOKING TIME: 15 SECONDS</strong>
+                    Prepare the glass chimney with oak chips. Ignite and trap smoke for 15 seconds before pouring. Let the smoke settle into the spirit for 1 minute.
                 </div>
             </div>
         </div>
 
     </div>
 
-    <div class="footer">SIGNATURE CASK | SECURE REGISTRY v3.5</div>
+    <div class="footer">SIGNATURE CASK | SECURE REGISTRY v3.6</div>
 
     <script>
         async function checkRegistry() {
