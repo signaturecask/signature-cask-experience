@@ -11,9 +11,9 @@
         
         .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; border-bottom: 1px solid rgba(197, 160, 89, 0.2); }
         
-        /* Fixed Logo Styling */
+        /* Logo Styling - Matches your uploaded filename */
         .logo-container { width: 100%; display: flex; justify-content: center; margin-bottom: 10px; }
-        .logo { width: 220px; max-width: 80%; mix-blend-mode: lighten; filter: brightness(1.1); }
+        .logo { width: 240px; max-width: 85%; mix-blend-mode: lighten; filter: brightness(1.1); }
         
         h1 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); margin: 20px 0 40px 0; }
         
@@ -26,7 +26,7 @@
 
         /* INTERACTIVE TABS */
         .content-section { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
-        .tab { background: rgba(255,255,255,0.02); border: 1px solid rgba(197,160,89,0.2); margin-bottom: 15px; border-radius: 2px; transition: 0.3s; }
+        .tab { background: rgba(255,255,255,0.02); border: 1px solid rgba(197,160,89,0.2); margin-bottom: 15px; border-radius: 2px; }
         .tab-header { padding: 20px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
         .tab-content { padding: 0 20px; max-height: 0; overflow: hidden; transition: 0.4s ease-out; color: #bbb; line-height: 1.6; }
         .tab.active .tab-content { max-height: 1000px; padding: 20px; }
@@ -44,7 +44,7 @@
 
     <section class="hero">
         <div class="logo-container">
-            <img src="1000088664.jpg" class="logo" alt="Signature Cask Logo">
+            <img src="Screenshot_20260324_140929_Gallery.jpg" class="logo" alt="Signature Cask">
         </div>
         <h1>Global Registry</h1>
         
@@ -64,7 +64,7 @@
         <div class="tab" onclick="this.classList.toggle('active')">
             <div class="tab-header">The Provenance <span>+</span></div>
             <div class="tab-content">
-                <p>Matured for 16 years, this coastal Speyside malt from Inchgower offers a rare balance of maritime brine and rich sherry sweetness.</p>
+                <p>Matured for 16 years, this coastal Speyside malt from Inchgower offers a rare balance of maritime brine and rich Oloroso sherry sweetness.</p>
                 <table>
                     <tr><td class="label">Distillery</td><td>Inchgower</td></tr>
                     <tr><td class="label">Age Statement</td><td>16 Years</td></tr>
@@ -87,7 +87,7 @@
 
     </div>
 
-    <div class="footer">SIGNATURE CASK | SECURE REGISTRY v3.6</div>
+    <div class="footer">SIGNATURE CASK | SECURE REGISTRY v3.7</div>
 
     <script>
         async function checkRegistry() {
