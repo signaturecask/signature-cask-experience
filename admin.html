@@ -1,60 +1,66 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Admin | Signature Cask</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signature Cask | Registry Admin</title>
+    <style>
+        :root { --gold: #c5a059; --dark: #0a0a0a; }
+        body { background: var(--dark); color: var(--gold); font-family: 'Georgia', serif; text-align: center; padding: 40px 20px; margin: 0; }
+        .admin-card { background: rgba(255,255,255,0.05); border: 1px solid var(--gold); padding: 30px; max-width: 400px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { font-size: 1.2rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 30px; }
+        input { display: block; width: 100%; padding: 12px; margin-bottom: 20px; background: #111; border: 1px solid #444; color: white; text-align: center; font-size: 1rem; border-radius: 4px; }
+        input:focus { border-color: var(--gold); outline: none; }
+        button { background: var(--gold); color: black; border: none; width: 100%; padding: 15px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #e0b86d; }
+        #status { margin-top: 20px; font-size: 0.8rem; letter-spacing: 1px; min-height: 1.2rem; }
+        .success { color: #4CAF50; }
+        .error { color: #FF5252; }
+    </style>
 </head>
-<body class="bg-black text-white p-6 font-sans">
-    <div class="max-w-md mx-auto">
-        <h1 class="text-[#D4AF37] text-2xl italic mb-8 uppercase tracking-widest">Registry Admin</h1>
-        <div class="bg-zinc-900 p-6 rounded-lg border border-zinc-800 shadow-2xl">
-            <label class="block text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-2">Bottle Number</label>
-            <input type="number" id="bn" placeholder="e.g. 88" class="w-full bg-transparent border-b border-zinc-700 text-3xl mb-6 outline-none text-[#D4AF37] pb-2">
-            
-            <label class="block text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-2">Assign Owner</label>
-            <input type="text" id="ow" placeholder="e.g. Old Course Hotel" class="w-full bg-transparent border-b border-zinc-700 mb-8 outline-none pb-2 text-xl">
-            
-            <button onclick="saveToCloud()" id="btn" class="w-full py-4 bg-[#D4AF37] text-black font-bold uppercase text-[10px] tracking-[0.3em] transition-all active:scale-95">Update Global Ledger</button>
-        </div>
-        <p class="text-zinc-600 text-[9px] mt-6 text-center uppercase tracking-widest">Secure Encrypted Entry</p>
+<body>
+
+    <div class="admin-card">
+        <h1>Registry Control</h1>
+        
+        <input type="number" id="bottleNumber" placeholder="BOTTLE NUMBER (e.g. 1)">
+        <input type="text" id="ownerName" placeholder="OWNER NAME">
+        
+        <button onclick="updateRegistry()">Update Global Ledger</button>
+        
+        <div id="status"></div>
     </div>
 
     <script>
-        async function saveToCloud() {
-            const btn = document.getElementById('btn');
-            const num = document.getElementById('bn').value;
-            const owner = document.getElementById('ow').value;
-
-            if(!num || !owner) return alert("Please enter both Bottle ID and Owner.");
+        async function updateRegistry() {
+            const key = document.getElementById('bottleNumber').value;
+            const value = document.getElementById('ownerName').value;
+            const statusDiv = document.getElementById('status');
             
-            btn.innerHTML = "SYNCING TO CLOUD...";
-            btn.style.opacity = "0.5";
-            btn.disabled = true;
+            if (!key || !value) {
+                statusDiv.innerHTML = '<span class="error">PLEASE FILL BOTH FIELDS</span>';
+                return;
+            }
+
+            statusDiv.innerText = "Connecting to Ledger...";
 
             try {
-                // This connects to the api/edge.js file you created
-                const res = await fetch('/api/edge', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ key: 'bottle_' + num, value: owner })
-                });
-                
-                if (res.ok) {
-                    alert("✓ SUCCESS: Bottle #" + num + " is now live globally.");
-                    document.getElementById('bn').value = '';
-                    document.getElementById('ow').value = '';
+                // This talks to your Vercel Edge Function
+                const response = await fetch(`/api/edge?key=${key}&value=${encodeURIComponent(value)}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    statusDiv.innerHTML = `<span class="success">✓ BOTTLE ${key} REGISTERED TO ${value.toUpperCase()}</span>`;
+                    // Clear inputs for the next one
+                    document.getElementById('bottleNumber').value = '';
+                    document.getElementById('ownerName').value = '';
                 } else {
-                    throw new Error();
+                    statusDiv.innerHTML = '<span class="error">DATABASE ERROR: Check Vercel Settings</span>';
                 }
-            } catch (e) {
-                alert("Connection Error. Make sure Vercel KV is connected.");
+            } catch (err) {
+                console.error(err);
+                statusDiv.innerHTML = '<span class="error">CONNECTION FAILED: Check Internet or Vercel Keys</span>';
             }
-            
-            btn.innerHTML = "Update Global Ledger";
-            btn.style.opacity = "1";
-            btn.disabled = false;
         }
     </script>
 </body>
