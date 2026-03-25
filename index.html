@@ -1,39 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signature Cask Experience</title>
+    <title>Signature Cask Experience | Global Registry</title>
     <style>
-        body { background: #0a0a0a; color: #c5a059; font-family: serif; text-align: center; padding: 40px 20px; }
-        .registry-box { border: 1px solid #c5a059; padding: 40px 20px; max-width: 400px; margin: 50px auto; background: #111; }
-        input { background: none; border: none; border-bottom: 1px solid #c5a059; color: #fff; font-size: 1.5rem; width: 80%; text-align: center; margin-bottom: 30px; outline: none; }
-        button { background: #c5a059; color: #000; border: none; padding: 15px 40px; letter-spacing: 2px; font-weight: bold; cursor: pointer; }
-        #display { margin-top: 30px; min-height: 80px; }
+        /* Luxury Color Palette */
+        :root { 
+            --gold: #c5a059; 
+            --dark-background: #0a0a0a; 
+            --white: #ffffff;
+            --soft-gray: #333333;
+        }
+
+        /* Full Screen and Core Styling */
+        body { 
+            background-color: var(--dark-background); 
+            color: var(--gold); 
+            font-family: 'Georgia', serif; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* The Premium Container */
+        .registry-box { 
+            border: 1px solid var(--gold); 
+            padding: 70px 40px; 
+            max-width: 480px; 
+            width: 100%;
+            background: rgba(255, 255, 255, 0.02); /* Very subtle overlay */
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+            text-align: center;
+            border-radius: 2px; /* Keeps it sharp, not soft */
+        }
+
+        /* The Professional Logo/Heading */
+        .brand-logo { 
+            font-size: 2rem;
+            letter-spacing: 12px;
+            font-weight: 300;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        h2 { 
+            letter-spacing: 3px; 
+            font-weight: 100; 
+            text-transform: uppercase; 
+            margin-bottom: 50px;
+            font-size: 1rem;
+            color: #ccc; /* Subtle gray so gold stands out */
+        }
+
+        /* The Minimal Input */
+        input { 
+            background: transparent; 
+            border: none; 
+            border-bottom: 1px solid var(--soft-gray); 
+            color: var(--white); 
+            font-size: 2.2rem; 
+            width: 85%; 
+            text-align: center; 
+            margin-bottom: 30px;
+            transition: all 0.4s ease;
+            outline: none;
+        }
+        input:focus { border-bottom-color: var(--gold); }
+        
+        /* The Verification Button */
+        button { 
+            background: var(--gold); 
+            color: black; 
+            border: none; 
+            padding: 18px 55px; 
+            font-weight: bold; 
+            letter-spacing: 2px; 
+            cursor: pointer; 
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        button:hover { background: #e0b86d; transform: scale(1.03); }
+
+        /* The Verification Status Area */
+        #display { 
+            margin-top: 50px; 
+            min-height: 120px; /* Pre-allocates space to avoid content jumping */
+            transition: all 0.5s ease;
+        }
+        
+        /* Owner Result Styling */
+        .owner-result { border-top: 1px solid #333; padding-top: 30px; }
+        .label { font-size: 0.75rem; letter-spacing: 3px; color: var(--gold); opacity: 0.7; margin-bottom: 15px; display: block; }
+        .name { font-size: 1.9rem; color: var(--white); font-style: italic; display: block; text-transform: uppercase; }
+
+        /* General Not Found / Offline Message Styling */
+        .status-message { color: #666; letter-spacing: 2px; }
     </style>
 </head>
 <body>
+
     <div class="registry-box">
-        <h2 style="letter-spacing: 3px;">GLOBAL REGISTRY</h2>
-        <input type="number" id="num" placeholder="0">
+        <div class="brand-logo">S-C</div>
+        
+        <h2>Global Registry</h2>
+        
+        <input type="number" id="num" placeholder="0" autofocus>
         <br>
-        <button onclick="check()">VERIFY ENTRY</button>
+        <button onclick="check()">Verify Entry</button>
+
         <div id="display"></div>
     </div>
+
     <script>
         async function check() {
             const n = document.getElementById('num').value;
             const d = document.getElementById('display');
             if(!n) return;
-            d.innerText = "VERIFYING...";
+
+            // Simplified "Verifying" message
+            d.innerHTML = "<span class='status-message'>VERIFYING...</span>";
+
             try {
+                // This connects to the Edge bridge we built
                 const res = await fetch(`/api/edge?key=${n}`);
                 const data = await res.json();
-                if(data.result) {
-                    d.innerHTML = `<small>AUTHENTICATED OWNER</small><br><span style="font-size:1.8rem; color:#fff; font-style:italic;">${data.result.toUpperCase()}</span>`;
+                
+                if (data.result) {
+                    d.innerHTML = `
+                        <div class="owner-result">
+                            <span class="label">AUTHENTICATED OWNER</span>
+                            <span class="name">${data.result}</span>
+                        </div>`;
                 } else {
-                    d.innerHTML = "Entry Not Found";
+                    d.innerHTML = "<span class='status-message'>Entry Not Found</span>";
                 }
-            } catch { d.innerHTML = "OFFLINE"; }
+            } catch {
+                d.innerHTML = "<span class='status-message' style='color:red'>Offline</span>";
+            }
         }
     </script>
 </body>
