@@ -3,147 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signature Cask Experience | Global Registry</title>
+    <title>Signature Cask | The 16yr Inchgower Experience</title>
     <style>
-        /* Luxury Color Palette */
-        :root { 
-            --gold: #c5a059; 
-            --dark-background: #0a0a0a; 
-            --white: #ffffff;
-            --soft-gray: #333333;
-        }
+        :root { --gold: #c5a059; --dark: #050505; --white: #ffffff; }
+        body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; }
+        
+        /* Hero Section */
+        .hero { height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1527281405159-4b089f21545e?auto=format&fit=crop&q=80'); background-size: cover; background-position: center; border-bottom: 1px solid var(--gold); }
+        
+        .logo { width: 180px; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(197, 160, 89, 0.5)); }
+        h1 { font-weight: 300; letter-spacing: 8px; text-transform: uppercase; font-size: 1.5rem; margin: 0; }
 
-        /* Full Screen and Core Styling */
-        body { 
-            background-color: var(--dark-background); 
-            color: var(--gold); 
-            font-family: 'Georgia', serif; 
-            margin: 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        /* The Premium Container */
-        .registry-box { 
-            border: 1px solid var(--gold); 
-            padding: 70px 40px; 
-            max-width: 480px; 
-            width: 100%;
-            background: rgba(255, 255, 255, 0.02); /* Very subtle overlay */
-            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-            text-align: center;
-            border-radius: 2px; /* Keeps it sharp, not soft */
-        }
-
-        /* The Professional Logo/Heading */
-        .brand-logo { 
-            font-size: 2rem;
-            letter-spacing: 12px;
-            font-weight: 300;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            color: var(--gold);
-        }
-
-        h2 { 
-            letter-spacing: 3px; 
-            font-weight: 100; 
-            text-transform: uppercase; 
-            margin-bottom: 50px;
-            font-size: 1rem;
-            color: #ccc; /* Subtle gray so gold stands out */
-        }
-
-        /* The Minimal Input */
-        input { 
-            background: transparent; 
-            border: none; 
-            border-bottom: 1px solid var(--soft-gray); 
-            color: var(--white); 
-            font-size: 2.2rem; 
-            width: 85%; 
-            text-align: center; 
-            margin-bottom: 30px;
-            transition: all 0.4s ease;
-            outline: none;
-        }
+        /* Registry Section */
+        .registry-section { padding: 60px 20px; text-align: center; background: var(--dark); }
+        .registry-box { border: 1px solid var(--gold); padding: 40px; max-width: 400px; margin: 0 auto; background: rgba(255,255,255,0.02); }
+        input { background: transparent; border: none; border-bottom: 1px solid #333; color: white; font-size: 2rem; width: 100px; text-align: center; margin-bottom: 20px; outline: none; }
         input:focus { border-bottom-color: var(--gold); }
-        
-        /* The Verification Button */
-        button { 
-            background: var(--gold); 
-            color: black; 
-            border: none; 
-            padding: 18px 55px; 
-            font-weight: bold; 
-            letter-spacing: 2px; 
-            cursor: pointer; 
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-        button:hover { background: #e0b86d; transform: scale(1.03); }
+        button { background: var(--gold); color: black; border: none; padding: 12px 30px; font-weight: bold; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; }
 
-        /* The Verification Status Area */
-        #display { 
-            margin-top: 50px; 
-            min-height: 120px; /* Pre-allocates space to avoid content jumping */
-            transition: all 0.5s ease;
-        }
+        /* Ritual & Whisky Section */
+        .story-section { max-width: 800px; margin: 0 auto; padding: 60px 20px; line-height: 1.8; color: #ccc; }
+        .ritual-title { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; border-bottom: 1px solid var(--gold); display: inline-block; margin-bottom: 20px; }
+        .whisky-details { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; text-align: left; }
         
-        /* Owner Result Styling */
-        .owner-result { border-top: 1px solid #333; padding-top: 30px; }
-        .label { font-size: 0.75rem; letter-spacing: 3px; color: var(--gold); opacity: 0.7; margin-bottom: 15px; display: block; }
-        .name { font-size: 1.9rem; color: var(--white); font-style: italic; display: block; text-transform: uppercase; }
+        @media (max-width: 600px) { .whisky-details { grid-template-columns: 1fr; } }
+        
+        .feature-box { border-left: 2px solid var(--gold); padding-left: 20px; margin-bottom: 30px; }
+        strong { color: var(--gold); display: block; margin-bottom: 5px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
 
-        /* General Not Found / Offline Message Styling */
-        .status-message { color: #666; letter-spacing: 2px; }
+        footer { padding: 40px; text-align: center; font-size: 0.7rem; letter-spacing: 2px; opacity: 0.5; }
     </style>
 </head>
 <body>
 
-    <div class="registry-box">
-        <div class="brand-logo">S-C</div>
-        
-        <h2>Global Registry</h2>
-        
-        <input type="number" id="num" placeholder="0" autofocus>
-        <br>
-        <button onclick="check()">Verify Entry</button>
-
-        <div id="display"></div>
+    <div class="hero">
+        <img src="logo.png" alt="Signature Cask Logo" class="logo">
+        <h1>Signature Cask</h1>
+        <p style="letter-spacing: 3px; font-style: italic; opacity: 0.8;">The Global Registry</p>
     </div>
+
+    <div class="registry-section">
+        <div class="registry-box">
+            <input type="number" id="num" placeholder="0">
+            <br>
+            <button onclick="check()">Verify Authenticity</button>
+            <div id="display" style="margin-top:30px;"></div>
+        </div>
+    </div>
+
+    <div class="story-section">
+        <div class="feature-box">
+            <span class="ritual-title">The Spirit</span>
+            <p><strong>Inchgower 16 Year Old Single Malt</strong><br>
+            A coastal Speyside treasure. Complex and robust, this expression delivers notes of sea salt, toasted hazelnuts, and a lingering citrus spice. Aged to perfection in oak, it is a testament to the distiller's art.</p>
+        </div>
+
+        <div class="feature-box">
+            <span class="ritual-title">The Ritual of Smoke</span>
+            <p>To unlock the full character of the Signature Cask, place the smoker atop your glass. Ignite the artisanal smoking chips until a thick, aromatic cloud fills the vessel. Let the smoke dance with the spirit for 30 seconds before lifting the lid. This infusion of charred wood adds a deep, primeval layer to the Inchgower’s coastal profile.</p>
+        </div>
+
+        <div class="whisky-details">
+            <div>
+                <strong>Nose</strong>
+                Salted caramel and dark chocolate.
+            </div>
+            <div>
+                <strong>Palate</strong>
+                Spicy orange peel and nutty malt.
+            </div>
+            <div>
+                <strong>Finish</strong>
+                Long, warming, with a hint of briny smoke.
+            </div>
+            <div>
+                <strong>Cask</strong>
+                Ex-Bourbon and Sherry finish.
+            </div>
+        </div>
+    </div>
+
+    <footer>EST. 2024 | SIGNATURE CASK EXPERIENCE</footer>
 
     <script>
         async function check() {
             const n = document.getElementById('num').value;
             const d = document.getElementById('display');
             if(!n) return;
-
-            // Simplified "Verifying" message
-            d.innerHTML = "<span class='status-message'>VERIFYING...</span>";
-
+            d.innerHTML = "<span style='opacity:0.5'>CONSULTING THE LEDGER...</span>";
             try {
-                // This connects to the Edge bridge we built
                 const res = await fetch(`/api/edge?key=${n}`);
                 const data = await res.json();
-                
                 if (data.result) {
                     d.innerHTML = `
-                        <div class="owner-result">
-                            <span class="label">AUTHENTICATED OWNER</span>
-                            <span class="name">${data.result}</span>
+                        <div style="border-top: 1px solid var(--gold); padding-top: 20px;">
+                            <span style="font-size: 0.7rem; letter-spacing: 3px;">AUTHENTICATED OWNER</span><br>
+                            <span style="font-size: 1.8rem; color: white; font-style: italic;">${data.result.toUpperCase()}</span>
                         </div>`;
                 } else {
-                    d.innerHTML = "<span class='status-message'>Entry Not Found</span>";
+                    d.innerHTML = "Registry entry not found.";
                 }
-            } catch {
-                d.innerHTML = "<span class='status-message' style='color:red'>Offline</span>";
-            }
+            } catch { d.innerHTML = "Offline Connection."; }
         }
     </script>
 </body>
