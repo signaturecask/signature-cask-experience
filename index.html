@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Signature Cask | The Inchgower 16 Legacy</title>
+    <title>Signature Cask | The Experience</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,7 +18,7 @@
         /* Video Hero Section */
         .hero { position: relative; height: 50vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
         .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.3); }
-        .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle, rgba(197,160,89,0.15) 0%, rgba(0,0,0,0) 70%); }
+        .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         
         /* The Luxury Glow Effect */
         .logo-container { position: relative; padding: 20px; }
@@ -42,7 +42,7 @@
 
         /* Tasting Modal */
         #tastingModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center; }
-        .modal-content { width: 90%; max-width: 400px; border: 1px solid var(--gold); background: var(--dark); padding: 20px; }
+        .modal-content { width: 95%; max-width: 450px; border: 1px solid var(--gold); background: var(--dark); padding: 20px; }
         
         #timer-num { font-size: 5rem; color: white; font-weight: 300; margin: 10px 0; }
         .bottle-card { border: 2px solid var(--gold); padding: 30px; margin-top: 25px; background: rgba(255,255,255,0.05); }
@@ -61,17 +61,17 @@
             <div class="logo-container">
                 <img src="logo.png" class="logo" alt="Signature Cask">
             </div>
-            <h1 style="letter-spacing:12px; font-size:1.1rem; font-weight:300; margin:0;">SIGNATURE CASK</h1>
-            <p style="font-size:0.75rem; letter-spacing:4px; opacity:0.8; font-style:italic;">The Inchgower 16 Legacy</p>
+            <h1 style="letter-spacing:12px; font-size:1.3rem; font-weight:300; margin:0; text-transform: uppercase;">SIGNATURE CASK</h1>
+            <p style="font-size:0.9rem; letter-spacing:4px; font-style:italic; margin-top: 8px;">The Inchgower 16 Legacy</p>
         </div>
     </div>
 
     <div class="container">
         <div style="margin-bottom:40px;">
-            <h2 style="font-size:0.85rem; letter-spacing:5px;">CASK HERITAGE</h2>
+            <h2 style="font-size:0.9rem; letter-spacing:5px;">CASK HERITAGE</h2>
             <div class="tasting-grid">
                 <div class="note"><b>Cask</b>1st Fill Bourbon</div>
-                <div class="note"><b>Distilled</b>2007</div>
+                <div class="note"><b>Distilled</b>June 2007</div>
                 <div class="note"><b>ABV</b>55.9%</div>
             </div>
             <button class="btn-outline" onclick="openTasting()">Watch Guided Tasting</button>
@@ -95,7 +95,7 @@
         <div class="modal-content">
             <h3 style="font-size:0.8rem; letter-spacing:3px;">SOMMELIER'S NOTES</h3>
             <video id="tastingVideo" width="100%" controls style="border: 1px solid var(--gold); margin: 20px 0;">
-                <source src="PASTE_VIDEO_URL_HERE.mp4" type="video/mp4">
+                <source src="PASTE_YOUR_TASTING_VIDEO_URL_HERE.mp4" type="video/mp4">
             </video>
             <button onclick="closeTasting()" class="btn-outline">Close Experience</button>
         </div>
