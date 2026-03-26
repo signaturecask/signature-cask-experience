@@ -1,48 +1,74 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Signature Cask | Inchgower 16</title>
+    <title>Signature Cask Experience</title>
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Signature Cask">
+    <meta name="theme-color" content="#c5a059">
     <link rel="apple-touch-icon" href="logo.png">
+    <link rel="manifest" href="manifest.json">
 
     <style>
-        :root { --gold: #c5a059; --dark: #050505; --white: #ffffff; }
-        body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        :root { --gold: #c5a059; --dark: #050505; }
+        body { 
+            background-color: var(--dark); 
+            color: var(--gold); 
+            font-family: 'Georgia', serif; 
+            margin: 0; 
+            padding: 0; 
+            overflow-x: hidden;
+            -webkit-user-select: none;
+        }
         
         /* Video Hero Section */
         .hero { position: relative; height: 65vh; width: 100%; overflow: hidden; border-bottom: 1px solid var(--gold); }
-        .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: 0; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.4); }
-        .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: rgba(0,0,0,0.2); }
+        .hero video { 
+            position: absolute; top: 50%; left: 50%; 
+            min-width: 100%; min-height: 100%; 
+            transform: translate(-50%, -50%); 
+            object-fit: cover; 
+            filter: brightness(0.4); 
+        }
+        .hero-content { 
+            position: relative; z-index: 1; height: 100%; 
+            display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; 
+            text-align: center; background: rgba(0,0,0,0.2); 
+        }
         
         .logo { width: 140px; margin-bottom: 15px; }
         h1 { font-weight: 300; letter-spacing: 10px; text-transform: uppercase; font-size: 1.3rem; margin: 0; color: var(--gold); }
 
         /* Registry Search Section */
-        .registry-section { padding: 50px 20px; text-align: center; background: var(--dark); }
+        .registry-section { padding: 50px 20px; text-align: center; }
         .registry-box { border: 1px solid var(--gold); padding: 40px 20px; max-width: 400px; margin: 0 auto; background: rgba(255,255,255,0.02); }
-        input { background: transparent; border: none; border-bottom: 1px solid #333; color: white; font-size: 2.2rem; width: 120px; text-align: center; margin-bottom: 25px; outline: none; }
-        input:focus { border-bottom-color: var(--gold); }
-        button { background: var(--gold); color: black; border: none; padding: 15px 40px; font-weight: bold; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; }
+        input { 
+            background: transparent; border: none; border-bottom: 1px solid #333; 
+            color: white; font-size: 2.2rem; width: 120px; 
+            text-align: center; margin-bottom: 25px; outline: none; 
+        }
+        button { 
+            background: var(--gold); color: black; border: none; 
+            padding: 15px 40px; font-weight: bold; letter-spacing: 2px; 
+            text-transform: uppercase; cursor: pointer;
+        }
 
         /* Bottle Reveal Card */
-        #display { margin-top: 30px; min-height: 200px; }
+        #display { margin-top: 30px; }
         .bottle-card { border: 1px solid var(--gold); padding: 30px; background: rgba(255,255,255,0.03); text-align: center; animation: fadeIn 0.8s ease-in; }
         .owner-name { font-size: 1.8rem; color: white; font-style: italic; margin: 15px 0; display: block; text-transform: uppercase; }
         
         .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; border-top: 1px solid #333; padding-top: 20px; margin-top: 20px; }
-        .spec-item b { display: block; color: var(--gold); font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+        .spec-item b { display: block; color: var(--gold); font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; }
         .spec-item span { color: #eee; font-size: 0.9rem; }
 
-        /* Ritual Section */
+        /* Story Section */
         .story-section { max-width: 800px; margin: 0 auto; padding: 60px 20px; line-height: 1.9; color: #bbb; text-align: center; }
-        .ritual-title { color: var(--gold); text-transform: uppercase; letter-spacing: 5px; font-size: 1.1rem; margin-bottom: 25px; display: block; }
         
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         footer { padding: 40px; text-align: center; font-size: 0.7rem; letter-spacing: 3px; opacity: 0.4; }
     </style>
 </head>
@@ -53,9 +79,9 @@
             <source src="https://signature-cask-experience-blob-lhr1.public.blob.vercel-storage.com/1774511307741.mp4" type="video/mp4">
         </video>
         <div class="hero-content">
-            <img src="logo.png" alt="Signature Cask Logo" class="logo">
+            <img src="logo.png" alt="Logo" class="logo">
             <h1>Signature Cask</h1>
-            <p style="letter-spacing: 4px; font-style: italic; opacity: 0.8; margin-top: 10px;">The 16 Year Old Inchgower Experience</p>
+            <p style="letter-spacing: 4px; font-style: italic; opacity: 0.8;">The 16 Year Old Inchgower Experience</p>
         </div>
     </div>
 
@@ -69,8 +95,8 @@
     </div>
 
     <div class="story-section">
-        <span class="ritual-title">The Ritual of Smoke</span>
-        <p>To honor the 16-year journey of this Inchgower malt, ignite the artisanal chips to release a dense aromatic cloud. Allow the smoke to marriage with the 55.9% Vol spirit for thirty seconds, unlocking deep maritime notes and toasted oak sweetness.</p>
+        <span style="color: var(--gold); text-transform: uppercase; letter-spacing: 5px;">The Ritual of Smoke</span>
+        <p>To honor this Inchgower malt, ignite artisanal oak chips to release a dense aromatic cloud. Allow the smoke to marriage with the 55.9% Vol spirit for thirty seconds to unlock deep maritime notes.</p>
     </div>
 
     <footer>EST. 2024 | SIGNATURE CASK GLOBAL REGISTRY</footer>
@@ -80,19 +106,15 @@
             const n = document.getElementById('num').value;
             const d = document.getElementById('display');
             if(!n) return;
-
-            d.innerHTML = "<span style='opacity:0.5; letter-spacing:2px;'>CONSULTING THE LEDGER...</span>";
-
+            d.innerHTML = "...CONSULTING LEDGER...";
             try {
                 const res = await fetch(`/api/edge?key=${n}`);
                 const data = await res.json();
-                
                 if (data.result) {
                     d.innerHTML = `
                         <div class="bottle-card">
-                            <span style="font-size: 0.7rem; letter-spacing: 3px; color: var(--gold);">AUTHENTICATED OWNER</span>
+                            <span style="font-size: 0.7rem; letter-spacing: 3px;">AUTHENTICATED OWNER</span>
                             <span class="owner-name">${data.result}</span>
-                            
                             <div class="spec-grid">
                                 <div class="spec-item"><b>Distillery</b><span>Inchgower</span></div>
                                 <div class="spec-item"><b>Age</b><span>16 Years</span></div>
@@ -102,12 +124,8 @@
                                 <div class="spec-item"><b>Finish</b><span>1st Fill Bourbon</span></div>
                             </div>
                         </div>`;
-                } else {
-                    d.innerHTML = "<span style='color:#666; margin-top:20px; display:block;'>Bottle Not Found</span>";
-                }
-            } catch {
-                d.innerHTML = "<span style='color:red;'>Connection Error</span>";
-            }
+                } else { d.innerHTML = "Bottle Not Found"; }
+            } catch { d.innerHTML = "Error Connecting"; }
         }
     </script>
 </body>
