@@ -13,50 +13,22 @@
 
     <style>
         :root { --gold: #c5a059; --dark: #050505; }
-        body { 
-            background-color: var(--dark); 
-            color: var(--gold); 
-            font-family: 'Georgia', serif; 
-            margin: 0; 
-            padding: 0; 
-            overflow-x: hidden;
-            -webkit-user-select: none;
-        }
+        body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; overflow-x: hidden; -webkit-user-select: none; }
         
-        /* Video Hero Section */
-        .hero { position: relative; height: 65vh; width: 100%; overflow: hidden; border-bottom: 1px solid var(--gold); }
-        .hero video { 
-            position: absolute; top: 50%; left: 50%; 
-            min-width: 100%; min-height: 100%; 
-            transform: translate(-50%, -50%); 
-            object-fit: cover; 
-            filter: brightness(0.4); 
-        }
-        .hero-content { 
-            position: relative; z-index: 1; height: 100%; 
-            display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; 
-            text-align: center; background: rgba(0,0,0,0.2); 
-        }
+        .hero { position: relative; height: 60vh; width: 100%; overflow: hidden; border-bottom: 1px solid var(--gold); }
+        .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.4); }
+        .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: rgba(0,0,0,0.2); }
         
         .logo { width: 140px; margin-bottom: 15px; }
         h1 { font-weight: 300; letter-spacing: 10px; text-transform: uppercase; font-size: 1.3rem; margin: 0; color: var(--gold); }
 
-        /* Registry Search Section */
-        .registry-section { padding: 50px 20px; text-align: center; }
-        .registry-box { border: 1px solid var(--gold); padding: 40px 20px; max-width: 400px; margin: 0 auto; background: rgba(255,255,255,0.02); }
-        input { 
-            background: transparent; border: none; border-bottom: 1px solid #333; 
-            color: white; font-size: 2.2rem; width: 120px; 
-            text-align: center; margin-bottom: 25px; outline: none; 
-        }
-        button { 
-            background: var(--gold); color: black; border: none; 
-            padding: 15px 40px; font-weight: bold; letter-spacing: 2px; 
-            text-transform: uppercase; cursor: pointer;
-        }
+        .registry-section { padding: 40px 20px; text-align: center; }
+        .registry-box { border: 1px solid var(--gold); padding: 30px 20px; max-width: 400px; margin: 0 auto; background: rgba(255,255,255,0.02); }
+        input { background: transparent; border: none; border-bottom: 1px solid #333; color: white; font-size: 2.2rem; width: 120px; text-align: center; margin-bottom: 25px; outline: none; }
+        
+        .btn-main { background: var(--gold); color: black; border: none; padding: 15px 40px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; width: 100%; }
+        .btn-share { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 10px 20px; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; margin-top: 25px; width: 100%; }
 
-        /* Bottle Reveal Card */
         #display { margin-top: 30px; }
         .bottle-card { border: 1px solid var(--gold); padding: 30px; background: rgba(255,255,255,0.03); text-align: center; animation: fadeIn 0.8s ease-in; }
         .owner-name { font-size: 1.8rem; color: white; font-style: italic; margin: 15px 0; display: block; text-transform: uppercase; }
@@ -65,9 +37,6 @@
         .spec-item b { display: block; color: var(--gold); font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; }
         .spec-item span { color: #eee; font-size: 0.9rem; }
 
-        /* Story Section */
-        .story-section { max-width: 800px; margin: 0 auto; padding: 60px 20px; line-height: 1.9; color: #bbb; text-align: center; }
-        
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         footer { padding: 40px; text-align: center; font-size: 0.7rem; letter-spacing: 3px; opacity: 0.4; }
     </style>
@@ -81,22 +50,15 @@
         <div class="hero-content">
             <img src="logo.png" alt="Logo" class="logo">
             <h1>Signature Cask</h1>
-            <p style="letter-spacing: 4px; font-style: italic; opacity: 0.8;">The 16 Year Old Inchgower Experience</p>
         </div>
     </div>
 
     <div class="registry-section">
         <div class="registry-box">
             <input type="number" id="num" placeholder="0" inputmode="numeric">
-            <br>
-            <button onclick="check()">Verify Authenticity</button>
+            <button class="btn-main" onclick="check()">Verify Authenticity</button>
             <div id="display"></div>
         </div>
-    </div>
-
-    <div class="story-section">
-        <span style="color: var(--gold); text-transform: uppercase; letter-spacing: 5px;">The Ritual of Smoke</span>
-        <p>To honor this Inchgower malt, ignite artisanal oak chips to release a dense aromatic cloud. Allow the smoke to marriage with the 55.9% Vol spirit for thirty seconds to unlock deep maritime notes.</p>
     </div>
 
     <footer>EST. 2024 | SIGNATURE CASK GLOBAL REGISTRY</footer>
@@ -111,10 +73,11 @@
                 const res = await fetch(`/api/edge?key=${n}`);
                 const data = await res.json();
                 if (data.result) {
+                    const owner = data.result;
                     d.innerHTML = `
                         <div class="bottle-card">
                             <span style="font-size: 0.7rem; letter-spacing: 3px;">AUTHENTICATED OWNER</span>
-                            <span class="owner-name">${data.result}</span>
+                            <span class="owner-name">${owner}</span>
                             <div class="spec-grid">
                                 <div class="spec-item"><b>Distillery</b><span>Inchgower</span></div>
                                 <div class="spec-item"><b>Age</b><span>16 Years</span></div>
@@ -123,9 +86,23 @@
                                 <div class="spec-item"><b>Bottle</b><span>${n} of 89</span></div>
                                 <div class="spec-item"><b>Finish</b><span>1st Fill Bourbon</span></div>
                             </div>
+                            <button class="btn-share" onclick="shareAuthentication('${owner}', '${n}')">Share Authentication</button>
                         </div>`;
                 } else { d.innerHTML = "Bottle Not Found"; }
             } catch { d.innerHTML = "Error Connecting"; }
+        }
+
+        function shareAuthentication(owner, bottleNum) {
+            const text = `I just authenticated my bottle of Signature Cask Inchgower 16 (Bottle ${bottleNum}/89). Verified at 55.9% Vol.`;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Signature Cask Authentication',
+                    text: text,
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                alert("Sharing not supported on this browser. Copy the link to share!");
+            }
         }
     </script>
 </body>
