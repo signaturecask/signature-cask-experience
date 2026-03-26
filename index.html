@@ -4,41 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Signature Cask Experience</title>
-
+    
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#c5a059">
-    <link rel="apple-touch-icon" href="logo.png">
     <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="logo.png">
 
     <style>
         :root { --gold: #c5a059; --dark: #050505; }
-        body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; overflow-x: hidden; -webkit-user-select: none; }
+        body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; overflow-x: hidden; }
         
-        .hero { position: relative; height: 60vh; width: 100%; overflow: hidden; border-bottom: 1px solid var(--gold); }
-        .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.4); }
-        .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: rgba(0,0,0,0.2); }
+        /* Video Background */
+        .hero { position: relative; height: 55vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
+        video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.4); }
+        .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .logo { width: 130px; margin-bottom: 10px; }
         
-        .logo { width: 140px; margin-bottom: 15px; }
-        h1 { font-weight: 300; letter-spacing: 10px; text-transform: uppercase; font-size: 1.3rem; margin: 0; color: var(--gold); }
+        /* Registry & Timer Boxes */
+        .container { padding: 20px; max-width: 450px; margin: 0 auto; }
+        .box { border: 1px solid var(--gold); padding: 25px; margin-bottom: 30px; background: rgba(255,255,255,0.02); }
+        
+        input { background: transparent; border: none; border-bottom: 1px solid #333; color: white; font-size: 2.2rem; width: 100px; text-align: center; margin-bottom: 20px; outline: none; }
+        button { background: var(--gold); color: black; border: none; padding: 15px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 2px; width: 100%; }
+        .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
 
-        .registry-section { padding: 40px 20px; text-align: center; }
-        .registry-box { border: 1px solid var(--gold); padding: 30px 20px; max-width: 400px; margin: 0 auto; background: rgba(255,255,255,0.02); }
-        input { background: transparent; border: none; border-bottom: 1px solid #333; color: white; font-size: 2.2rem; width: 120px; text-align: center; margin-bottom: 25px; outline: none; }
+        /* Timer Display */
+        #timer-num { font-size: 4rem; color: white; margin: 15px 0; font-family: sans-serif; }
         
-        .btn-main { background: var(--gold); color: black; border: none; padding: 15px 40px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; width: 100%; }
-        .btn-share { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 10px 20px; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; margin-top: 25px; width: 100%; }
-
-        #display { margin-top: 30px; }
-        .bottle-card { border: 1px solid var(--gold); padding: 30px; background: rgba(255,255,255,0.03); text-align: center; animation: fadeIn 0.8s ease-in; }
-        .owner-name { font-size: 1.8rem; color: white; font-style: italic; margin: 15px 0; display: block; text-transform: uppercase; }
+        /* Bottle Card */
+        .bottle-card { border: 1px solid var(--gold); padding: 25px; margin-top: 20px; background: rgba(255,255,255,0.05); animation: fadeIn 1s; }
+        .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; border-top: 1px solid #333; padding-top: 20px; margin-top: 20px; font-size: 0.8rem; }
+        .spec-item b { display: block; font-size: 0.6rem; letter-spacing: 1px; color: var(--gold); }
         
-        .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; border-top: 1px solid #333; padding-top: 20px; margin-top: 20px; }
-        .spec-item b { display: block; color: var(--gold); font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; }
-        .spec-item span { color: #eee; font-size: 0.9rem; }
-
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        footer { padding: 40px; text-align: center; font-size: 0.7rem; letter-spacing: 3px; opacity: 0.4; }
+        footer { padding: 40px; opacity: 0.4; font-size: 0.7rem; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -48,19 +47,27 @@
             <source src="https://signature-cask-experience-blob-lhr1.public.blob.vercel-storage.com/1774511307741.mp4" type="video/mp4">
         </video>
         <div class="hero-content">
-            <img src="logo.png" alt="Logo" class="logo">
-            <h1>Signature Cask</h1>
+            <img src="logo.png" class="logo" alt="Signature Cask">
+            <h1 style="letter-spacing:10px; font-size:1.1rem; font-weight:300;">SIGNATURE CASK</h1>
         </div>
     </div>
 
-    <div class="registry-section">
-        <div class="registry-box">
+    <div class="container">
+        <div class="box">
             <input type="number" id="num" placeholder="0" inputmode="numeric">
-            <button class="btn-main" onclick="check()">Verify Authenticity</button>
+            <button onclick="check()">Verify Authenticity</button>
             <div id="display"></div>
         </div>
+
+        <div class="box">
+            <h3 style="letter-spacing:4px; font-size:0.9rem;">THE RITUAL OF SMOKE</h3>
+            <p style="font-size:0.8rem; opacity:0.7; font-style:italic;">Allow the smoke to marriage for 30 seconds.</p>
+            <div id="timer-num">30</div>
+            <button id="timer-btn" class="btn-outline" onclick="startRitual()">Start Ritual Timer</button>
+        </div>
     </div>
 
+    <canvas id="shareCanvas" style="display:none;"></canvas>
     <footer>EST. 2024 | SIGNATURE CASK GLOBAL REGISTRY</footer>
 
     <script>
@@ -68,41 +75,71 @@
             const n = document.getElementById('num').value;
             const d = document.getElementById('display');
             if(!n) return;
-            d.innerHTML = "...CONSULTING LEDGER...";
+            d.innerHTML = "<p style='opacity:0.5'>CONSULTING LEDGER...</p>";
             try {
                 const res = await fetch(`/api/edge?key=${n}`);
                 const data = await res.json();
                 if (data.result) {
-                    const owner = data.result;
+                    const owner = data.result.toUpperCase();
                     d.innerHTML = `
                         <div class="bottle-card">
-                            <span style="font-size: 0.7rem; letter-spacing: 3px;">AUTHENTICATED OWNER</span>
-                            <span class="owner-name">${owner}</span>
+                            <span style="font-size:0.6rem; letter-spacing:3px;">AUTHENTICATED OWNER</span>
+                            <h2 style="color:white; font-style:italic; margin:10px 0;">${owner}</h2>
                             <div class="spec-grid">
-                                <div class="spec-item"><b>Distillery</b><span>Inchgower</span></div>
-                                <div class="spec-item"><b>Age</b><span>16 Years</span></div>
-                                <div class="spec-item"><b>Cask No.</b><span>812264B</span></div>
-                                <div class="spec-item"><b>Strength</b><span>55.9% Vol</span></div>
-                                <div class="spec-item"><b>Bottle</b><span>${n} of 89</span></div>
-                                <div class="spec-item"><b>Finish</b><span>1st Fill Bourbon</span></div>
+                                <div class="spec-item"><b>CASK NO.</b>812264B</div>
+                                <div class="spec-item"><b>STRENGTH</b>55.9% VOL</div>
+                                <div class="spec-item"><b>BOTTLE</b>${n} OF 89</div>
+                                <div class="spec-item"><b>AGE</b>16 YEARS</div>
                             </div>
-                            <button class="btn-share" onclick="shareAuthentication('${owner}', '${n}')">Share Authentication</button>
+                            <button class="btn-outline" onclick="shareCert('${owner}', '${n}')">Share Certificate</button>
                         </div>`;
-                } else { d.innerHTML = "Bottle Not Found"; }
-            } catch { d.innerHTML = "Error Connecting"; }
+                } else { d.innerHTML = "<p>BOTTLE NOT FOUND</p>"; }
+            } catch { d.innerHTML = "<p>CONNECTION ERROR</p>"; }
         }
 
-        function shareAuthentication(owner, bottleNum) {
-            const text = `I just authenticated my bottle of Signature Cask Inchgower 16 (Bottle ${bottleNum}/89). Verified at 55.9% Vol.`;
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Signature Cask Authentication',
-                    text: text,
-                    url: window.location.href
-                }).catch(console.error);
-            } else {
-                alert("Sharing not supported on this browser. Copy the link to share!");
-            }
+        function startRitual() {
+            let time = 30;
+            const display = document.getElementById('timer-num');
+            const btn = document.getElementById('timer-btn');
+            btn.disabled = true;
+            const countdown = setInterval(() => {
+                time--;
+                display.innerText = time;
+                if(time <= 0) {
+                    clearInterval(countdown);
+                    display.innerText = "ENJOY";
+                    display.style.color = "#c5a059";
+                    btn.disabled = false;
+                    btn.innerText = "RESET RITUAL";
+                }
+            }, 1000);
+        }
+
+        function shareCert(name, num) {
+            const canvas = document.getElementById('shareCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 800; canvas.height = 800;
+            
+            // Draw Certificate
+            ctx.fillStyle = '#050505'; ctx.fillRect(0,0,800,800);
+            ctx.strokeStyle = '#c5a059'; ctx.lineWidth = 15; ctx.strokeRect(30,30,740,740);
+            ctx.fillStyle = '#c5a059'; ctx.textAlign = 'center';
+            ctx.font = '25px Georgia'; ctx.fillText('SIGNATURE CASK AUTHENTICATED', 400, 150);
+            ctx.fillStyle = 'white'; ctx.font = 'italic 55px Georgia'; ctx.fillText(name, 400, 400);
+            ctx.fillStyle = '#c5a059'; ctx.font = '25px Georgia'; 
+            ctx.fillText('BOTTLE ' + num + ' OF 89 | 55.9% VOL', 400, 550);
+            ctx.font = '18px Georgia'; ctx.fillText('INCHGOWER 16 YEAR OLD - CASK 812264B', 400, 600);
+
+            canvas.toBlob(blob => {
+                const file = new File([blob], "signature-auth.jpg", {type:"image/jpeg"});
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'My Signature Cask Authentication',
+                        text: `I just authenticated my Inchgower 16 (Bottle ${num}/89) at 55.9% ABV.`,
+                        files: [file]
+                    });
+                } else { alert("Please screenshot this to share!"); }
+            }, 'image/jpeg');
         }
     </script>
 </body>
