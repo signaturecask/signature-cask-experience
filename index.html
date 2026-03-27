@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Signature Cask | The Experience</title>
     
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#c5a059">
-    <link rel="apple-touch-icon" href="logo.png">
-    <link rel="manifest" href="manifest.json">
-
     <style>
         :root { --gold: #c5a059; --dark: #050505; --glow-color: rgba(197, 160, 89, 0.5); }
         body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; }
@@ -18,7 +12,6 @@
         .hero { position: relative; height: 50vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
         .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.3); }
         .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        
         .logo { width: 150px; filter: drop-shadow(0 0 15px var(--glow-color)) drop-shadow(0 0 30px var(--glow-color)); animation: softPulse 4s infinite alternate; }
 
         .container { padding: 40px 20px; max-width: 500px; margin: 0 auto; }
@@ -26,7 +19,7 @@
         
         .info-header { font-size: 0.9rem; letter-spacing: 5px; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
         .tasting-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .note { border: 1px solid #333; padding: 12px 5px; font-size: 0.65rem; text-transform: uppercase; color: #eee; }
+        .note { border: 1px solid #333; padding: 12px 5px; font-size: 0.6rem; text-transform: uppercase; color: #eee; }
         .note b { display: block; color: var(--gold); margin-bottom: 5px; letter-spacing: 1px; }
 
         .pairing-text { font-size: 0.85rem; color: #bbb; font-style: italic; text-align: justify; padding: 0 10px; margin-bottom: 20px; border-left: 1px solid var(--gold); padding-left: 15px; }
@@ -34,9 +27,9 @@
         input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; margin-bottom: 25px; outline: none; }
         button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 3px; width: 100%; font-size: 0.8rem; }
         .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
-        .btn-vip { background: white; color: black; border: none; margin-top: 15px; font-size: 0.7rem; padding: 12px; }
+        .btn-vip { background: white; color: black; border: none; margin-top: 15px; font-size: 0.7rem; padding: 12px; display: block; width: 100%; }
 
-        #tastingModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center; }
         .modal-content { width: 90%; max-width: 450px; border: 1px solid var(--gold); background: var(--dark); padding: 20px; }
         #timer-num { font-size: 5rem; color: white; font-weight: 300; margin: 10px 0; }
         
@@ -58,15 +51,14 @@
     </div>
 
     <div class="container">
-        
         <div style="margin-bottom:40px;">
             <h2 class="info-header">THE PROVENANCE</h2>
             <p class="pairing-text">
-                Distilled on the rugged Speyside coast, this 16-year-old expression was hand-selected from a single first-fill Bourbon Hogshead. Matured at 55.9% Vol, it carries the soul of the Buckie shoreline in every drop.
+                Distilled on 15/12/09 and drawn from cask on 21/01/26, this rare Inchgower has matured for 16 years in a single First-Fill Bourbon Barrel (Cask 812264B). Bottled at a natural strength of 55.9% Vol.
             </p>
             <div class="tasting-grid">
-                <div class="note"><b>Cask</b>812264B</div>
-                <div class="note"><b>Age</b>16 Years</div>
+                <div class="note"><b>Cask No.</b>812264B</div>
+                <div class="note"><b>AYS</b>15/12/09</div>
                 <div class="note"><b>Strength</b>55.9%</div>
             </div>
         </div>
@@ -74,9 +66,9 @@
         <div style="margin-bottom:40px;">
             <h2 class="info-header">WORLD FIRST EXPERIENCE</h2>
             <p class="pairing-text">
-                Your matched smoking chips were harvested directly from the <strong>very same 16-year-old Inchgower cask</strong> that gave this whisky its character. By igniting the wood that held the spirit for nearly two decades, you create a perfect, matched provenance marriage of smoke and malt.
+                Your smoking chips are harvested directly from the <strong>original 1st Fill Bourbon cask</strong> used to mature this spirit. By igniting the wood that held the liquid for 16 years, you achieve the ultimate matched provenance marriage of smoke and malt.
             </p>
-            <button class="btn-outline" onclick="openTasting()">Watch Guided Tasting</button>
+            <button class="btn-outline" onclick="openModal('tastingModal')">Watch Guided Tasting</button>
         </div>
 
         <div class="box">
@@ -85,7 +77,7 @@
             <button onclick="check()">Consult Ledger</button>
             <div id="display"></div>
             <div id="reg-area" style="display:none; margin-top:20px;">
-                <p style="font-size:0.7rem;">Unregistered. Enter name to claim ownership:</p>
+                <p style="font-size:0.7rem;">Enter name to claim ownership:</p>
                 <input type="text" id="reg-name" style="font-size:1rem; width:100%; border-bottom:1px solid #333;" placeholder="YOUR NAME">
                 <button onclick="submitReg()" class="btn-outline">Register Bottle</button>
             </div>
@@ -98,25 +90,35 @@
         </div>
     </div>
 
-    <div id="tastingModal">
+    <div id="tastingModal" class="modal">
         <div class="modal-content">
             <h3 style="font-size:0.8rem; letter-spacing:3px;">THE MASTER'S NOTES</h3>
             <video id="tastingVideo" width="100%" controls style="border: 1px solid var(--gold); margin: 20px 0;">
-                <source src="PASTE_YOUR_VIDEO_URL.mp4" type="video/mp4">
+                <source src="PASTE_TASTING_VIDEO_URL.mp4" type="video/mp4">
             </video>
-            <button onclick="closeTasting()" class="btn-outline">Close</button>
+            <button onclick="closeModal('tastingModal')" class="btn-outline">Close</button>
+        </div>
+    </div>
+
+    <div id="founderModal" class="modal">
+        <div class="modal-content">
+            <h3 style="font-size:0.8rem; letter-spacing:3px;">A MESSAGE FROM THE FOUNDER</h3>
+            <video id="founderVideo" width="100%" controls style="border: 1px solid var(--gold); margin: 20px 0;">
+                <source src="PASTE_FOUNDER_VIDEO_URL.mp4" type="video/mp4">
+            </video>
+            <button onclick="closeModal('founderModal')" class="btn-outline">Enter Experience</button>
         </div>
     </div>
 
     <canvas id="shareCanvas" style="display:none;"></canvas>
-    <footer>© 2024 SIGNATURE CASK | SCOTLAND</footer>
+    <footer>© 2026 SIGNATURE CASK | AUTHORIZED BY IU</footer>
 
     <script>
-        function openTasting() { document.getElementById('tastingModal').style.display = 'flex'; }
-        function closeTasting() { 
-            const v = document.getElementById('tastingVideo');
-            v.pause();
-            document.getElementById('tastingModal').style.display = 'none'; 
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { 
+            const v = document.getElementById(id).querySelector('video');
+            if(v) v.pause();
+            document.getElementById(id).style.display = 'none'; 
         }
 
         async function check() {
@@ -124,20 +126,21 @@
             const d = document.getElementById('display');
             const r = document.getElementById('reg-area');
             if(!n) return;
-            d.innerHTML = "<p>VERIFYING...</p>";
+            d.innerHTML = "<p>VERIFYING PROVENANCE...</p>";
             r.style.display = "none";
             try {
                 const res = await fetch(`/api/edge?key=${n}`);
                 const data = await res.json();
                 if (data.result && data.result !== "Unregistered") {
                     const owner = data.result.toUpperCase();
+                    openModal('founderModal');
                     d.innerHTML = `
                         <div style="border:1px solid var(--gold); padding:25px; margin-top:20px; background:rgba(255,255,255,0.05);">
-                            <span style="font-size:0.6rem; letter-spacing:3px;">CERTIFIED OWNER</span>
+                            <span style="font-size:0.6rem; letter-spacing:4px;">CERTIFIED OWNER</span>
                             <h2 style="color:white; font-style:italic; font-size:2rem; margin:10px 0;">${owner}</h2>
-                            <p style="font-size:0.7rem;">BOTTLE ${n} OF 89 | CASK 812264B</p>
+                            <p style="font-size:0.7rem;">BOTTLE ${n} OF 89 | 16 YEARS OLD</p>
                             <button class="btn-outline" onclick="shareCert('${owner}', '${n}')">Generate Certificate</button>
-                            <button class="btn-vip" onclick="window.location.href='mailto:contact@signaturecask.com?subject=VIP%20Tasting%20Request%20-%20Bottle%20${n}'">JOIN PRIVATE TASTING</button>
+                            <button class="btn-vip" onclick="window.location.href='mailto:contact@signaturecask.com?subject=VIP%20Access%20Request%20-%20Bottle%20${n}'">JOIN PRIVATE TASTING</button>
                         </div>`;
                 } else { d.innerHTML = ""; r.style.display = "block"; }
             } catch { d.innerHTML = "<p>OFFLINE</p>"; }
@@ -146,8 +149,8 @@
         function submitReg() {
             const name = document.getElementById('reg-name').value;
             const bottle = document.getElementById('num').value;
-            window.location.href = `mailto:contact@signaturecask.com?subject=New%20Registration%20Request&body=Name:%20${name}%0ABottle:%20${bottle}`;
-            document.getElementById('reg-area').innerHTML = "<p>Email Request Sent. Awaiting Verification...</p>";
+            window.location.href = `mailto:contact@signaturecask.com?subject=New%20Registration&body=Name:%20${name}%0ABottle:%20${bottle}`;
+            document.getElementById('reg-area').innerHTML = "<p>Request Sent.</p>";
         }
 
         function startRitual() {
@@ -168,13 +171,13 @@
             ctx.strokeStyle = '#c5a059'; ctx.lineWidth = 20; ctx.strokeRect(50,50,900,1100);
             ctx.fillStyle = '#c5a059'; ctx.textAlign = 'center';
             ctx.font = 'bold 30px Georgia'; ctx.fillText('SIGNATURE CASK', 500, 150);
-            ctx.font = 'italic 25px Georgia'; ctx.fillText('Matched Provenance Authentication', 500, 200);
+            ctx.font = 'italic 25px Georgia'; ctx.fillText('16-Year-Old Matched Provenance Authentication', 500, 200);
             ctx.fillStyle = 'white'; ctx.font = 'italic 80px Georgia'; ctx.fillText(name, 500, 500);
             ctx.fillStyle = '#c5a059'; ctx.font = '35px Georgia'; 
             ctx.fillText('INCHGOWER 16 YEAR OLD', 500, 700);
             ctx.fillText('BOTTLE ' + num + ' OF 89 | CASK 812264B', 500, 760);
             ctx.font = '18px Georgia'; 
-            ctx.fillText('SMOKED WITH ARTISANAL OAK FROM THE ORIGINAL CASK', 500, 950);
+            ctx.fillText('DRAWN FROM CASK: 21/01/26', 500, 950);
             ctx.fillText('AUTHENTICATED VIA DIGITAL LEDGER', 500, 1000);
             canvas.toBlob(blob => {
                 const file = new File([blob], "sign-auth.jpg", {type:"image/jpeg"});
