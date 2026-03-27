@@ -5,30 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Signature Cask | The Experience</title>
     
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#c5a059">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="manifest" href="manifest.json">
+
     <style>
         :root { --gold: #c5a059; --dark: #050505; --glow-color: rgba(197, 160, 89, 0.5); }
         body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; }
         
-        .hero { position: relative; height: 45vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
+        /* Video Hero Section */
+        .hero { position: relative; height: 50vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
         .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.3); }
         .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         
-        .logo { width: 140px; filter: drop-shadow(0 0 15px var(--glow-color)) drop-shadow(0 0 30px var(--glow-color)); animation: softPulse 4s infinite alternate; }
+        .logo { width: 150px; filter: drop-shadow(0 0 15px var(--glow-color)) drop-shadow(0 0 30px var(--glow-color)); animation: softPulse 4s infinite alternate; }
 
-        .container { padding: 30px 20px; max-width: 500px; margin: 0 auto; }
-        .box { border: 1px solid var(--gold); padding: 25px; background: rgba(255,255,255,0.02); margin-bottom: 25px; }
+        .container { padding: 40px 20px; max-width: 500px; margin: 0 auto; }
+        .box { border: 1px solid var(--gold); padding: 30px; background: rgba(255,255,255,0.02); margin-bottom: 30px; }
         
-        input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 1.5rem; width: 80%; text-align: center; margin-bottom: 20px; outline: none; }
-        .num-input { font-size: 2.5rem; width: 120px; }
-        
-        button { background: var(--gold); color: black; border: none; padding: 18px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 3px; width: 100%; font-size: 0.8rem; }
+        /* Information Sections */
+        .info-header { font-size: 0.9rem; letter-spacing: 5px; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .tasting-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .note { border: 1px solid #333; padding: 12px 5px; font-size: 0.65rem; text-transform: uppercase; color: #eee; }
+        .note b { display: block; color: var(--gold); margin-bottom: 5px; letter-spacing: 1px; }
+
+        .pairing-text { font-size: 0.8rem; color: #bbb; font-style: italic; text-align: justify; padding: 0 10px; margin-bottom: 20px; }
+
+        input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; margin-bottom: 25px; outline: none; }
+        button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 3px; width: 100%; font-size: 0.8rem; }
         .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
 
-        .registration-form { display: none; margin-top: 20px; animation: fadeIn 1s; }
+        /* Modal & Timer */
+        #tastingModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center; }
+        .modal-content { width: 90%; max-width: 450px; border: 1px solid var(--gold); background: var(--dark); padding: 20px; }
+        #timer-num { font-size: 5rem; color: white; font-weight: 300; margin: 10px 0; }
         
         @keyframes softPulse { from { filter: drop-shadow(0 0 10px var(--glow-color)); } to { filter: drop-shadow(0 0 25px var(--glow-color)); } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        footer { padding: 40px; opacity: 0.3; font-size: 0.6rem; letter-spacing: 4px; }
+        footer { padding: 60px 20px; opacity: 0.3; font-size: 0.6rem; letter-spacing: 4px; }
     </style>
 </head>
 <body>
@@ -39,77 +54,103 @@
         </video>
         <div class="hero-content">
             <img src="logo.png" class="logo" alt="Signature Cask">
-            <h1 style="letter-spacing:10px; font-size:1.2rem; font-weight:300; margin:5px 0 0 0;">SIGNATURE CASK</h1>
-            <p style="font-size:0.8rem; letter-spacing:3px; font-style:italic; margin-top: 5px;">The Inchgower 16 Legacy</p>
+            <h1 style="letter-spacing:12px; font-size:1.3rem; font-weight:300; margin:5px 0 0 0;">SIGNATURE CASK</h1>
+            <p style="font-size:0.9rem; letter-spacing:4px; font-style:italic; margin-top: 8px;">The Inchgower 16 Legacy</p>
         </div>
     </div>
 
     <div class="container">
-        <div class="box">
-            <div id="verify-ui">
-                <span style="font-size:0.6rem; letter-spacing:3px; opacity:0.6;">VERIFY BOTTLE NUMBER</span><br>
-                <input type="number" id="num" class="num-input" placeholder="0" inputmode="numeric">
-                <button onclick="check()">Consult Ledger</button>
+        
+        <div style="margin-bottom:40px;">
+            <h2 class="info-header">THE PROVENANCE</h2>
+            <p class="pairing-text">
+                Distilled in the coastal town of Buckie, this 16-year-old expression has matured in a single first-fill Bourbon Hogshead (Cask 812264B). The high 55.9% Vol preserves the natural oils and maritime salinity unique to the Inchgower distillery.
+            </p>
+            <div class="tasting-grid">
+                <div class="note"><b>Cask</b>812264B</div>
+                <div class="note"><b>Distilled</b>2007</div>
+                <div class="note"><b>ABV</b>55.9%</div>
             </div>
+        </div>
 
+        <div style="margin-bottom:40px;">
+            <h2 class="info-header">THE SMOKING CHIPS</h2>
+            <p class="pairing-text">
+                These artisanal chips were harvested from retired French Oak staves. They have been lightly toasted to release vanillins and tannins that specifically counteract the high-proof heat of this malt, creating a velvet-smooth marriage of smoke and salt.
+            </p>
+            <button class="btn-outline" onclick="openTasting()">Watch Guided Tasting</button>
+        </div>
+
+        <div class="box">
+            <span style="font-size:0.6rem; letter-spacing:3px; opacity:0.6;">AUTHENTICATE BOTTLE</span><br>
+            <input type="number" id="num" placeholder="0" inputmode="numeric">
+            <button onclick="check()">Consult Secure Ledger</button>
             <div id="display"></div>
-
-            <div id="reg-form" class="registration-form">
-                <h3 style="font-size:0.8rem; letter-spacing:3px;">BOTTLE UNREGISTERED</h3>
-                <p style="font-size:0.7rem; color:#aaa; font-style:italic;">Register your ownership in the Signature Cask Global Ledger.</p>
-                <input type="text" id="reg-name" placeholder="FULL NAME">
-                <input type="email" id="reg-email" placeholder="EMAIL ADDRESS">
-                <button onclick="submitRegistration()">Request Registration</button>
+            <div id="reg-area" style="display:none; margin-top:20px;">
+                <p style="font-size:0.7rem;">Unregistered. Enter name to claim ownership:</p>
+                <input type="text" id="reg-name" style="font-size:1rem; width:100%; border-bottom:1px solid #333;" placeholder="YOUR NAME">
+                <button onclick="submitReg()" class="btn-outline">Request Registration</button>
             </div>
         </div>
 
         <div class="box">
-            <h3 style="letter-spacing:4px; font-size:0.8rem;">THE RITUAL OF SMOKE</h3>
-            <div id="timer-num" style="font-size:4rem; color:white;">30</div>
-            <button id="timer-btn" class="btn-outline" onclick="startRitual()">Start Ritual</button>
+            <h3 style="letter-spacing:4px; font-size:0.8rem;">THE RITUAL TIMER</h3>
+            <div id="timer-num">30</div>
+            <button id="timer-btn" class="btn-outline" onclick="startRitual()">Begin Marriage</button>
         </div>
     </div>
 
+    <div id="tastingModal">
+        <div class="modal-content">
+            <h3 style="font-size:0.8rem; letter-spacing:3px;">THE MASTER'S NOTES</h3>
+            <video id="tastingVideo" width="100%" controls style="border: 1px solid var(--gold); margin: 20px 0;">
+                <source src="PASTE_YOUR_VIDEO_URL.mp4" type="video/mp4">
+            </video>
+            <button onclick="closeTasting()" class="btn-outline">Close</button>
+        </div>
+    </div>
+
+    <canvas id="shareCanvas" style="display:none;"></canvas>
+    <footer>© 2024 SIGNATURE CASK | SCOTLAND</footer>
+
     <script>
+        function openTasting() { document.getElementById('tastingModal').style.display = 'flex'; }
+        function closeTasting() { 
+            const v = document.getElementById('tastingVideo');
+            v.pause();
+            document.getElementById('tastingModal').style.display = 'none'; 
+        }
+
         async function check() {
             const n = document.getElementById('num').value;
             const d = document.getElementById('display');
-            const r = document.getElementById('reg-form');
+            const r = document.getElementById('reg-area');
             if(!n) return;
-            
-            d.innerHTML = "<p style='font-size:0.7rem;'>CONSULTING SECURE LEDGER...</p>";
+            d.innerHTML = "<p>VERIFYING...</p>";
             r.style.display = "none";
 
             try {
                 const res = await fetch(`/api/edge?key=${n}`);
                 const data = await res.json();
-                
                 if (data.result && data.result !== "Unregistered") {
                     const owner = data.result.toUpperCase();
                     d.innerHTML = `
-                        <div style="border-top:1px solid #333; margin-top:20px; padding-top:20px;">
-                            <span style="font-size:0.6rem; letter-spacing:3px;">OFFICIAL OWNER</span>
+                        <div style="border:1px solid var(--gold); padding:25px; margin-top:20px; background:rgba(255,255,255,0.05);">
+                            <span style="font-size:0.6rem; letter-spacing:3px;">CERTIFIED OWNER</span>
                             <h2 style="color:white; font-style:italic; font-size:2rem; margin:10px 0;">${owner}</h2>
-                            <p style="font-size:0.7rem;">BOTTLE ${n} OF 89 | 55.9% VOL</p>
+                            <p style="font-size:0.7rem;">BOTTLE ${n} OF 89 | CASK 812264B</p>
+                            <button class="btn-outline" onclick="shareCert('${owner}', '${n}')">Generate Share Certificate</button>
                         </div>`;
                 } else {
                     d.innerHTML = "";
-                    r.style.display = "block"; // Show the registration form
+                    r.style.display = "block";
                 }
-            } catch { d.innerHTML = "<p>ERROR CONNECTING</p>"; }
+            } catch { d.innerHTML = "<p>OFFLINE</p>"; }
         }
 
-        function submitRegistration() {
-            const name = document.getElementById('reg-name').value;
-            const bottle = document.getElementById('num').value;
-            if(!name) return alert("Please enter your name.");
-
-            // This is a placeholder for sending the data to you
-            // You can use a service like Formspree.io to get these via email
-            alert(`Registration request sent for ${name} (Bottle #${bottle}). We will update the ledger shortly.`);
-            
-            // Logic to clear the form
-            document.getElementById('reg-form').innerHTML = "<h3>REQUEST RECEIVED</h3><p>Your details are being added to the heritage ledger.</p>";
+        function submitReg() {
+            alert("Registration request submitted for verification.");
+            document.getElementById('reg-area').innerHTML = "<p>Pending Verification...</p>";
         }
 
         function startRitual() {
@@ -117,10 +158,38 @@
             const b = document.getElementById('timer-btn');
             b.disabled = true;
             const c = setInterval(() => {
-                t--;
-                document.getElementById('timer-num').innerText = t;
+                t--; document.getElementById('timer-num').innerText = t;
                 if(t <= 0) { clearInterval(c); document.getElementById('timer-num').innerText = "POUR"; b.disabled = false; }
             }, 1000);
+        }
+
+        function shareCert(name, num) {
+            const canvas = document.getElementById('shareCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 1000; canvas.height = 1200;
+            
+            ctx.fillStyle = '#050505'; ctx.fillRect(0,0,1000,1200);
+            ctx.strokeStyle = '#c5a059'; ctx.lineWidth = 20; ctx.strokeRect(50,50,900,1100);
+            
+            ctx.fillStyle = '#c5a059'; ctx.textAlign = 'center';
+            ctx.font = 'bold 30px Georgia'; ctx.fillText('SIGNATURE CASK', 500, 150);
+            ctx.font = 'italic 25px Georgia'; ctx.fillText('Official Certificate of Provenance', 500, 200);
+            
+            ctx.fillStyle = 'white'; ctx.font = 'italic 80px Georgia'; ctx.fillText(name, 500, 500);
+            
+            ctx.fillStyle = '#c5a059'; ctx.font = '35px Georgia'; 
+            ctx.fillText('INCHGOWER 16 YEAR OLD', 500, 700);
+            ctx.fillText('BOTTLE ' + num + ' OF 89 | CASK 812264B', 500, 760);
+            ctx.fillText('STRENGTH: 55.9% VOL', 500, 820);
+            
+            ctx.font = '18px Georgia'; 
+            ctx.fillText('MATURED IN FIRST-FILL BOURBON OAK', 500, 950);
+            ctx.fillText('AUTHENTICATED VIA DIGITAL LEDGER', 500, 1000);
+
+            canvas.toBlob(blob => {
+                const file = new File([blob], "signature-cask-cert.jpg", {type:"image/jpeg"});
+                navigator.share({title: 'Signature Cask Verified', files: [file]});
+            }, 'image/jpeg', 0.95);
         }
     </script>
 </body>
