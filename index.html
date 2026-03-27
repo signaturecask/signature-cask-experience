@@ -15,7 +15,6 @@
         :root { --gold: #c5a059; --dark: #050505; --glow-color: rgba(197, 160, 89, 0.5); }
         body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; }
         
-        /* Video Hero Section */
         .hero { position: relative; height: 50vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
         .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.3); }
         .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
@@ -25,19 +24,17 @@
         .container { padding: 40px 20px; max-width: 500px; margin: 0 auto; }
         .box { border: 1px solid var(--gold); padding: 30px; background: rgba(255,255,255,0.02); margin-bottom: 30px; }
         
-        /* Information Sections */
         .info-header { font-size: 0.9rem; letter-spacing: 5px; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
         .tasting-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 20px 0; }
         .note { border: 1px solid #333; padding: 12px 5px; font-size: 0.65rem; text-transform: uppercase; color: #eee; }
         .note b { display: block; color: var(--gold); margin-bottom: 5px; letter-spacing: 1px; }
 
-        .pairing-text { font-size: 0.8rem; color: #bbb; font-style: italic; text-align: justify; padding: 0 10px; margin-bottom: 20px; }
+        .pairing-text { font-size: 0.85rem; color: #bbb; font-style: italic; text-align: justify; padding: 0 10px; margin-bottom: 20px; border-left: 1px solid var(--gold); padding-left: 15px; }
 
         input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; margin-bottom: 25px; outline: none; }
         button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 3px; width: 100%; font-size: 0.8rem; }
         .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
 
-        /* Modal & Timer */
         #tastingModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center; }
         .modal-content { width: 90%; max-width: 450px; border: 1px solid var(--gold); background: var(--dark); padding: 20px; }
         #timer-num { font-size: 5rem; color: white; font-weight: 300; margin: 10px 0; }
@@ -64,19 +61,19 @@
         <div style="margin-bottom:40px;">
             <h2 class="info-header">THE PROVENANCE</h2>
             <p class="pairing-text">
-                Distilled in the coastal town of Buckie, this 16-year-old expression has matured in a single first-fill Bourbon Hogshead (Cask 812264B). The high 55.9% Vol preserves the natural oils and maritime salinity unique to the Inchgower distillery.
+                Distilled on the rugged Speyside coast, this 16-year-old expression was hand-selected from a single first-fill Bourbon Hogshead. Matured at 55.9% Vol, it carries the soul of the Buckie shoreline in every drop.
             </p>
             <div class="tasting-grid">
                 <div class="note"><b>Cask</b>812264B</div>
-                <div class="note"><b>Distilled</b>2007</div>
-                <div class="note"><b>ABV</b>55.9%</div>
+                <div class="note"><b>Age</b>16 Years</div>
+                <div class="note"><b>Strength</b>55.9%</div>
             </div>
         </div>
 
         <div style="margin-bottom:40px;">
-            <h2 class="info-header">THE SMOKING CHIPS</h2>
+            <h2 class="info-header">WORLD FIRST EXPERIENCE</h2>
             <p class="pairing-text">
-                These artisanal chips were harvested from retired French Oak staves. They have been lightly toasted to release vanillins and tannins that specifically counteract the high-proof heat of this malt, creating a velvet-smooth marriage of smoke and salt.
+                Your matched smoking chips were harvested directly from the <strong>very same 16-year-old Inchgower cask</strong> that gave this whisky its character. By igniting the wood that held the spirit for nearly two decades, you create a perfect, matched provenance marriage of smoke and malt.
             </p>
             <button class="btn-outline" onclick="openTasting()">Watch Guided Tasting</button>
         </div>
@@ -84,12 +81,12 @@
         <div class="box">
             <span style="font-size:0.6rem; letter-spacing:3px; opacity:0.6;">AUTHENTICATE BOTTLE</span><br>
             <input type="number" id="num" placeholder="0" inputmode="numeric">
-            <button onclick="check()">Consult Secure Ledger</button>
+            <button onclick="check()">Consult Ledger</button>
             <div id="display"></div>
             <div id="reg-area" style="display:none; margin-top:20px;">
                 <p style="font-size:0.7rem;">Unregistered. Enter name to claim ownership:</p>
                 <input type="text" id="reg-name" style="font-size:1rem; width:100%; border-bottom:1px solid #333;" placeholder="YOUR NAME">
-                <button onclick="submitReg()" class="btn-outline">Request Registration</button>
+                <button onclick="submitReg()" class="btn-outline">Register Bottle</button>
             </div>
         </div>
 
@@ -128,7 +125,6 @@
             if(!n) return;
             d.innerHTML = "<p>VERIFYING...</p>";
             r.style.display = "none";
-
             try {
                 const res = await fetch(`/api/edge?key=${n}`);
                 const data = await res.json();
@@ -141,16 +137,13 @@
                             <p style="font-size:0.7rem;">BOTTLE ${n} OF 89 | CASK 812264B</p>
                             <button class="btn-outline" onclick="shareCert('${owner}', '${n}')">Generate Share Certificate</button>
                         </div>`;
-                } else {
-                    d.innerHTML = "";
-                    r.style.display = "block";
-                }
+                } else { d.innerHTML = ""; r.style.display = "block"; }
             } catch { d.innerHTML = "<p>OFFLINE</p>"; }
         }
 
         function submitReg() {
-            alert("Registration request submitted for verification.");
-            document.getElementById('reg-area').innerHTML = "<p>Pending Verification...</p>";
+            alert("Registration request submitted.");
+            document.getElementById('reg-area').innerHTML = "<p>Awaiting Verification...</p>";
         }
 
         function startRitual() {
@@ -167,27 +160,20 @@
             const canvas = document.getElementById('shareCanvas');
             const ctx = canvas.getContext('2d');
             canvas.width = 1000; canvas.height = 1200;
-            
             ctx.fillStyle = '#050505'; ctx.fillRect(0,0,1000,1200);
             ctx.strokeStyle = '#c5a059'; ctx.lineWidth = 20; ctx.strokeRect(50,50,900,1100);
-            
             ctx.fillStyle = '#c5a059'; ctx.textAlign = 'center';
             ctx.font = 'bold 30px Georgia'; ctx.fillText('SIGNATURE CASK', 500, 150);
-            ctx.font = 'italic 25px Georgia'; ctx.fillText('Official Certificate of Provenance', 500, 200);
-            
+            ctx.font = 'italic 25px Georgia'; ctx.fillText('Matched Provenance Authentication', 500, 200);
             ctx.fillStyle = 'white'; ctx.font = 'italic 80px Georgia'; ctx.fillText(name, 500, 500);
-            
             ctx.fillStyle = '#c5a059'; ctx.font = '35px Georgia'; 
             ctx.fillText('INCHGOWER 16 YEAR OLD', 500, 700);
             ctx.fillText('BOTTLE ' + num + ' OF 89 | CASK 812264B', 500, 760);
-            ctx.fillText('STRENGTH: 55.9% VOL', 500, 820);
-            
             ctx.font = '18px Georgia'; 
-            ctx.fillText('MATURED IN FIRST-FILL BOURBON OAK', 500, 950);
+            ctx.fillText('SMOKED WITH ARTISANAL OAK FROM THE ORIGINAL CASK', 500, 950);
             ctx.fillText('AUTHENTICATED VIA DIGITAL LEDGER', 500, 1000);
-
             canvas.toBlob(blob => {
-                const file = new File([blob], "signature-cask-cert.jpg", {type:"image/jpeg"});
+                const file = new File([blob], "sign-auth.jpg", {type:"image/jpeg"});
                 navigator.share({title: 'Signature Cask Verified', files: [file]});
             }, 'image/jpeg', 0.95);
         }
