@@ -34,6 +34,7 @@
         input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; margin-bottom: 25px; outline: none; }
         button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 3px; width: 100%; font-size: 0.8rem; }
         .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
+        .btn-vip { background: white; color: black; border: none; margin-top: 15px; font-size: 0.7rem; padding: 12px; }
 
         #tastingModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center; }
         .modal-content { width: 90%; max-width: 450px; border: 1px solid var(--gold); background: var(--dark); padding: 20px; }
@@ -135,15 +136,18 @@
                             <span style="font-size:0.6rem; letter-spacing:3px;">CERTIFIED OWNER</span>
                             <h2 style="color:white; font-style:italic; font-size:2rem; margin:10px 0;">${owner}</h2>
                             <p style="font-size:0.7rem;">BOTTLE ${n} OF 89 | CASK 812264B</p>
-                            <button class="btn-outline" onclick="shareCert('${owner}', '${n}')">Generate Share Certificate</button>
+                            <button class="btn-outline" onclick="shareCert('${owner}', '${n}')">Generate Certificate</button>
+                            <button class="btn-vip" onclick="window.location.href='mailto:contact@signaturecask.com?subject=VIP%20Tasting%20Request%20-%20Bottle%20${n}'">JOIN PRIVATE TASTING</button>
                         </div>`;
                 } else { d.innerHTML = ""; r.style.display = "block"; }
             } catch { d.innerHTML = "<p>OFFLINE</p>"; }
         }
 
         function submitReg() {
-            alert("Registration request submitted.");
-            document.getElementById('reg-area').innerHTML = "<p>Awaiting Verification...</p>";
+            const name = document.getElementById('reg-name').value;
+            const bottle = document.getElementById('num').value;
+            window.location.href = `mailto:contact@signaturecask.com?subject=New%20Registration%20Request&body=Name:%20${name}%0ABottle:%20${bottle}`;
+            document.getElementById('reg-area').innerHTML = "<p>Email Request Sent. Awaiting Verification...</p>";
         }
 
         function startRitual() {
