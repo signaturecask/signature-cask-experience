@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Signature Cask | The Experience</title>
+    <title>Signature Cask | Official Provenance</title>
     
     <style>
         :root { --gold: #c5a059; --dark: #050505; --glow-color: rgba(197, 160, 89, 0.5); }
@@ -45,7 +45,7 @@
         </video>
         <div class="hero-content">
             <img src="logo.png" class="logo" alt="Signature Cask">
-            <h1 style="letter-spacing:12px; font-size:1.3rem; font-weight:300; margin:5px 0 0 0;">SIGNATURE CASK</h1>
+            <h1 style="letter-spacing:12px; font-size:1.3rem; font-weight:300; margin:5px 0 0 0; text-transform: uppercase;">SIGNATURE CASK</h1>
             <p style="font-size:0.9rem; letter-spacing:4px; font-style:italic; margin-top: 8px;">The Inchgower 16 Legacy</p>
         </div>
     </div>
@@ -66,7 +66,7 @@
         <div style="margin-bottom:40px;">
             <h2 class="info-header">WORLD FIRST EXPERIENCE</h2>
             <p class="pairing-text">
-                Your smoking chips are harvested directly from the <strong>original 1st Fill Bourbon cask</strong> used to mature this spirit. By igniting the wood that held the liquid for 16 years, you achieve the ultimate matched provenance marriage of smoke and malt.
+                Your smoking chips are harvested directly from the <strong>original 1st Fill Bourbon cask</strong>. By igniting the wood that held the liquid for 16 years, you achieve the ultimate matched provenance marriage of smoke and malt.
             </p>
             <button class="btn-outline" onclick="openModal('tastingModal')">Watch Guided Tasting</button>
         </div>
@@ -140,17 +140,49 @@
                             <h2 style="color:white; font-style:italic; font-size:2rem; margin:10px 0;">${owner}</h2>
                             <p style="font-size:0.7rem;">BOTTLE ${n} OF 89 | 16 YEARS OLD</p>
                             <button class="btn-outline" onclick="shareCert('${owner}', '${n}')">Generate Certificate</button>
+                            <button class="btn-outline" style="font-size:0.6rem;" onclick="downloadReport('${owner}', '${n}')">Download Cask Analysis</button>
                             <button class="btn-vip" onclick="window.location.href='mailto:contact@signaturecask.com?subject=VIP%20Access%20Request%20-%20Bottle%20${n}'">JOIN PRIVATE TASTING</button>
                         </div>`;
                 } else { d.innerHTML = ""; r.style.display = "block"; }
             } catch { d.innerHTML = "<p>OFFLINE</p>"; }
         }
 
+        function downloadReport(name, num) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 1000; canvas.height = 1400;
+            
+            ctx.fillStyle = 'white'; ctx.fillRect(0,0,1000,1400);
+            ctx.strokeStyle = '#000'; ctx.lineWidth = 2; ctx.strokeRect(50,50,900,1300);
+            
+            ctx.fillStyle = 'black'; ctx.textAlign = 'center';
+            ctx.font = 'bold 40px Arial'; ctx.fillText('CASK ANALYSIS REPORT', 500, 150);
+            
+            ctx.textAlign = 'left'; ctx.font = '24px Arial';
+            let y = 300;
+            const lines = [
+                `Description: Inchgower`,
+                `Cask No.: 812264B`,
+                `Cask Type: 1st Fill Bourbon Barrel`,
+                `AYS: 15/12/09`,
+                `Strength: 55.9%`,
+                `Date Drawn: 21/01/26`,
+                `Registered Owner: ${name}`,
+                `Bottle No.: ${num} of 89`,
+                `Authorized By: IU`
+            ];
+            lines.forEach(l => { ctx.fillText(l, 100, y); y += 80; });
+            
+            const link = document.createElement('a');
+            link.download = `Cask_Report_Bottle_${num}.jpg`;
+            link.href = canvas.toDataURL('image/jpeg');
+            link.click();
+        }
+
         function submitReg() {
             const name = document.getElementById('reg-name').value;
             const bottle = document.getElementById('num').value;
-            window.location.href = `mailto:contact@signaturecask.com?subject=New%20Registration&body=Name:%20${name}%0ABottle:%20${bottle}`;
-            document.getElementById('reg-area').innerHTML = "<p>Request Sent.</p>";
+            window.location.href = `mailto:contact@signaturecask.com?subject=Registration&body=Name:%20${name}%0ABottle:%20${bottle}`;
         }
 
         function startRitual() {
@@ -171,18 +203,15 @@
             ctx.strokeStyle = '#c5a059'; ctx.lineWidth = 20; ctx.strokeRect(50,50,900,1100);
             ctx.fillStyle = '#c5a059'; ctx.textAlign = 'center';
             ctx.font = 'bold 30px Georgia'; ctx.fillText('SIGNATURE CASK', 500, 150);
-            ctx.font = 'italic 25px Georgia'; ctx.fillText('16-Year-Old Matched Provenance Authentication', 500, 200);
+            ctx.font = 'italic 25px Georgia'; ctx.fillText('Matched Provenance Authentication', 500, 200);
             ctx.fillStyle = 'white'; ctx.font = 'italic 80px Georgia'; ctx.fillText(name, 500, 500);
             ctx.fillStyle = '#c5a059'; ctx.font = '35px Georgia'; 
             ctx.fillText('INCHGOWER 16 YEAR OLD', 500, 700);
             ctx.fillText('BOTTLE ' + num + ' OF 89 | CASK 812264B', 500, 760);
-            ctx.font = '18px Georgia'; 
-            ctx.fillText('DRAWN FROM CASK: 21/01/26', 500, 950);
-            ctx.fillText('AUTHENTICATED VIA DIGITAL LEDGER', 500, 1000);
             canvas.toBlob(blob => {
                 const file = new File([blob], "sign-auth.jpg", {type:"image/jpeg"});
                 navigator.share({title: 'Signature Cask Verified', files: [file]});
-            }, 'image/jpeg', 0.95);
+            }, 'image/jpeg');
         }
     </script>
 </body>
