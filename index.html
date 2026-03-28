@@ -8,10 +8,9 @@
         :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.4); }
         body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         #calibration { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        #calibration img { width: 120px; margin-bottom: 20px; filter: drop-shadow(0 0 10px var(--gold)); }
         .hero { position: relative; height: 45vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
         .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.2); }
-        .logo { width: 140px; filter: drop-shadow(0 0 15px var(--glow)); animation: pulse 4s infinite alternate; }
+        .logo { width: 140px; filter: drop-shadow(0 0 15px var(--glow)); }
         .container { padding: 30px 20px; max-width: 500px; margin: 0 auto; }
         .box { border: 1px solid var(--gold); padding: 25px; background: rgba(255,255,255,0.02); margin-bottom: 25px; }
         .gauge-container { width: 100px; height: 100px; margin: 0 auto 15px; border: 2px solid var(--gold); border-radius: 50%; position: relative; display: none; }
@@ -19,14 +18,13 @@
         button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; width: 100%; cursor: pointer; }
         .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
         input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; outline: none; margin-bottom: 20px; }
-        @keyframes pulse { from { opacity: 0.7; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <div id="calibration">
-        <img src="logo.png" alt="Logo">
-        <p style="letter-spacing: 2px; font-size: 0.65rem; color: var(--gold); margin-bottom: 30px;">SYNTHESIZING COASTAL ATMOSPHERE</p>
+        <img src="logo.png" alt="Signature Cask">
+        <p style="letter-spacing: 3px; font-size: 0.7rem; color: var(--gold); margin-bottom: 30px;">IGNITING PEAT & COASTAL ATMOSPHERE</p>
         <button onclick="ignite()">ENTER THE EXPERIENCE</button>
     </div>
 
@@ -37,7 +35,7 @@
         <div style="position:relative; z-index:1; padding-top:12vh;">
             <img src="logo.png" class="logo">
             <h1 style="letter-spacing:10px; font-size:1.1rem; margin:0;">SIGNATURE CASK</h1>
-            <p style="font-size:0.8rem; font-style:italic;">The Inchgower 16 Legacy</p>
+            <p style="font-size:0.8rem; font-style:italic; opacity:0.8;">The Inchgower 16 Legacy</p>
         </div>
     </div>
 
@@ -52,64 +50,95 @@
                 <div class="needle" id="needle"></div>
                 <div style="position:absolute; bottom:8px; width:100%; font-size:0.5rem; font-weight:bold;">55.9% VOL</div>
             </div>
-            <span style="font-size:0.6rem; letter-spacing:3px; opacity:0.6;">VERIFY BOTTLE</span><br>
+            <span style="font-size:0.6rem; letter-spacing:3px; opacity:0.6;">AUTHENTICATE BOTTLE</span><br>
             <input type="number" id="num" placeholder="0" inputmode="numeric">
-            <button onclick="check()">Consult Ledger</button>
+            <button onclick="check()">Verify Ownership</button>
             <div id="display"></div>
-        </div>
-
-        <div class="box">
-            <h3 style="letter-spacing:4px; font-size:0.8rem;">THE RITUAL TIMER</h3>
-            <div id="timer-num" style="font-size: 3.5rem; color: white;">30</div>
-            <button id="timer-btn" class="btn-outline" onclick="startRitual()">Begin Marriage</button>
         </div>
     </div>
 
     <script>
-        // INTERNAL ATMOSPHERE GENERATOR (No Files Needed)
         let audioCtx;
+
         function ignite() {
             document.getElementById('calibration').style.display = 'none';
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                createWhiteNoise(); 
+                
+                // Start Layers
+                createOceanWaves();
+                createPeatFire();
             }
         }
 
-        function createWhiteNoise() {
-            const bufferSize = 2 * audioCtx.sampleRate,
-            noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate),
-            output = noiseBuffer.getChannelData(0);
-            for (let i = 0; i < bufferSize; i++) { output[i] = Math.random() * 2 - 1; }
+        function createOceanWaves() {
+            const noise = audioCtx.createBufferSource();
+            const bufferSize = 2 * audioCtx.sampleRate;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) { data[i] = Math.random() * 2 - 1; }
+            noise.buffer = buffer;
+            noise.loop = true;
 
-            const whiteNoise = audioCtx.createBufferSource();
-            whiteNoise.buffer = noiseBuffer;
-            whiteNoise.loop = true;
-
-            // "Ocean Wave" Filter (Low-pass sweeping)
             const filter = audioCtx.createBiquadFilter();
             filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(400, audioCtx.currentTime);
-
+            
             const gain = audioCtx.createGain();
-            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
 
-            // The Wave "LFO" (Low Frequency Oscillator) to make it "whoosh"
             const lfo = audioCtx.createOscillator();
-            lfo.type = 'sine';
-            lfo.frequency.setValueAtTime(0.2, audioCtx.currentTime); // Wave speed
-
+            lfo.frequency.setValueAtTime(0.15, audioCtx.currentTime); // Wave Speed
             const lfoGain = audioCtx.createGain();
-            lfoGain.gain.setValueAtTime(300, audioCtx.currentTime); // Wave depth
+            lfoGain.gain.setValueAtTime(400, audioCtx.currentTime); // Deep Surge
 
             lfo.connect(lfoGain);
             lfoGain.connect(filter.frequency);
-            whiteNoise.connect(filter);
+            noise.connect(filter);
             filter.connect(gain);
             gain.connect(audioCtx.destination);
-
+            
             lfo.start();
-            whiteNoise.start();
+            noise.start();
+        }
+
+        function createPeatFire() {
+            // High-frequency "crackle" logic
+            const crackleGain = audioCtx.createGain();
+            crackleGain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+            crackleGain.connect(audioCtx.destination);
+
+            setInterval(() => {
+                if(Math.random() > 0.96) { // Probability of a "pop"
+                    const osc = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(Math.random() * 2000 + 500, audioCtx.currentTime);
+                    
+                    g.gain.setValueAtTime(0.02, audioCtx.currentTime);
+                    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.05);
+                    
+                    osc.connect(g);
+                    g.connect(crackleGain);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.05);
+                }
+            }, 50);
+
+            // Background "Hiss" of a fire
+            const hiss = audioCtx.createBufferSource();
+            const b = audioCtx.createBuffer(1, audioCtx.sampleRate, audioCtx.sampleRate);
+            const d = b.getChannelData(0);
+            for (let i = 0; i < audioCtx.sampleRate; i++) { d[i] = Math.random() * 0.05; }
+            hiss.buffer = b;
+            hiss.loop = true;
+            
+            const f = audioCtx.createBiquadFilter();
+            f.type = 'highpass';
+            f.frequency.setValueAtTime(2000, audioCtx.currentTime);
+            
+            hiss.connect(f);
+            f.connect(crackleGain);
+            hiss.start();
         }
 
         async function check() {
@@ -128,11 +157,6 @@
                     d.innerHTML = `<h2 style="color:white; font-style:italic; margin-top:20px;">${data.result.toUpperCase()}</h2>`;
                 }
             } catch { d.innerHTML = "OFFLINE"; }
-        }
-
-        function startRitual() {
-            let t = 30; const b = document.getElementById('timer-btn'); b.disabled = true;
-            const c = setInterval(() => { t--; document.getElementById('timer-num').innerText = t; if(t <= 0) { clearInterval(c); document.getElementById('timer-num').innerText = "POUR"; b.disabled = false; } }, 1000);
         }
     </script>
 </body>
