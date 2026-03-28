@@ -3,46 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Signature Cask | Zenith Experience</title>
+    <title>Signature Cask | The Zenith Experience</title>
     <style>
-        :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.4); }
+        :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.3); }
         body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         
-        /* Calibration Overlay */
-        #calibration { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        #calibration img { width: 130px; margin-bottom: 30px; filter: drop-shadow(0 0 15px var(--glow)); }
+        /* Age Verification & Calibration Overlay */
+        #gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 1.2s ease; }
+        #gate img { width: 150px; margin-bottom: 40px; filter: drop-shadow(0 0 20px var(--gold)); }
+        .age-text { letter-spacing: 5px; font-size: 0.7rem; color: var(--gold); margin-bottom: 30px; text-transform: uppercase; }
         
-        /* Hero Section */
-        .hero { position: relative; height: 45vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
-        .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.2); }
+        /* Hero Video & Logo */
+        .hero { position: relative; height: 50vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
+        .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.25) contrast(1.1); }
         .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .logo { width: 140px; filter: drop-shadow(0 0 15px var(--glow)); animation: softPulse 4s infinite alternate; }
+        .logo { width: 160px; filter: drop-shadow(0 0 25px var(--glow)); animation: softGlow 5s infinite alternate; }
 
-        .container { padding: 30px 20px; max-width: 500px; margin: 0 auto; }
-        .box { border: 1px solid var(--gold); padding: 25px; background: rgba(255,255,255,0.02); margin-bottom: 25px; position: relative; }
+        /* Glass-Morphism Containers */
+        .container { padding: 40px 20px; max-width: 500px; margin: 0 auto; }
+        .box { border: 1px solid rgba(197, 160, 89, 0.4); padding: 30px; background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); margin-bottom: 30px; position: relative; }
         
-        /* Typography */
-        .info-header { font-size: 0.9rem; letter-spacing: 5px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .pairing-text { font-size: 0.85rem; color: #bbb; font-style: italic; text-align: justify; border-left: 1px solid var(--gold); padding-left: 15px; margin-bottom: 25px; }
-        
-        /* Gauge */
-        .gauge-container { width: 100px; height: 100px; margin: 0 auto 15px; border: 2px solid var(--gold); border-radius: 50%; position: relative; display: none; background: rgba(197, 160, 89, 0.05); }
-        .needle { width: 2px; height: 45px; background: var(--gold); position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; transform: rotate(-90deg); transition: transform 2s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
+        /* Typography & Details */
+        .info-header { font-size: 0.75rem; letter-spacing: 6px; margin-bottom: 20px; text-transform: uppercase; color: #fff; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .legacy-text { font-size: 0.85rem; color: #ccc; font-style: italic; margin-bottom: 20px; line-height: 1.8; text-align: justify; }
+        .tasting-notes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; font-size: 0.6rem; letter-spacing: 1px; }
 
-        button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 3px; width: 100%; font-size: 0.8rem; }
+        /* Hydrometer Dial */
+        .gauge-container { width: 110px; height: 110px; margin: 0 auto 20px; border: 1px solid var(--gold); border-radius: 50%; position: relative; display: none; background: radial-gradient(circle, rgba(197,160,89,0.1) 0%, transparent 70%); }
+        .needle { width: 1px; height: 50px; background: var(--gold); position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; transform: rotate(-90deg); transition: transform 2.5s cubic-bezier(0.19, 1, 0.22, 1); }
+
+        /* High-End Buttons */
+        button { background: var(--gold); color: #000; border: none; padding: 20px 35px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 4px; width: 100%; font-size: 0.75rem; transition: 0.4s; }
         .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
-        input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; margin-bottom: 20px; outline: none; }
+        .btn-deny { background: transparent; color: #444; border: 1px solid #222; margin-top: 20px; font-size: 0.6rem; padding: 10px; }
         
-        @keyframes softPulse { from { opacity: 0.8; } to { opacity: 1; } }
-        footer { padding: 40px 20px; opacity: 0.3; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
+        input { background: transparent; border: none; border-bottom: 1px solid #444; color: #fff; font-size: 2.5rem; width: 140px; text-align: center; margin-bottom: 25px; outline: none; }
+        
+        @keyframes softGlow { from { opacity: 0.8; } to { opacity: 1; } }
+        footer { padding: 60px 20px; opacity: 0.4; font-size: 0.55rem; letter-spacing: 5px; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-    <div id="calibration">
+    <div id="gate">
         <img src="logo.png" alt="Signature Cask">
-        <p style="letter-spacing: 3px; font-size: 0.7rem; color: var(--gold); margin-bottom: 30px;">CALIBRATING MARITIME ATMOSPHERE</p>
-        <button onclick="ignite()">ENTER THE EXPERIENCE</button>
+        <p class="age-text">Challenge 25: Verify Legal Drinking Age</p>
+        <div style="width: 80%; max-width: 300px;">
+            <button onclick="verify(true)">I am 18 or older</button>
+            <button class="btn-deny" onclick="verify(false)">I am under 18</button>
+        </div>
+        <p style="font-size: 0.5rem; letter-spacing: 2px; margin-top: 30px; opacity: 0.5;">PLEASE ENJOY RESPONSIBLY</p>
     </div>
 
     <div class="hero">
@@ -51,52 +61,59 @@
         </video>
         <div class="hero-content">
             <img src="logo.png" class="logo">
-            <h1 style="letter-spacing:10px; font-size:1.1rem; font-weight:300; margin:0;">SIGNATURE CASK</h1>
-            <p style="font-size:0.85rem; letter-spacing:4px; font-style:italic; margin-top: 5px;">The Inchgower 16 Legacy</p>
+            <h1 style="letter-spacing:12px; font-size:1.2rem; font-weight:300; margin:15px 0 0 0; color:#fff;">SIGNATURE CASK</h1>
+            <p style="font-size:0.75rem; letter-spacing:5px; font-style:italic; opacity:0.7;">The Inchgower 16 Zenith</p>
         </div>
     </div>
 
     <div class="container">
         <div class="box">
-            <h2 class="info-header">THE PROVENANCE</h2>
-            <p class="pairing-text">
-                Distilled 15/12/09. Drawn 21/01/26. 16 years of maturation in a 1st Fill Bourbon Barrel (812264B). Bottled at a natural cask strength of 55.9% Vol.
-            </p>
-            <div style="display: flex; justify-content: space-around; font-size: 0.55rem; letter-spacing: 1px;">
-                <div>CASK: 812264B</div>
-                <div>AYS: 15/12/09</div>
-                <div>DRAWN: 21/01/26</div>
+            <h2 class="info-header">The Provenance</h2>
+            <p class="legacy-text">Distilled 15/12/09. Drawn 21/01/26. A 16-year maturation in 1st Fill Bourbon Barrel #812264B. A maritime spirit defined by the rugged Moray coast.</p>
+            <div class="tasting-notes">
+                <div><b>NOSE</b><br>Sea Salt</div>
+                <div><b>PALATE</b><br>Burnt Honey</div>
+                <div><b>FINISH</b><br>Oak Spice</div>
             </div>
         </div>
 
         <div class="box">
             <div id="gauge" class="gauge-container">
                 <div class="needle" id="needle"></div>
-                <div style="position: absolute; bottom: 8px; width: 100%; font-size: 0.5rem; font-weight:bold;">55.9% VOL</div>
+                <div style="position: absolute; bottom: 10px; width: 100%; font-size: 0.5rem; letter-spacing:1px; font-weight: bold;">55.9% VOL</div>
             </div>
-            <span style="font-size:0.6rem; letter-spacing:3px; opacity:0.6;">AUTHENTICATE BOTTLE</span><br>
-            <input type="number" id="num" placeholder="0" inputmode="numeric">
-            <button onclick="check()">Consult Ledger</button>
+            <h2 class="info-header">Authentication</h2>
+            <input type="number" id="num" placeholder="000" inputmode="numeric">
+            <button onclick="check()">Consult Secure Ledger</button>
             <div id="display"></div>
         </div>
 
         <div class="box">
-            <h3 style="letter-spacing:4px; font-size:0.8rem;">THE RITUAL TIMER</h3>
-            <div id="timer-num" style="font-size: 3.5rem; color: white;">30</div>
+            <h2 class="info-header">The Marriage</h2>
+            <p style="font-size: 0.7rem; color: #888; margin-bottom: 20px;">Allow the high-strength spirit to breathe as the Atlantic swells calibrate your palate.</p>
+            <div id="timer-num" style="font-size: 4rem; color: #fff; font-weight: 300;">30</div>
             <button id="timer-btn" class="btn-outline" onclick="startRitual()">Begin Marriage</button>
         </div>
     </div>
 
-    <footer>© 2026 SIGNATURE CASK</footer>
+    <footer>SIGNATURE CASK © 2026 | BOTTLED AT SOURCE</footer>
 
     <script>
         let audioCtx;
 
-        function ignite() {
-            document.getElementById('calibration').style.display = 'none';
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                createOceanWaves();
+        function verify(isOldEnough) {
+            if (isOldEnough) {
+                const gate = document.getElementById('gate');
+                gate.style.opacity = '0';
+                setTimeout(() => { gate.style.display = 'none'; }, 1200);
+                
+                // Initialize Atlantic Audio
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    createOceanWaves();
+                }
+            } else {
+                window.location.href = "https://www.drinkaware.co.uk";
             }
         }
 
@@ -110,21 +127,17 @@
 
             const filter = audioCtx.createBiquadFilter(); 
             filter.type = 'lowpass';
-            
             const gain = audioCtx.createGain(); 
-            gain.gain.setValueAtTime(0.07, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
 
-            // Wave speed: 0.12Hz = one long swell every 8 seconds
             const lfo = audioCtx.createOscillator(); 
             lfo.frequency.setValueAtTime(0.12, audioCtx.currentTime); 
-            
             const lfoGain = audioCtx.createGain(); 
             lfoGain.gain.setValueAtTime(450, audioCtx.currentTime); 
 
             lfo.connect(lfoGain); lfoGain.connect(filter.frequency);
             noise.connect(filter); filter.connect(gain);
             gain.connect(audioCtx.destination);
-            
             lfo.start(); noise.start();
         }
 
@@ -134,16 +147,16 @@
             const g = document.getElementById('gauge');
             const needle = document.getElementById('needle');
             if(!n) return;
-            d.innerHTML = "<p style='font-size:0.7rem;'>VERIFYING...</p>";
+            d.innerHTML = "<p style='font-size:0.6rem; letter-spacing:2px; margin-top:15px; color:var(--gold);'>CONSULTING LEDGER...</p>";
             try {
                 const res = await fetch(`/api/edge?key=${n}`);
                 const data = await res.json();
                 if (data.result) {
                     g.style.display = 'block';
                     setTimeout(() => { needle.style.transform = 'rotate(55.9deg)'; }, 500);
-                    d.innerHTML = `<h2 style="color:white; font-style:italic; margin-top:20px;">${data.result.toUpperCase()}</h2>`;
+                    d.innerHTML = `<h2 style="color:#fff; font-style:italic; margin-top:25px; letter-spacing:2px;">${data.result.toUpperCase()}</h2>`;
                 }
-            } catch { d.innerHTML = "OFFLINE"; }
+            } catch { d.innerHTML = "SYSTEM OFFLINE"; }
         }
 
         function startRitual() {
