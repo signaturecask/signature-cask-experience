@@ -7,24 +7,41 @@
     <style>
         :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.4); }
         body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        
+        /* Entrance Calibration Overlay */
         #calibration { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #calibration img { width: 130px; margin-bottom: 30px; filter: drop-shadow(0 0 15px var(--glow)); }
+        
+        /* Hero & Glowing Logo */
         .hero { position: relative; height: 45vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
         .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.2); }
-        .logo { width: 140px; filter: drop-shadow(0 0 15px var(--glow)); }
+        .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .logo { width: 140px; filter: drop-shadow(0 0 15px var(--glow)) drop-shadow(0 0 30px var(--glow)); animation: softPulse 4s infinite alternate; }
+
         .container { padding: 30px 20px; max-width: 500px; margin: 0 auto; }
-        .box { border: 1px solid var(--gold); padding: 25px; background: rgba(255,255,255,0.02); margin-bottom: 25px; }
-        .gauge-container { width: 100px; height: 100px; margin: 0 auto 15px; border: 2px solid var(--gold); border-radius: 50%; position: relative; display: none; }
-        .needle { width: 2px; height: 45px; background: var(--gold); position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; transform: rotate(-90deg); transition: transform 2s; }
-        button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; width: 100%; cursor: pointer; }
+        .box { border: 1px solid var(--gold); padding: 25px; background: rgba(255,255,255,0.02); margin-bottom: 25px; position: relative; }
+        
+        /* Information Styles */
+        .info-header { font-size: 0.9rem; letter-spacing: 5px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .pairing-text { font-size: 0.85rem; color: #bbb; font-style: italic; text-align: justify; border-left: 1px solid var(--gold); padding-left: 15px; margin-bottom: 25px; }
+        
+        /* Hydrometer Dial */
+        .gauge-container { width: 100px; height: 100px; margin: 0 auto 15px; border: 2px solid var(--gold); border-radius: 50%; position: relative; display: none; background: rgba(197, 160, 89, 0.05); }
+        .needle { width: 2px; height: 45px; background: var(--gold); position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; transform: rotate(-90deg); transition: transform 2s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
+
+        button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 3px; width: 100%; font-size: 0.8rem; }
         .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
-        input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; outline: none; margin-bottom: 20px; }
+        input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; margin-bottom: 20px; outline: none; }
+        
+        @keyframes softPulse { from { filter: drop-shadow(0 0 10px var(--glow)); } to { filter: drop-shadow(0 0 25px var(--glow)); } }
+        footer { padding: 40px 20px; opacity: 0.3; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
     <div id="calibration">
         <img src="logo.png" alt="Signature Cask">
-        <p style="letter-spacing: 3px; font-size: 0.7rem; color: var(--gold); margin-bottom: 30px;">IGNITING PEAT & COASTAL ATMOSPHERE</p>
+        <p style="letter-spacing: 3px; font-size: 0.7rem; color: var(--gold); margin-bottom: 30px;">SYNTHESIZING COASTAL ATMOSPHERE</p>
         <button onclick="ignite()">ENTER THE EXPERIENCE</button>
     </div>
 
@@ -32,30 +49,45 @@
         <video class="hero-video" autoplay muted loop playsinline>
             <source src="https://signature-cask-experience-blob-lhr1.public.blob.vercel-storage.com/1774511307741.mp4" type="video/mp4">
         </video>
-        <div style="position:relative; z-index:1; padding-top:12vh;">
+        <div class="hero-content">
             <img src="logo.png" class="logo">
-            <h1 style="letter-spacing:10px; font-size:1.1rem; margin:0;">SIGNATURE CASK</h1>
-            <p style="font-size:0.8rem; font-style:italic; opacity:0.8;">The Inchgower 16 Legacy</p>
+            <h1 style="letter-spacing:10px; font-size:1.1rem; font-weight:300; margin:0;">SIGNATURE CASK</h1>
+            <p style="font-size:0.85rem; letter-spacing:4px; font-style:italic; margin-top: 5px;">The Inchgower 16 Legacy</p>
         </div>
     </div>
 
     <div class="container">
         <div class="box">
-            <h2 style="font-size: 0.9rem; letter-spacing: 5px;">PROVENANCE</h2>
-            <p style="font-size:0.85rem; color:#bbb; font-style:italic;">Distilled 15/12/09. Drawn 21/01/26.<br>Cask 812264B | 55.9% Vol.</p>
+            <h2 class="info-header">THE PROVENANCE</h2>
+            <p class="pairing-text">
+                Distilled 15/12/09. Drawn 21/01/26. Matured for 16 years in a single 1st Fill Bourbon Barrel (812264B) at 55.9% Vol.
+            </p>
+            <div style="display: flex; justify-content: space-around; font-size: 0.55rem; letter-spacing: 1px;">
+                <div><b>CASK</b><br>812264B</div>
+                <div><b>AYS</b><br>15/12/09</div>
+                <div><b>DRAWN</b><br>21/01/26</div>
+            </div>
         </div>
 
         <div class="box">
             <div id="gauge" class="gauge-container">
                 <div class="needle" id="needle"></div>
-                <div style="position:absolute; bottom:8px; width:100%; font-size:0.5rem; font-weight:bold;">55.9% VOL</div>
+                <div style="position: absolute; bottom: 8px; width: 100%; font-size: 0.5rem; font-weight:bold;">55.9% VOL</div>
             </div>
             <span style="font-size:0.6rem; letter-spacing:3px; opacity:0.6;">AUTHENTICATE BOTTLE</span><br>
             <input type="number" id="num" placeholder="0" inputmode="numeric">
-            <button onclick="check()">Verify Ownership</button>
+            <button onclick="check()">Consult Ledger</button>
             <div id="display"></div>
         </div>
+
+        <div class="box">
+            <h3 style="letter-spacing:4px; font-size:0.8rem;">THE RITUAL TIMER</h3>
+            <div id="timer-num" style="font-size: 3.5rem; color: white;">30</div>
+            <button id="timer-btn" class="btn-outline" onclick="startRitual()">Begin Marriage</button>
+        </div>
     </div>
+
+    <footer>© 2026 SIGNATURE CASK</footer>
 
     <script>
         let audioCtx;
@@ -64,81 +96,46 @@
             document.getElementById('calibration').style.display = 'none';
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                
-                // Start Layers
                 createOceanWaves();
                 createPeatFire();
             }
         }
 
+        // WAVE SYNTHESIS
         function createOceanWaves() {
             const noise = audioCtx.createBufferSource();
             const bufferSize = 2 * audioCtx.sampleRate;
             const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
             const data = buffer.getChannelData(0);
             for (let i = 0; i < bufferSize; i++) { data[i] = Math.random() * 2 - 1; }
-            noise.buffer = buffer;
-            noise.loop = true;
+            noise.buffer = buffer; noise.loop = true;
 
-            const filter = audioCtx.createBiquadFilter();
-            filter.type = 'lowpass';
-            
-            const gain = audioCtx.createGain();
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            const filter = audioCtx.createBiquadFilter(); filter.type = 'lowpass';
+            const gain = audioCtx.createGain(); gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
 
-            const lfo = audioCtx.createOscillator();
-            lfo.frequency.setValueAtTime(0.15, audioCtx.currentTime); // Wave Speed
-            const lfoGain = audioCtx.createGain();
-            lfoGain.gain.setValueAtTime(400, audioCtx.currentTime); // Deep Surge
+            const lfo = audioCtx.createOscillator(); lfo.frequency.setValueAtTime(0.15, audioCtx.currentTime);
+            const lfoGain = audioCtx.createGain(); lfoGain.gain.setValueAtTime(400, audioCtx.currentTime);
 
-            lfo.connect(lfoGain);
-            lfoGain.connect(filter.frequency);
-            noise.connect(filter);
-            filter.connect(gain);
+            lfo.connect(lfoGain); lfoGain.connect(filter.frequency);
+            noise.connect(filter); filter.connect(gain);
             gain.connect(audioCtx.destination);
-            
-            lfo.start();
-            noise.start();
+            lfo.start(); noise.start();
         }
 
+        // FIRE CRACKLE SYNTHESIS
         function createPeatFire() {
-            // High-frequency "crackle" logic
-            const crackleGain = audioCtx.createGain();
-            crackleGain.gain.setValueAtTime(0.03, audioCtx.currentTime);
-            crackleGain.connect(audioCtx.destination);
-
             setInterval(() => {
-                if(Math.random() > 0.96) { // Probability of a "pop"
+                if(Math.random() > 0.97) {
                     const osc = audioCtx.createOscillator();
                     const g = audioCtx.createGain();
                     osc.type = 'square';
-                    osc.frequency.setValueAtTime(Math.random() * 2000 + 500, audioCtx.currentTime);
-                    
-                    g.gain.setValueAtTime(0.02, audioCtx.currentTime);
-                    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.05);
-                    
-                    osc.connect(g);
-                    g.connect(crackleGain);
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.05);
+                    osc.frequency.setValueAtTime(Math.random() * 2500 + 400, audioCtx.currentTime);
+                    g.gain.setValueAtTime(0.015, audioCtx.currentTime);
+                    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.04);
+                    osc.connect(g); g.connect(audioCtx.destination);
+                    osc.start(); osc.stop(audioCtx.currentTime + 0.04);
                 }
-            }, 50);
-
-            // Background "Hiss" of a fire
-            const hiss = audioCtx.createBufferSource();
-            const b = audioCtx.createBuffer(1, audioCtx.sampleRate, audioCtx.sampleRate);
-            const d = b.getChannelData(0);
-            for (let i = 0; i < audioCtx.sampleRate; i++) { d[i] = Math.random() * 0.05; }
-            hiss.buffer = b;
-            hiss.loop = true;
-            
-            const f = audioCtx.createBiquadFilter();
-            f.type = 'highpass';
-            f.frequency.setValueAtTime(2000, audioCtx.currentTime);
-            
-            hiss.connect(f);
-            f.connect(crackleGain);
-            hiss.start();
+            }, 60);
         }
 
         async function check() {
@@ -156,7 +153,12 @@
                     setTimeout(() => { needle.style.transform = 'rotate(55.9deg)'; }, 500);
                     d.innerHTML = `<h2 style="color:white; font-style:italic; margin-top:20px;">${data.result.toUpperCase()}</h2>`;
                 }
-            } catch { d.innerHTML = "OFFLINE"; }
+            } catch { d.innerHTML = "SYSTEM OFFLINE"; }
+        }
+
+        function startRitual() {
+            let t = 30; const b = document.getElementById('timer-btn'); b.disabled = true;
+            const c = setInterval(() => { t--; document.getElementById('timer-num').innerText = t; if(t <= 0) { clearInterval(c); document.getElementById('timer-num').innerText = "POUR"; b.disabled = false; } }, 1000);
         }
     </script>
 </body>
