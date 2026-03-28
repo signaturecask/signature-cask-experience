@@ -4,89 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Signature Cask | The Zenith Experience</title>
-    
     <style>
-        :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.5); }
+        :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.4); }
         body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
-        
-        /* Entrance Calibration Overlay */
         #calibration { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        #calibration img { width: 130px; margin-bottom: 30px; filter: drop-shadow(0 0 15px var(--glow)); }
-        
-        /* Hero & Glowing Logo */
+        #calibration img { width: 120px; margin-bottom: 20px; filter: drop-shadow(0 0 10px var(--gold)); }
         .hero { position: relative; height: 45vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
         .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.2); }
-        .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .logo { width: 140px; filter: drop-shadow(0 0 15px var(--glow)) drop-shadow(0 0 30px var(--glow)); animation: softPulse 4s infinite alternate; }
-
+        .logo { width: 140px; filter: drop-shadow(0 0 15px var(--glow)); animation: pulse 4s infinite alternate; }
         .container { padding: 30px 20px; max-width: 500px; margin: 0 auto; }
-        .box { border: 1px solid var(--gold); padding: 25px; background: rgba(255,255,255,0.02); margin-bottom: 25px; position: relative; }
-        
-        /* Luxury Information */
-        .info-header { font-size: 0.9rem; letter-spacing: 5px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .pairing-text { font-size: 0.85rem; color: #bbb; font-style: italic; text-align: justify; border-left: 1px solid var(--gold); padding-left: 15px; margin-bottom: 25px; }
-        
-        /* Hydrometer Dial */
-        .gauge-container { width: 100px; height: 100px; margin: 0 auto 15px; border: 2px solid var(--gold); border-radius: 50%; position: relative; display: none; background: rgba(197, 160, 89, 0.05); }
-        .needle { width: 2px; height: 45px; background: var(--gold); position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; transform: rotate(-90deg); transition: transform 2s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
-
-        button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 3px; width: 100%; font-size: 0.8rem; }
+        .box { border: 1px solid var(--gold); padding: 25px; background: rgba(255,255,255,0.02); margin-bottom: 25px; }
+        .gauge-container { width: 100px; height: 100px; margin: 0 auto 15px; border: 2px solid var(--gold); border-radius: 50%; position: relative; display: none; }
+        .needle { width: 2px; height: 45px; background: var(--gold); position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; transform: rotate(-90deg); transition: transform 2s; }
+        button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; width: 100%; cursor: pointer; }
         .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
-        input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; margin-bottom: 20px; outline: none; }
-        
-        @keyframes softPulse { from { filter: drop-shadow(0 0 10px var(--glow)); } to { filter: drop-shadow(0 0 25px var(--glow)); } }
-        footer { padding: 40px 20px; opacity: 0.3; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
+        input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; outline: none; margin-bottom: 20px; }
+        @keyframes pulse { from { opacity: 0.7; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <div id="calibration">
-        <img src="logo.png" alt="Signature Cask Logo">
-        <p style="letter-spacing: 2px; font-size: 0.65rem; color: var(--gold); margin-bottom: 10px;">ENSURE MEDIA VOLUME IS ACTIVE</p>
-        <button onclick="startExperience()">ENTER THE EXPERIENCE</button>
+        <img src="logo.png" alt="Logo">
+        <p style="letter-spacing: 2px; font-size: 0.65rem; color: var(--gold); margin-bottom: 30px;">SYNTHESIZING COASTAL ATMOSPHERE</p>
+        <button onclick="ignite()">ENTER THE EXPERIENCE</button>
     </div>
 
-    <audio id="audioWaves" loop playsinline crossorigin="anonymous">
-        <source src="https://docs.google.com/uc?export=download&id=10yTa9OZojsVA2pJR_xNYSUMJ5-SeqLjo" type="audio/mpeg">
-    </audio>
-
     <div class="hero">
-        <video id="heroVid" class="hero-video" autoplay muted loop playsinline preload="auto">
+        <video class="hero-video" autoplay muted loop playsinline>
             <source src="https://signature-cask-experience-blob-lhr1.public.blob.vercel-storage.com/1774511307741.mp4" type="video/mp4">
         </video>
-        <div class="hero-content">
-            <img src="logo.png" class="logo" alt="Signature Cask">
-            <h1 style="letter-spacing:10px; font-size:1.1rem; font-weight:300; margin:0;">SIGNATURE CASK</h1>
-            <p style="font-size:0.85rem; letter-spacing:4px; font-style:italic; margin-top: 5px;">The Inchgower 16 Legacy</p>
+        <div style="position:relative; z-index:1; padding-top:12vh;">
+            <img src="logo.png" class="logo">
+            <h1 style="letter-spacing:10px; font-size:1.1rem; margin:0;">SIGNATURE CASK</h1>
+            <p style="font-size:0.8rem; font-style:italic;">The Inchgower 16 Legacy</p>
         </div>
     </div>
 
     <div class="container">
         <div class="box">
-            <h2 class="info-header">THE PROVENANCE</h2>
-            <p class="pairing-text">
-                Distilled 15/12/09. Drawn 21/01/26. Matured for 16 years in a single 1st Fill Bourbon Barrel (812264B). Bottled at a natural cask strength of 55.9% Vol.
-            </p>
-            <div style="display: flex; justify-content: space-around; font-size: 0.55rem; letter-spacing: 1px;">
-                <div><b>CASK</b><br>812264B</div>
-                <div><b>AYS</b><br>15/12/09</div>
-                <div><b>DRAWN</b><br>21/01/26</div>
-            </div>
-        </div>
-
-        <div class="box">
-            <h2 class="info-header">MATCHED MATURATION</h2>
-            <p class="pairing-text">
-                Your ritual smoking chips were harvested from the original 1st Fill Bourbon barrel. Igniting the wood that nurtured the spirit for 16 years creates the ultimate provenance marriage.
-            </p>
+            <h2 style="font-size: 0.9rem; letter-spacing: 5px;">PROVENANCE</h2>
+            <p style="font-size:0.85rem; color:#bbb; font-style:italic;">Distilled 15/12/09. Drawn 21/01/26.<br>Cask 812264B | 55.9% Vol.</p>
         </div>
 
         <div class="box">
             <div id="gauge" class="gauge-container">
                 <div class="needle" id="needle"></div>
-                <div style="position: absolute; bottom: 8px; width: 100%; font-size: 0.5rem; font-weight:bold;">55.9% VOL</div>
+                <div style="position:absolute; bottom:8px; width:100%; font-size:0.5rem; font-weight:bold;">55.9% VOL</div>
             </div>
-            <span style="font-size:0.6rem; letter-spacing:3px; opacity:0.6;">AUTHENTICATE BOTTLE</span><br>
+            <span style="font-size:0.6rem; letter-spacing:3px; opacity:0.6;">VERIFY BOTTLE</span><br>
             <input type="number" id="num" placeholder="0" inputmode="numeric">
             <button onclick="check()">Consult Ledger</button>
             <div id="display"></div>
@@ -99,17 +65,51 @@
         </div>
     </div>
 
-    <footer>© 2026 SIGNATURE CASK</footer>
-
     <script>
-        const waves = document.getElementById('audioWaves');
-
-        function startExperience() {
+        // INTERNAL ATMOSPHERE GENERATOR (No Files Needed)
+        let audioCtx;
+        function ignite() {
             document.getElementById('calibration').style.display = 'none';
-            waves.volume = 0.5;
-            waves.play().catch(e => {
-                console.log("Audio requires Public Link Permission");
-            });
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                createWhiteNoise(); 
+            }
+        }
+
+        function createWhiteNoise() {
+            const bufferSize = 2 * audioCtx.sampleRate,
+            noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate),
+            output = noiseBuffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) { output[i] = Math.random() * 2 - 1; }
+
+            const whiteNoise = audioCtx.createBufferSource();
+            whiteNoise.buffer = noiseBuffer;
+            whiteNoise.loop = true;
+
+            // "Ocean Wave" Filter (Low-pass sweeping)
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(400, audioCtx.currentTime);
+
+            const gain = audioCtx.createGain();
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+
+            // The Wave "LFO" (Low Frequency Oscillator) to make it "whoosh"
+            const lfo = audioCtx.createOscillator();
+            lfo.type = 'sine';
+            lfo.frequency.setValueAtTime(0.2, audioCtx.currentTime); // Wave speed
+
+            const lfoGain = audioCtx.createGain();
+            lfoGain.gain.setValueAtTime(300, audioCtx.currentTime); // Wave depth
+
+            lfo.connect(lfoGain);
+            lfoGain.connect(filter.frequency);
+            whiteNoise.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            lfo.start();
+            whiteNoise.start();
         }
 
         async function check() {
@@ -118,7 +118,7 @@
             const g = document.getElementById('gauge');
             const needle = document.getElementById('needle');
             if(!n) return;
-            d.innerHTML = "<p style='font-size:0.7rem;'>CONSULTING LEDGER...</p>";
+            d.innerHTML = "<p style='font-size:0.7rem;'>VERIFYING...</p>";
             try {
                 const res = await fetch(`/api/edge?key=${n}`);
                 const data = await res.json();
@@ -127,7 +127,7 @@
                     setTimeout(() => { needle.style.transform = 'rotate(55.9deg)'; }, 500);
                     d.innerHTML = `<h2 style="color:white; font-style:italic; margin-top:20px;">${data.result.toUpperCase()}</h2>`;
                 }
-            } catch { d.innerHTML = "SYSTEM OFFLINE"; }
+            } catch { d.innerHTML = "OFFLINE"; }
         }
 
         function startRitual() {
