@@ -3,33 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Signature Cask | The Experience</title>
+    <title>Signature Cask | The Zenith Experience</title>
     
     <style>
-        :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.4); }
-        body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; overflow-x: hidden; }
+        :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.5); }
+        body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         
-        /* Entrance Calibration */
+        /* The Entrance Calibration */
         #calibration { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         #calibration img { width: 130px; margin-bottom: 30px; filter: drop-shadow(0 0 15px var(--glow)); }
         
-        /* Luxury UI */
+        /* Hero & Glowing Logo */
         .hero { position: relative; height: 45vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
         .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.25); }
         .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .logo { width: 140px; filter: drop-shadow(0 0 15px var(--glow)); animation: softPulse 4s infinite alternate; }
+        .logo { width: 140px; filter: drop-shadow(0 0 15px var(--glow)) drop-shadow(0 0 30px var(--glow)); animation: softPulse 4s infinite alternate; }
 
         .container { padding: 30px 20px; max-width: 500px; margin: 0 auto; }
         .box { border: 1px solid var(--gold); padding: 25px; background: rgba(255,255,255,0.02); margin-bottom: 25px; position: relative; }
         
+        /* Luxury Information */
         .info-header { font-size: 0.9rem; letter-spacing: 5px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; }
         .pairing-text { font-size: 0.85rem; color: #bbb; font-style: italic; text-align: justify; border-left: 1px solid var(--gold); padding-left: 15px; margin-bottom: 25px; }
-
+        
         /* Hydrometer Dial */
         .gauge-container { width: 100px; height: 100px; margin: 0 auto 15px; border: 2px solid var(--gold); border-radius: 50%; position: relative; display: none; background: rgba(197, 160, 89, 0.05); }
         .needle { width: 2px; height: 45px; background: var(--gold); position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; transform: rotate(-90deg); transition: transform 2s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
-        
-        button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 3px; width: 100%; font-size: 0.8rem; border-radius: 0; }
+
+        button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 3px; width: 100%; font-size: 0.8rem; }
         .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
         .btn-vip { background: white; color: black; margin-top: 15px; font-size: 0.7rem; }
         
@@ -39,7 +40,7 @@
         .modal-content { width: 90%; max-width: 450px; border: 1px solid var(--gold); background: var(--dark); padding: 25px; }
 
         @keyframes softPulse { from { filter: drop-shadow(0 0 10px var(--glow)); } to { filter: drop-shadow(0 0 25px var(--glow)); } }
-        footer { padding: 40px 20px; opacity: 0.3; font-size: 0.6rem; letter-spacing: 4px; }
+        footer { padding: 40px 20px; opacity: 0.3; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -51,14 +52,11 @@
     </div>
 
     <audio id="audioWaves" loop playsinline>
-        <source src="https://www.soundjay.com/nature/ocean-waves-1.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="audioFire" loop playsinline>
-        <source src="https://www.soundjay.com/condition/fire-crackling-01.mp3" type="audio/mpeg">
+        <source src="https://signature-cask-experience-blob-lhr1.public.blob.vercel-storage.com/1774511307741.mp4" type="audio/mp4"> <source src="https://www.soundjay.com/nature/ocean-waves-1.mp3" type="audio/mpeg">
     </audio>
 
     <div class="hero">
-        <video class="hero-video" autoplay muted loop playsinline>
+        <video class="hero-video" autoplay muted loop playsinline preload="auto">
             <source src="https://signature-cask-experience-blob-lhr1.public.blob.vercel-storage.com/1774511307741.mp4" type="video/mp4">
         </video>
         <div class="hero-content">
@@ -96,10 +94,10 @@
             </div>
             <span style="font-size:0.6rem; letter-spacing:3px; opacity:0.6;">AUTHENTICATE BOTTLE</span><br>
             <input type="number" id="num" placeholder="0" inputmode="numeric">
-            <button onclick="check()">Verify Ownership</button>
+            <button onclick="check()">Consult Ledger</button>
             <div id="display"></div>
             <div id="reg-area" style="display:none; margin-top:20px;">
-                <input type="text" id="reg-name" style="font-size:1rem; width:100%; border-bottom:1px solid #333;" placeholder="YOUR NAME">
+                <input type="text" id="reg-name" style="font-size:1rem; width:100%; border-bottom:1px solid #333;" placeholder="YOUR FULL NAME">
                 <button onclick="submitReg()" class="btn-outline">Register Bottle</button>
             </div>
         </div>
@@ -124,18 +122,17 @@
     </div></div>
 
     <canvas id="shareCanvas" style="display:none;"></canvas>
-    <footer>© 2026 SIGNATURE CASK | SCOTLAND</footer>
+    <footer>© 2026 SIGNATURE CASK | AUTHORIZED BY IU</footer>
 
     <script>
         const waves = document.getElementById('audioWaves');
-        const fire = document.getElementById('audioFire');
 
         function startExperience() {
             document.getElementById('calibration').style.display = 'none';
             waves.volume = 0.4;
-            fire.volume = 0.3;
-            waves.play();
-            fire.play();
+            waves.play().catch(err => {
+                console.log("Audio still blocked. Ensure silent switch is off.");
+            });
         }
 
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
@@ -162,7 +159,7 @@
                     setTimeout(() => { needle.style.transform = 'rotate(55.9deg)'; }, 500);
                     d.innerHTML = `<div style="margin-top:20px; border-top:1px solid var(--gold); padding-top:20px;">
                         <h2 style="color:white; font-style:italic;">${owner}</h2>
-                        <button class="btn-outline" onclick="shareCert('${owner}', '${n}')">Generate Certificate</button>
+                        <button class="btn-outline" onclick="shareCert('${owner}', '${n}')">Certificate</button>
                         <button class="btn-vip" onclick="window.location.href='mailto:contact@signaturecask.com?subject=VIP%20Access%20Bottle%20${n}'">JOIN THE 89 CLUB</button>
                     </div>`;
                 } else { document.getElementById('reg-area').style.display = 'block'; d.innerHTML = ""; }
