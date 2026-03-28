@@ -6,14 +6,13 @@
     <title>Signature Cask | The Zenith Experience</title>
     
     <style>
-        :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.4); }
+        :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.5); }
         body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         
         /* Entrance Calibration Overlay */
         #calibration { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         #calibration img { width: 130px; margin-bottom: 30px; filter: drop-shadow(0 0 15px var(--glow)); }
         
-        /* Hero & Glowing Logo */
         .hero { position: relative; height: 45vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
         .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.25); }
         .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
@@ -33,9 +32,6 @@
         .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
         input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; margin-bottom: 20px; outline: none; }
         
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 2100; justify-content: center; align-items: center; }
-        .modal-content { width: 90%; max-width: 450px; border: 1px solid var(--gold); background: var(--dark); padding: 25px; }
-
         @keyframes softPulse { from { filter: drop-shadow(0 0 10px var(--glow)); } to { filter: drop-shadow(0 0 25px var(--glow)); } }
         footer { padding: 40px 20px; opacity: 0.3; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
     </style>
@@ -44,15 +40,15 @@
 
     <div id="calibration">
         <img src="logo.png" alt="Signature Cask">
-        <p style="letter-spacing: 2px; font-size: 0.65rem; color: var(--gold); margin-bottom: 10px;">ENSURE SILENT SWITCH IS OFF</p>
+        <p style="letter-spacing: 2px; font-size: 0.65rem; color: var(--gold); margin-bottom: 10px;">PROVENANCE CALIBRATION</p>
         <button onclick="startExperience()">ENTER THE EXPERIENCE</button>
     </div>
 
     <audio id="audioWaves" loop playsinline crossorigin="anonymous">
-        <source src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3?v=2" type="audio/mpeg">
     </audio>
     <audio id="audioFire" loop playsinline crossorigin="anonymous">
-        <source src="https://assets.mixkit.co/active_storage/sfx/2436/2436-preview.mp3" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2436/2436-preview.mp3?v=2" type="audio/mpeg">
     </audio>
 
     <div class="hero">
