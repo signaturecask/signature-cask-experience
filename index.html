@@ -3,53 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Signature Cask | The Zenith Experience</title>
+    <title>Signature Cask | Zenith Experience</title>
     <style>
         :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.4); }
         body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        
+        /* Calibration Overlay */
         #calibration { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #calibration img { width: 130px; margin-bottom: 30px; filter: drop-shadow(0 0 15px var(--glow)); }
+        
+        /* Hero Section */
         .hero { position: relative; height: 45vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
         .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.2); }
+        .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .logo { width: 140px; filter: drop-shadow(0 0 15px var(--glow)); animation: softPulse 4s infinite alternate; }
+
         .container { padding: 30px 20px; max-width: 500px; margin: 0 auto; }
-        .box { border: 1px solid var(--gold); padding: 25px; background: rgba(255,255,255,0.02); margin-bottom: 25px; }
-        .gauge-container { width: 100px; height: 100px; margin: 0 auto 15px; border: 2px solid var(--gold); border-radius: 50%; position: relative; display: none; }
-        .needle { width: 2px; height: 45px; background: var(--gold); position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; transform: rotate(-90deg); transition: transform 2s; }
-        button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; width: 100%; cursor: pointer; }
+        .box { border: 1px solid var(--gold); padding: 25px; background: rgba(255,255,255,0.02); margin-bottom: 25px; position: relative; }
+        
+        /* Typography */
+        .info-header { font-size: 0.9rem; letter-spacing: 5px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .pairing-text { font-size: 0.85rem; color: #bbb; font-style: italic; text-align: justify; border-left: 1px solid var(--gold); padding-left: 15px; margin-bottom: 25px; }
+        
+        /* Gauge */
+        .gauge-container { width: 100px; height: 100px; margin: 0 auto 15px; border: 2px solid var(--gold); border-radius: 50%; position: relative; display: none; background: rgba(197, 160, 89, 0.05); }
+        .needle { width: 2px; height: 45px; background: var(--gold); position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; transform: rotate(-90deg); transition: transform 2s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
+
+        button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 3px; width: 100%; font-size: 0.8rem; }
         .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
-        input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; outline: none; margin-bottom: 20px; }
-        @keyframes softPulse { from { opacity: 0.7; } to { opacity: 1; } }
+        input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; margin-bottom: 20px; outline: none; }
+        
+        @keyframes softPulse { from { opacity: 0.8; } to { opacity: 1; } }
+        footer { padding: 40px 20px; opacity: 0.3; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
     <div id="calibration">
         <img src="logo.png" alt="Signature Cask">
-        <p style="letter-spacing: 3px; font-size: 0.7rem; color: var(--gold); margin-bottom: 30px;">IGNITING ATMOSPHERE...</p>
-        <button onclick="ignite()">ENTER EXPERIENCE</button>
+        <p style="letter-spacing: 3px; font-size: 0.7rem; color: var(--gold); margin-bottom: 30px;">CALIBRATING MARITIME ATMOSPHERE</p>
+        <button onclick="ignite()">ENTER THE EXPERIENCE</button>
     </div>
 
     <div class="hero">
         <video class="hero-video" autoplay muted loop playsinline>
             <source src="https://signature-cask-experience-blob-lhr1.public.blob.vercel-storage.com/1774511307741.mp4" type="video/mp4">
         </video>
-        <div style="position:relative; z-index:1; padding-top:12vh;">
+        <div class="hero-content">
             <img src="logo.png" class="logo">
-            <h1 style="letter-spacing:10px; font-size:1.1rem; margin:0;">SIGNATURE CASK</h1>
-            <p style="font-size:0.8rem; font-style:italic;">The Inchgower 16 Legacy</p>
+            <h1 style="letter-spacing:10px; font-size:1.1rem; font-weight:300; margin:0;">SIGNATURE CASK</h1>
+            <p style="font-size:0.85rem; letter-spacing:4px; font-style:italic; margin-top: 5px;">The Inchgower 16 Legacy</p>
         </div>
     </div>
 
     <div class="container">
         <div class="box">
-            <h2 style="font-size: 0.8rem; letter-spacing: 5px;">PROVENANCE</h2>
-            <p style="font-size:0.85rem; color:#bbb;">Distilled 15/12/09. Drawn 21/01/26.<br>Cask 812264B | 55.9% Vol.</p>
+            <h2 class="info-header">THE PROVENANCE</h2>
+            <p class="pairing-text">
+                Distilled 15/12/09. Drawn 21/01/26. 16 years of maturation in a 1st Fill Bourbon Barrel (812264B). Bottled at a natural cask strength of 55.9% Vol.
+            </p>
+            <div style="display: flex; justify-content: space-around; font-size: 0.55rem; letter-spacing: 1px;">
+                <div>CASK: 812264B</div>
+                <div>AYS: 15/12/09</div>
+                <div>DRAWN: 21/01/26</div>
+            </div>
         </div>
 
         <div class="box">
             <div id="gauge" class="gauge-container">
                 <div class="needle" id="needle"></div>
-                <div style="position:absolute; bottom:8px; width:100%; font-size:0.5rem; font-weight:bold;">55.9% VOL</div>
+                <div style="position: absolute; bottom: 8px; width: 100%; font-size: 0.5rem; font-weight:bold;">55.9% VOL</div>
             </div>
             <span style="font-size:0.6rem; letter-spacing:3px; opacity:0.6;">AUTHENTICATE BOTTLE</span><br>
             <input type="number" id="num" placeholder="0" inputmode="numeric">
@@ -64,6 +87,8 @@
         </div>
     </div>
 
+    <footer>© 2026 SIGNATURE CASK</footer>
+
     <script>
         let audioCtx;
 
@@ -71,74 +96,36 @@
             document.getElementById('calibration').style.display = 'none';
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                
-                // ATMOSPHERE LAYERS
                 createOceanWaves();
-                createOrganicFire();
             }
         }
 
         function createOceanWaves() {
             const noise = audioCtx.createBufferSource();
-            const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 2, audioCtx.sampleRate);
+            const bufferSize = 2 * audioCtx.sampleRate;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
             const data = buffer.getChannelData(0);
-            for (let i = 0; i < audioCtx.sampleRate * 2; i++) { data[i] = Math.random() * 2 - 1; }
+            for (let i = 0; i < bufferSize; i++) { data[i] = Math.random() * 2 - 1; }
             noise.buffer = buffer; noise.loop = true;
 
-            const filter = audioCtx.createBiquadFilter(); filter.type = 'lowpass';
-            const gain = audioCtx.createGain(); gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+            const filter = audioCtx.createBiquadFilter(); 
+            filter.type = 'lowpass';
+            
+            const gain = audioCtx.createGain(); 
+            gain.gain.setValueAtTime(0.07, audioCtx.currentTime);
 
-            const lfo = audioCtx.createOscillator(); lfo.frequency.setValueAtTime(0.12, audioCtx.currentTime);
-            const lfoGain = audioCtx.createGain(); lfoGain.gain.setValueAtTime(350, audioCtx.currentTime);
+            // Wave speed: 0.12Hz = one long swell every 8 seconds
+            const lfo = audioCtx.createOscillator(); 
+            lfo.frequency.setValueAtTime(0.12, audioCtx.currentTime); 
+            
+            const lfoGain = audioCtx.createGain(); 
+            lfoGain.gain.setValueAtTime(450, audioCtx.currentTime); 
 
             lfo.connect(lfoGain); lfoGain.connect(filter.frequency);
             noise.connect(filter); filter.connect(gain);
             gain.connect(audioCtx.destination);
-            lfo.start(); noise.start();
-        }
-
-        function createOrganicFire() {
-            // LAYER 1: THE HISS (White Noise filtered high)
-            const hiss = audioCtx.createBufferSource();
-            const b = audioCtx.createBuffer(1, audioCtx.sampleRate, audioCtx.sampleRate);
-            const d = b.getChannelData(0);
-            for (let i = 0; i < audioCtx.sampleRate; i++) { d[i] = Math.random() * 2 - 1; }
-            hiss.buffer = b; hiss.loop = true;
-
-            const hFilter = audioCtx.createBiquadFilter(); hFilter.type = 'bandpass';
-            hFilter.frequency.setValueAtTime(8000, audioCtx.currentTime);
-            hFilter.Q.setValueAtTime(1, audioCtx.currentTime);
-
-            const hGain = audioCtx.createGain(); hGain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-
-            hiss.connect(hFilter); hFilter.connect(hGain); hGain.connect(audioCtx.destination);
-            hiss.start();
-
-            // LAYER 2: THE CRACKLE (Sharp impulsive pops)
-            setInterval(() => {
-                if(Math.random() > 0.95) {
-                    const pop = audioCtx.createOscillator();
-                    const pGain = audioCtx.createGain();
-                    pop.type = 'triangle';
-                    pop.frequency.setValueAtTime(Math.random() * 3000 + 500, audioCtx.currentTime);
-                    
-                    pGain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-                    pGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
-                    
-                    pop.connect(pGain); pGain.connect(audioCtx.destination);
-                    pop.start(); pop.stop(audioCtx.currentTime + 0.03);
-                }
-            }, 80);
-
-            // LAYER 3: THE ROAR (Deep low-end rumble)
-            const roar = audioCtx.createBufferSource();
-            roar.buffer = b; roar.loop = true;
-            const rFilter = audioCtx.createBiquadFilter(); rFilter.type = 'lowpass';
-            rFilter.frequency.setValueAtTime(100, audioCtx.currentTime);
-            const rGain = audioCtx.createGain(); rGain.gain.setValueAtTime(0.02, audioCtx.currentTime);
             
-            roar.connect(rFilter); rFilter.connect(rGain); rGain.connect(audioCtx.destination);
-            roar.start();
+            lfo.start(); noise.start();
         }
 
         async function check() {
