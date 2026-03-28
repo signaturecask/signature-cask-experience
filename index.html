@@ -3,51 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Signature Cask | Digital Ledger</title>
+    <title>Signature Cask | Official Ledger</title>
     <style>
-        :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.4); }
-        body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        :root { --gold: #c5a059; --dark: #050505; }
+        body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; -webkit-tap-highlight-color: transparent; }
         
-        /* 1. CHALLENGE 25 OVERLAY */
-        #gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px solid var(--gold); box-sizing: border-box; transition: opacity 1.2s ease; }
-        #gate img { width: 140px; margin-bottom: 40px; filter: drop-shadow(0 0 20px var(--gold)); }
+        /* AGE GATE */
+        #gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px solid var(--gold); box-sizing: border-box; }
 
-        /* 2. CINEMATIC VIDEO HERO */
-        .hero { position: relative; height: 45vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
-        .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.25) contrast(1.1); }
+        /* HERO VIDEO */
+        .hero { position: relative; height: 40vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
+        .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.3); }
         .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .logo { width: 130px; filter: drop-shadow(0 0 25px var(--glow)); }
 
-        /* 3. CONTAINERS */
-        .container { padding: 30px 20px; max-width: 500px; margin: 0 auto; padding-bottom: 120px; }
-        .box { border: 1px solid rgba(197, 160, 89, 0.4); padding: 30px; background: rgba(255,255,255,0.03); backdrop-filter: blur(15px); margin-bottom: 30px; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .container { padding: 20px; max-width: 500px; margin: 0 auto; padding-bottom: 100px; }
+        .box { border: 1px solid rgba(197, 160, 89, 0.4); padding: 25px; background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); margin-bottom: 25px; border-radius: 2px; }
         
-        .header-label { font-size: 0.7rem; letter-spacing: 5px; margin-bottom: 20px; text-transform: uppercase; color: #fff; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .world-badge { border: 1px solid var(--gold); padding: 10px; font-size: 0.65rem; letter-spacing: 3px; margin-bottom: 25px; background: rgba(197, 160, 89, 0.1); color: #fff; font-weight: bold; text-transform: uppercase; }
+        .card-header { font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; color: #fff; margin-bottom: 15px; display: block; font-weight: bold; border-bottom: 1px solid rgba(197, 160, 89, 0.3); padding-bottom: 10px; }
 
-        /* 4. DIGITAL LEDGER RESULT STYLE */
-        .wax-seal { width: 65px; height: 65px; background: radial-gradient(circle, #8b0000, #4a0000); border-radius: 50%; margin: 15px auto; border: 2px solid #600; box-shadow: 0 0 15px rgba(139,0,0,0.6); display: flex; align-items: center; justify-content: center; color: var(--gold); font-weight: bold; transform: scale(0); animation: sealPop 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        .cert-stamp { color: #fff; font-size: 0.85rem; letter-spacing: 1px; line-height: 1.6; animation: fadeIn 1.5s ease; }
-        .owner-name { color: var(--gold); font-size: 1.3rem; display: block; margin: 10px 0; letter-spacing: 2px; text-transform: uppercase; font-weight: bold; border-top: 1px solid rgba(197,160,89,0.2); border-bottom: 1px solid rgba(197,160,89,0.2); padding: 10px 0; }
+        /* LEDGER / OWNER DISPLAY */
+        .owner-display { margin-top: 20px; animation: fadeIn 1s ease; }
+        .wax-seal { width: 60px; height: 60px; background: radial-gradient(circle, #8b0000, #4a0000); border-radius: 50%; margin: 10px auto; border: 2px solid #600; box-shadow: 0 0 15px rgba(139,0,0,0.5); display: flex; align-items: center; justify-content: center; color: var(--gold); font-weight: bold; font-family: serif; }
+        .owner-name { color: var(--gold); font-size: 1.5rem; display: block; margin: 15px 0; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
+        .bottle-info { color: #fff; font-size: 0.8rem; letter-spacing: 2px; }
 
-        /* 5. INTERACTIVES */
-        .gauge-container { width: 110px; height: 110px; margin: 0 auto 20px; border: 1px solid var(--gold); border-radius: 50%; position: relative; display: none; background: radial-gradient(circle, rgba(197,160,89,0.1) 0%, transparent 70%); }
-        .needle { width: 1px; height: 50px; background: var(--gold); position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; transform: rotate(-90deg); transition: transform 2.8s cubic-bezier(0.19, 1, 0.22, 1); }
-        
-        button { background: var(--gold); color: #000; border: none; padding: 20px; font-weight: bold; text-transform: uppercase; cursor: pointer; width: 85%; letter-spacing: 3px; font-size: 0.75rem; }
+        /* RITUAL LIST */
+        .ritual-list { text-align: left; font-size: 0.8rem; color: #ccc; margin: 20px 0; }
+        .ritual-list div { margin-bottom: 12px; }
+        .ritual-list b { color: var(--gold); text-transform: uppercase; letter-spacing: 1px; display: block; font-size: 0.7rem; }
+
         input { background: transparent; border: none; border-bottom: 1px solid #444; color: #fff; font-size: 2.5rem; width: 120px; text-align: center; margin-bottom: 25px; outline: none; }
-        .sig { font-family: 'Brush Script MT', cursive; font-size: 2.8rem; color: #fff; margin-top: 15px; }
+        button { background: var(--gold); color: #000; border: none; padding: 18px; font-weight: bold; text-transform: uppercase; cursor: pointer; width: 100%; letter-spacing: 3px; font-size: 0.75rem; }
+        
+        .signature-wrap { text-align: right; margin-top: 30px; }
+        .sig-font { font-family: 'Brush Script MT', cursive; font-size: 2.6rem; color: #fff; margin: 0; }
 
-        @keyframes sealPop { to { transform: scale(1); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <div id="gate">
-        <img src="logo.png" alt="Signature Cask">
-        <p style="letter-spacing: 5px; font-size: 0.7rem; color:#fff; margin-bottom: 30px;">VERIFY LEGAL DRINKING AGE</p>
-        <button onclick="unlock()" style="width:auto; padding:15px 50px;">ENTER THE ZENITH</button>
+        <img src="logo.png" style="width:130px; margin-bottom:30px;">
+        <p style="letter-spacing: 4px; font-size: 0.7rem; color: #fff; margin-bottom: 20px;">CHALLENGE 25 VERIFICATION</p>
+        <button onclick="unlock()" style="width:auto; padding:15px 50px;">ENTER</button>
     </div>
 
     <div class="hero">
@@ -55,104 +54,79 @@
             <source src="https://signature-cask-experience-blob-lhr1.public.blob.vercel-storage.com/1774511307741.mp4" type="video/mp4">
         </video>
         <div class="hero-content">
-            <img src="logo.png" class="logo">
-            <h1 style="letter-spacing:10px; font-size:0.9rem; font-weight:300; margin:15px 0 0 0; color:#fff;">THE INCHGOWER 16 LEGACY</h1>
-            <p style="font-size:0.7rem; letter-spacing:5px; opacity:0.7; font-style:italic;">Official Digital Certificate</p>
+            <h1 style="letter-spacing:6px; font-size:0.85rem; color:#fff; font-weight: 300;">SIGNATURE CASK | ST ANDREWS</h1>
         </div>
     </div>
 
     <div class="container">
         
         <div class="box">
-            <div class="world-badge">A World First in Whisky Maturation</div>
-            <h2 class="header-label">The Provenance</h2>
-            <p style="font-size: 0.85rem; font-style: italic; color: #ccc;">Aged 16 years. Reunited with the wood of Cask #812264B.</p>
+            <span class="card-header">THE PROVENANCE</span>
+            <p style="font-size: 0.85rem; color: #bbb; font-style: italic;">"Reunited with the very wood that shaped its character."</p>
+            <div style="font-size: 0.7rem; color: var(--gold); letter-spacing: 1px; margin-top: 10px;">
+                CASK REF: #812264B | 55.9% ABV
+            </div>
         </div>
 
         <div class="box">
-            <div id="gauge" class="gauge-container">
-                <div class="needle" id="needle"></div>
-                <div style="position:absolute; bottom:8px; width:100%; font-size:0.5rem; color:#fff;">55.9% ABV</div>
-            </div>
-            <h2 class="header-label">Consult Digital Ledger</h2>
-            <p style="font-size:0.6rem; color:#777; margin-bottom:15px; letter-spacing:2px;">ENTER BOTTLE IDENTIFIER</p>
-            <input type="number" id="num" placeholder="00" inputmode="numeric">
-            <button onclick="check()">Authenticate</button>
+            <span class="card-header">CERTIFICATE OF AUTHENTICITY</span>
+            <p style="font-size: 0.6rem; letter-spacing: 2px; color: #666; margin-bottom: 15px;">CONSULT DIGITAL LEDGER</p>
+            <input type="number" id="num" placeholder="01" inputmode="numeric">
+            <button onclick="check()">Verify Ownership</button>
             
             <div id="display"></div>
         </div>
 
         <div class="box">
-            <h2 class="header-label">Closed Loop Ritual</h2>
-            <div id="timer-num" style="font-size: 4.5rem; color: #fff; font-weight: 300;">30</div>
-            <button id="timer-btn" style="background:transparent; border:1px solid var(--gold); color:var(--gold);" onclick="startRitual()">Begin Marriage</button>
-            <div style="text-align: right; margin-top: 30px;">
-                <div class="sig">Lee Messenger</div>
-                <p style="font-size: 0.5rem; color: var(--gold); margin: 0; letter-spacing: 2px;">FOUNDER</p>
+            <span class="card-header">THE RITUAL</span>
+            <div class="ritual-list">
+                <div><b>PREPARE</b> Place a small amount of the stave chips into the smoking vessel.</div>
+                <div><b>IGNITE</b> Briefly apply flame until a steady blue smoke emerges.</div>
+                <div><b>INFUSE</b> Invert the glass over the smoke for 20 seconds.</div>
+                <div><b>REUNITE</b> Pour the 55.9% Inchgower. The liquid meets its own history.</div>
+            </div>
+            
+            <div id="timer-num" style="font-size: 4rem; color: #fff; margin: 10px 0;">30</div>
+            <button onclick="startRitual()" style="background:transparent; border:1px solid var(--gold); color:var(--gold);">Start Infusion</button>
+            
+            <div class="signature-wrap">
+                <p style="font-size: 0.5rem; color: #666; margin: 0; letter-spacing: 2px;">MASTER CRAFTSMAN</p>
+                <p class="sig-font">Lee Messenger</p>
+                <p style="font-size: 0.5rem; color: var(--gold); margin: 0;">Founder, Signature Cask Ltd.</p>
             </div>
         </div>
     </div>
 
     <script>
-        let audioCtx;
-
-        function unlock() {
-            document.getElementById('gate').style.opacity = '0';
-            setTimeout(() => { document.getElementById('gate').style.display = 'none'; }, 800);
-            
-            if(!audioCtx) {
-                audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-                // Real-time Atlantic Ocean sound synthesis
-                const noise = audioCtx.createBufferSource();
-                const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate*2, audioCtx.sampleRate);
-                const data = buffer.getChannelData(0);
-                for(let i=0; i<audioCtx.sampleRate*2; i++) data[i]=Math.random()*2-1;
-                noise.buffer=buffer; noise.loop=true;
-                const filter=audioCtx.createBiquadFilter(); filter.type='lowpass';
-                const gain=audioCtx.createGain(); gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-                const lfo=audioCtx.createOscillator(); lfo.frequency.setValueAtTime(0.12, audioCtx.currentTime);
-                const lfoGain=audioCtx.createGain(); lfoGain.gain.setValueAtTime(450, audioCtx.currentTime);
-                lfo.connect(lfoGain); lfoGain.connect(filter.frequency);
-                noise.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
-                lfo.start(); noise.start();
-            }
-        }
+        function unlock() { document.getElementById('gate').style.display = 'none'; }
 
         async function check() {
             const n = document.getElementById('num').value;
-            const needle = document.getElementById('needle');
-            const g = document.getElementById('gauge');
             const d = document.getElementById('display');
             if(!n) return;
             
-            d.innerHTML = "<p style='font-size:0.6rem; letter-spacing:2px; margin-top:20px;'>CONSULTING SECURE LEDGER...</p>";
+            d.innerHTML = "<p style='font-size:0.6rem; margin-top:20px; letter-spacing:2px;'>SEARCHING LEDGER...</p>";
             
             try {
                 const res = await fetch(`/api/edge?key=${n}`);
                 const data = await res.json();
                 
                 if(data.result) {
-                    g.style.display = 'block';
-                    setTimeout(() => { needle.style.transform = 'rotate(55.9deg)'; }, 500);
-                    
-                    // Display Owner's Name from Ledger
                     d.innerHTML = `
-                        <div class="wax-seal">SC</div>
-                        <div class="cert-stamp">
-                            CERTIFICATE OF PROVENANCE<br>
-                            <span class="owner-name">${data.owner ? data.owner.toUpperCase() : "AUTHENTICATED OWNER"}</span>
-                            BOTTLE NO. ${n} OF 89<br>
-                            <span style="color:var(--gold); letter-spacing:2px; font-weight:bold;">LEGACY STATUS: ${data.result.toUpperCase()}</span>
+                        <div class="owner-display">
+                            <div class="wax-seal">SC</div>
+                            <span style="font-size:0.6rem; letter-spacing:3px; color:#888;">OFFICIAL CUSTODIAN</span><br>
+                            <span class="owner-name">${data.owner ? data.owner.toUpperCase() : "AUTHENTICATED OWNER"}</span><br>
+                            <span class="bottle-info">BOTTLE ${n} OF 89</span>
+                            <p style="font-size:0.55rem; color:#444; margin-top:10px;">LEDGER STATUS: ${data.result.toUpperCase()}</p>
                         </div>`;
-                } else {
-                    d.innerHTML = "<p style='color:red; margin-top:20px;'>RECORD NOT FOUND</p>";
                 }
-            } catch { d.innerHTML = "<p style='margin-top:20px;'>SYSTEM OFFLINE</p>"; }
+            } catch { d.innerHTML = "<p style='font-size:0.6rem; color:red; margin-top:20px;'>LEDGER OFFLINE</p>"; }
         }
 
         function startRitual() {
-            let t=30; const b=document.getElementById('timer-btn'); b.disabled=true;
-            const c=setInterval(() => { t--; document.getElementById('timer-num').innerText=t; if(t<=0){ clearInterval(c); document.getElementById('timer-num').innerText="REUNITE"; b.disabled=false;} }, 1000);
+            let t=30; const n=document.getElementById('timer-num');
+            const c=setInterval(() => { t--; n.innerText=t; if(t<=0){ clearInterval(c); n.innerText="REUNITE"; } }, 1000);
         }
     </script>
 </body>
