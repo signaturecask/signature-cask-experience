@@ -3,35 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Signature Cask | Zenith</title>
+    <title>Signature Cask | The Zenith</title>
     <style>
-        :root { --gold: #c5a059; --dark: #050505; }
-        body { background: var(--dark); color: var(--gold); font-family: 'Georgia', serif; text-align: center; margin: 0; }
+        :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.4); }
+        body { background: var(--dark); color: var(--gold); font-family: 'Georgia', serif; text-align: center; margin: 0; overflow-x: hidden; }
+        
         #calibration { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .hero { height: 45vh; position: relative; overflow: hidden; border-bottom: 1px solid var(--gold); }
-        .logo { width: 140px; filter: drop-shadow(0 0 15px rgba(197, 160, 89, 0.5)); }
+        .logo { width: 140px; filter: drop-shadow(0 0 15px var(--glow)); animation: pulse 4s infinite alternate; }
         .container { padding: 30px 20px; max-width: 500px; margin: 0 auto; }
         .box { border: 1px solid var(--gold); padding: 25px; background: rgba(255,255,255,0.02); margin-bottom: 25px; }
-        button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; width: 100%; }
+        button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; width: 100%; cursor: pointer; }
         .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
         input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; outline: none; margin-bottom: 20px; }
         .gauge-container { width: 100px; height: 100px; margin: 0 auto 15px; border: 2px solid var(--gold); border-radius: 50%; position: relative; display: none; }
         .needle { width: 2px; height: 45px; background: var(--gold); position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; transform: rotate(-90deg); transition: transform 2s; }
+        @keyframes pulse { from { opacity: 0.8; } to { opacity: 1; filter: drop-shadow(0 0 25px var(--glow)); } }
     </style>
 </head>
 <body>
 
     <div id="calibration">
         <img src="logo.png" style="width:120px; margin-bottom:20px;">
-        <p style="font-size:0.7rem; letter-spacing:2px;">ATMOSPHERE CALIBRATION</p>
-        <button onclick="startExperience()" style="width:auto; padding:15px 40px;">ENTER EXPERIENCE</button>
+        <p style="font-size:0.7rem; letter-spacing:2px; margin-bottom: 30px;">CALIBRATING COASTAL ATMOSPHERE...</p>
+        <button onclick="igniteExperience()" style="width:auto; padding:15px 40px;">ENTER EXPERIENCE</button>
     </div>
 
-    <audio id="audioWaves" loop playsinline crossorigin="anonymous">
-        <source src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3?v=999" type="audio/mpeg">
+    <audio id="v3_Waves" loop playsinline crossorigin="anonymous">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3?uniqueID=9999" type="audio/mpeg">
     </audio>
-    <audio id="audioFire" loop playsinline crossorigin="anonymous">
-        <source src="https://assets.mixkit.co/active_storage/sfx/2436/2436-preview.mp3?v=999" type="audio/mpeg">
+    <audio id="v3_Fire" loop playsinline crossorigin="anonymous">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2436/2436-preview.mp3?uniqueID=9999" type="audio/mpeg">
     </audio>
 
     <div class="hero">
@@ -46,10 +48,6 @@
         <div class="box">
             <h2 style="font-size:0.8rem; letter-spacing:4px;">PROVENANCE</h2>
             <p style="font-size:0.75rem; color:#bbb; font-style:italic;">Distilled 15/12/09. Drawn 21/01/26. Cask 812264B. 55.9% Vol.</p>
-            <div style="display: flex; justify-content: space-around; font-size: 0.55rem; letter-spacing: 1px;">
-                <div>AYS: 15/12/09</div>
-                <div>DRAWN: 21/01/26</div>
-            </div>
         </div>
 
         <div class="box">
@@ -59,21 +57,29 @@
             </div>
             <span style="font-size:0.6rem; letter-spacing:3px; opacity:0.6;">AUTHENTICATE BOTTLE</span><br>
             <input type="number" id="num" placeholder="0" inputmode="numeric">
-            <button onclick="check()">Verify Ownership</button>
+            <button onclick="check()">Consult Ledger</button>
             <div id="display"></div>
+        </div>
+
+        <div class="box">
+            <h3 style="letter-spacing:4px; font-size:0.8rem;">THE RITUAL TIMER</h3>
+            <div id="timer-num" style="font-size:3.5rem; color:white;">30</div>
+            <button id="timer-btn" class="btn-outline" onclick="startRitual()">Begin Marriage</button>
         </div>
     </div>
 
     <script>
-        const waves = document.getElementById('audioWaves');
-        const fire = document.getElementById('audioFire');
+        const waves = document.getElementById('v3_Waves');
+        const fire = document.getElementById('v3_Fire');
 
-        function startExperience() {
+        function igniteExperience() {
             document.getElementById('calibration').style.display = 'none';
             waves.volume = 0.5;
-            fire.volume = 0.3;
-            waves.play();
-            fire.play();
+            fire.volume = 0.35;
+            
+            // Force play
+            waves.play().catch(e => console.log("Waves blocked"));
+            fire.play().catch(e => console.log("Fire blocked"));
         }
 
         function check() {
@@ -83,6 +89,7 @@
             const needle = document.getElementById('needle');
             if(!n) return;
             d.innerHTML = "<p style='font-size:0.7rem;'>VERIFYING...</p>";
+            
             fetch(`/api/edge?key=${n}`).then(res => res.json()).then(data => {
                 if (data.result) {
                     g.style.display = 'block';
@@ -90,6 +97,11 @@
                     d.innerHTML = `<h2 style="color:white; font-style:italic;">${data.result.toUpperCase()}</h2>`;
                 }
             });
+        }
+
+        function startRitual() {
+            let t = 30; const b = document.getElementById('timer-btn'); b.disabled = true;
+            const c = setInterval(() => { t--; document.getElementById('timer-num').innerText = t; if(t <= 0) { clearInterval(c); document.getElementById('timer-num').innerText = "POUR"; b.disabled = false; } }, 1000);
         }
     </script>
 </body>
