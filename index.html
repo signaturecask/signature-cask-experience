@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Signature Cask | Zenith Experience</title>
+    <title>Signature Cask | The Zenith Experience</title>
     
     <style>
         :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.5); }
@@ -15,7 +15,7 @@
         
         /* Hero & Glowing Logo */
         .hero { position: relative; height: 45vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
-        .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.25); }
+        .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.2); }
         .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .logo { width: 140px; filter: drop-shadow(0 0 15px var(--glow)) drop-shadow(0 0 30px var(--glow)); animation: softPulse 4s infinite alternate; }
 
@@ -32,13 +32,8 @@
 
         button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 3px; width: 100%; font-size: 0.8rem; }
         .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
-        .btn-vip { background: white; color: black; margin-top: 15px; font-size: 0.7rem; }
-        
         input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; margin-bottom: 20px; outline: none; }
         
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 2100; justify-content: center; align-items: center; }
-        .modal-content { width: 90%; max-width: 450px; border: 1px solid var(--gold); background: var(--dark); padding: 25px; }
-
         @keyframes softPulse { from { filter: drop-shadow(0 0 10px var(--glow)); } to { filter: drop-shadow(0 0 25px var(--glow)); } }
         footer { padding: 40px 20px; opacity: 0.3; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
     </style>
@@ -46,16 +41,13 @@
 <body>
 
     <div id="calibration">
-        <img src="logo.png" alt="Signature Cask">
-        <p style="letter-spacing: 2px; font-size: 0.65rem; color: var(--gold); margin-bottom: 10px;">ENSURE SILENT SWITCH IS OFF</p>
+        <img src="logo.png" alt="Signature Cask Logo">
+        <p style="letter-spacing: 2px; font-size: 0.65rem; color: var(--gold); margin-bottom: 10px;">ENSURE MEDIA VOLUME IS ACTIVE</p>
         <button onclick="startExperience()">ENTER THE EXPERIENCE</button>
     </div>
 
-    <audio id="audioWaves" loop playsinline>
-        <source src="https://actions.google.com/sounds/v1/water/waves_crashing_on_shore.ogg" type="audio/ogg">
-    </audio>
-    <audio id="audioFire" loop playsinline>
-        <source src="https://actions.google.com/sounds/v1/ambient/cracking_fire.ogg" type="audio/ogg">
+    <audio id="audioWaves" loop playsinline crossorigin="anonymous">
+        <source src="https://docs.google.com/uc?export=download&id=10yTa9OZojsVA2pJR_xNYSUMJ5-SeqLjo" type="audio/mpeg">
     </audio>
 
     <div class="hero">
@@ -73,7 +65,7 @@
         <div class="box">
             <h2 class="info-header">THE PROVENANCE</h2>
             <p class="pairing-text">
-                Distilled 15/12/09. Drawn 21/01/26. Matured for 16 years in a 1st Fill Bourbon Barrel (812264B). Bottled at a natural cask strength of 55.9% Vol.
+                Distilled 15/12/09. Drawn 21/01/26. Matured for 16 years in a single 1st Fill Bourbon Barrel (812264B). Bottled at a natural cask strength of 55.9% Vol.
             </p>
             <div style="display: flex; justify-content: space-around; font-size: 0.55rem; letter-spacing: 1px;">
                 <div><b>CASK</b><br>812264B</div>
@@ -83,11 +75,10 @@
         </div>
 
         <div class="box">
-            <h2 class="info-header">WORLD FIRST EXPERIENCE</h2>
+            <h2 class="info-header">MATCHED MATURATION</h2>
             <p class="pairing-text">
-                Your ritual smoking chips were harvested directly from the <strong>original 1st Fill Bourbon cask</strong>. By igniting the wood that matured the spirit for 16 years, you achieve a perfect matched provenance marriage.
+                Your ritual smoking chips were harvested from the original 1st Fill Bourbon barrel. Igniting the wood that nurtured the spirit for 16 years creates the ultimate provenance marriage.
             </p>
-            <button class="btn-outline" onclick="openModal('tastingModal')">Watch Guided Tasting</button>
         </div>
 
         <div class="box">
@@ -108,41 +99,17 @@
         </div>
     </div>
 
-    <div id="tastingModal" class="modal"><div class="modal-content">
-        <h3 style="font-size:0.8rem; letter-spacing:3px;">THE MASTER'S NOTES</h3>
-        <video id="tastingVideo" width="100%" controls><source src="PASTE_TASTING_URL.mp4" type="video/mp4"></video>
-        <button onclick="closeModal('tastingModal')" class="btn-outline">Close</button>
-    </div></div>
-
-    <div id="founderModal" class="modal"><div class="modal-content">
-        <h3 style="font-size:0.8rem; letter-spacing:3px;">FOUNDER'S WELCOME</h3>
-        <video id="founderVideo" width="100%" controls><source src="PASTE_FOUNDER_URL.mp4" type="video/mp4"></video>
-        <button onclick="closeModal('founderModal')" class="btn-outline">Enter Experience</button>
-    </div></div>
-
-    <canvas id="shareCanvas" style="display:none;"></canvas>
-    <footer>© 2026 SIGNATURE CASK | AUTHORIZED BY IU</footer>
+    <footer>© 2026 SIGNATURE CASK</footer>
 
     <script>
         const waves = document.getElementById('audioWaves');
-        const fire = document.getElementById('audioFire');
-        const video = document.getElementById('heroVid');
 
         function startExperience() {
             document.getElementById('calibration').style.display = 'none';
-            // Explicitly mute the hero video just in case the chickens are hiding there!
-            video.muted = true;
-            waves.volume = 0.4;
-            fire.volume = 0.3;
-            waves.play().catch(e => console.error("Waves Blocked"));
-            fire.play().catch(e => console.error("Fire Blocked"));
-        }
-
-        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function closeModal(id) { 
-            const v = document.getElementById(id).querySelector('video');
-            if(v) v.pause();
-            document.getElementById(id).style.display = 'none'; 
+            waves.volume = 0.5;
+            waves.play().catch(e => {
+                console.log("Audio requires Public Link Permission");
+            });
         }
 
         async function check() {
@@ -156,32 +123,16 @@
                 const res = await fetch(`/api/edge?key=${n}`);
                 const data = await res.json();
                 if (data.result) {
-                    const owner = data.result.toUpperCase();
-                    openModal('founderModal');
                     g.style.display = 'block';
                     setTimeout(() => { needle.style.transform = 'rotate(55.9deg)'; }, 500);
-                    d.innerHTML = `<div style="margin-top:20px; border-top:1px solid var(--gold); padding-top:20px;">
-                        <h2 style="color:white; font-style:italic;">${owner}</h2>
-                        <button class="btn-outline" onclick="shareCert('${owner}', '${n}')">Certificate</button>
-                        <button class="btn-vip" onclick="window.location.href='mailto:contact@signaturecask.com?subject=VIP%20Access%20Bottle%20${n}'">JOIN THE 89 CLUB</button>
-                    </div>`;
+                    d.innerHTML = `<h2 style="color:white; font-style:italic; margin-top:20px;">${data.result.toUpperCase()}</h2>`;
                 }
-            } catch { d.innerHTML = "OFFLINE"; }
+            } catch { d.innerHTML = "SYSTEM OFFLINE"; }
         }
 
         function startRitual() {
             let t = 30; const b = document.getElementById('timer-btn'); b.disabled = true;
             const c = setInterval(() => { t--; document.getElementById('timer-num').innerText = t; if(t <= 0) { clearInterval(c); document.getElementById('timer-num').innerText = "POUR"; b.disabled = false; } }, 1000);
-        }
-
-        function shareCert(name, num) {
-            const canvas = document.getElementById('shareCanvas');
-            const ctx = canvas.getContext('2d'); canvas.width = 1000; canvas.height = 1200;
-            ctx.fillStyle = '#050505'; ctx.fillRect(0,0,1000,1200);
-            ctx.strokeStyle = '#c5a059'; ctx.lineWidth = 20; ctx.strokeRect(50,50,900,1100);
-            ctx.fillStyle = 'white'; ctx.textAlign = 'center'; ctx.font = 'italic 80px Georgia'; ctx.fillText(name, 500, 500);
-            ctx.fillStyle = '#c5a059'; ctx.font = '30px Georgia'; ctx.fillText('BOTTLE ' + num + ' OF 89 | 55.9% VOL', 500, 750);
-            canvas.toBlob(blob => { const file = new File([blob], "cert.jpg", {type:"image/jpeg"}); navigator.share({title: 'Verified', files: [file]}); }, 'image/jpeg');
         }
     </script>
 </body>
