@@ -3,187 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Signature Cask | World First Experience</title>
+    <title>Signature Cask | Zenith Legacy</title>
     <style>
-        :root { --gold: #c5a059; --dark: #0a0a0a; }
-        body { background-color: #000; color: var(--gold); font-family: 'Times New Roman', serif; margin: 0; padding: 0; text-align: center; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.3); }
+        body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         
-        /* 1. LEGAL AGE GATE */
-        #gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px solid var(--gold); box-sizing: border-box; transition: opacity 0.8s ease; }
+        /* 1. CHALLENGE 25 OVERLAY */
+        #gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 1.2s ease; border: 2px solid var(--gold); box-sizing: border-box; }
+        #gate img { width: 140px; margin-bottom: 40px; filter: drop-shadow(0 0 20px var(--gold)); }
+        .gate-label { letter-spacing: 5px; font-size: 0.7rem; color: #fff; margin-bottom: 30px; text-transform: uppercase; }
+
+        /* 2. CINEMATIC VIDEO HERO */
+        .hero { position: relative; height: 50vh; overflow: hidden; border-bottom: 1px solid var(--gold); }
+        .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.25) contrast(1.1); }
+        .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .logo { width: 140px; filter: drop-shadow(0 0 25px var(--glow)); }
+
+        /* 3. GLASS-MORPHISM CONTAINERS */
+        .container { padding: 40px 20px; max-width: 500px; margin: 0 auto; padding-bottom: 120px; }
+        .box { border: 1px solid rgba(197, 160, 89, 0.4); padding: 30px; background: rgba(255,255,255,0.03); backdrop-filter: blur(15px); margin-bottom: 30px; position: relative; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         
-        /* 2. THE CERTIFICATE FRAME */
-        .cert-wrapper { 
-            background: var(--dark); 
-            border: 3px double var(--gold); 
-            margin: 15px; 
-            padding: 45px 15px; 
-            min-height: 95vh;
-            box-shadow: inset 0 0 60px rgba(0,0,0,1);
-            position: relative;
-        }
-
-        .cert-logo { width: 130px; margin-bottom: 5px; }
-        .legacy-header { font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 5px; display: block; font-weight: bold; color: var(--gold); }
-        .experience-tag { font-style: italic; font-size: 1.1rem; margin-bottom: 25px; display: block; color: #fff; letter-spacing: 2px; }
-
-        /* WORLD FIRST BADGE */
-        .world-first { border: 1px solid var(--gold); padding: 12px; margin: 25px auto; width: 85%; letter-spacing: 3px; font-size: 0.75rem; text-transform: uppercase; background: rgba(197, 160, 89, 0.08); color: #fff; font-weight: bold; animation: pulse 3s infinite; }
+        /* 4. CONTENT STYLING */
+        .header-label { font-size: 0.75rem; letter-spacing: 6px; margin-bottom: 20px; text-transform: uppercase; color: #fff; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .world-badge { border: 1px solid var(--gold); padding: 10px; font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 25px; background: rgba(197, 160, 89, 0.1); color: #fff; font-weight: bold; }
         
-        .section-title { font-size: 1.3rem; letter-spacing: 5px; text-transform: uppercase; border-bottom: 1px solid var(--gold); display: inline-block; padding: 0 25px 5px 25px; margin-bottom: 25px; color: #fff; }
+        .story-text { font-size: 0.9rem; color: #ccc; font-style: italic; margin-bottom: 25px; line-height: 1.8; text-align: justify; }
+        .stave-highlight { color: #fff; font-weight: bold; border-left: 2px solid var(--gold); padding-left: 15px; display: block; margin: 20px 0; }
 
-        /* DATA BLOCKS */
-        .provenance-info { font-size: 0.95rem; color: #fff; margin-bottom: 25px; line-height: 1.6; text-align: left; padding: 0 25px; border-left: 1px solid #222; margin-left: 10px; }
-        .provenance-info b { color: var(--gold); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; }
+        /* 5. GAUGE & INPUTS */
+        .gauge-container { width: 110px; height: 110px; margin: 0 auto 20px; border: 1px solid var(--gold); border-radius: 50%; position: relative; display: none; background: radial-gradient(circle, rgba(197,160,89,0.1) 0%, transparent 70%); }
+        .needle { width: 1px; height: 50px; background: var(--gold); position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; transform: rotate(-90deg); transition: transform 2.5s cubic-bezier(0.19, 1, 0.22, 1); }
 
-        .body-text { font-size: 0.9rem; color: #ccc; font-style: italic; padding: 0 15px; line-height: 1.8; margin-bottom: 35px; text-align: justify; }
-
-        /* INTERACTIVE SECTIONS */
-        .interactive-box { border-top: 1px solid #1a1a1a; padding-top: 30px; margin-top: 35px; }
-        .box-label { font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: #fff; margin-bottom: 15px; opacity: 0.8; }
-
-        .gauge-container { width: 110px; height: 110px; margin: 20px auto; border: 1px solid var(--gold); border-radius: 50%; position: relative; display: none; background: radial-gradient(circle, rgba(197,160,89,0.1) 0%, transparent 80%); }
-        .needle { width: 1px; height: 50px; background: var(--gold); position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; transform: rotate(-90deg); transition: transform 2.8s cubic-bezier(0.19, 1, 0.22, 1); }
+        button { background: var(--gold); color: #000; border: none; padding: 20px 35px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 4px; width: 100%; font-size: 0.75rem; transition: 0.4s; }
+        .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
+        input { background: transparent; border: none; border-bottom: 1px solid #444; color: #fff; font-size: 2.5rem; width: 140px; text-align: center; margin-bottom: 25px; outline: none; }
         
-        input { background: transparent; border: none; border-bottom: 1px solid var(--gold); color: #fff; font-size: 2.5rem; width: 120px; text-align: center; margin-bottom: 25px; outline: none; font-family: serif; }
-        button { background: var(--gold); color: #000; border: none; padding: 20px; font-weight: bold; text-transform: uppercase; cursor: pointer; width: 85%; letter-spacing: 3px; font-size: 0.75rem; transition: 0.3s; }
-        .ritual-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); margin-top: 20px; }
-        .share-btn { background: #fff; color: #000; margin-top: 30px; display: none; }
-
-        /* FOOTER & SIGNATURE */
-        .footer-cert { margin-top: 60px; text-align: right; padding-right: 25px; }
-        .footer-cert p { font-size: 0.6rem; color: #666; margin: 4px 0; text-transform: uppercase; letter-spacing: 2px; }
-        .signature { font-family: 'Brush Script MT', 'cursive'; font-size: 2.8rem; color: #fff; margin: 15px 0 5px 0; opacity: 0.9; }
-
-        @keyframes pulse { 0% { opacity: 0.7; } 50% { opacity: 1; } 100% { opacity: 0.7; } }
+        /* 6. SIGNATURE */
+        .signature-area { text-align: right; margin-top: 40px; }
+        .sig { font-family: 'Brush Script MT', cursive; font-size: 2.8rem; color: #fff; margin: 10px 0 0 0; }
+        
+        footer { padding: 60px 20px; opacity: 0.4; font-size: 0.55rem; letter-spacing: 5px; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
     <div id="gate">
-        <img src="logo.png" alt="Signature Cask" style="width:140px; margin-bottom:25px;">
-        <p style="letter-spacing: 4px; font-size: 0.75rem; color:#fff; margin-bottom: 35px;">CHALLENGE 25 VERIFICATION</p>
-        <button onclick="verify()" style="width:auto; padding:15px 50px;">ENTER THE ZENITH</button>
-        <p style="font-size: 0.5rem; margin-top: 35px; color: #444; letter-spacing: 3px;">ST ANDREWS, SCOTLAND</p>
+        <img src="logo.png" alt="Signature Cask">
+        <p class="gate-label">Challenge 25: Verify Age</p>
+        <button onclick="unlock()" style="width:auto; padding:15px 50px;">I am 18 or Older</button>
+        <p style="font-size: 0.5rem; margin-top: 30px; color: #444; letter-spacing: 3px;">ST ANDREWS, SCOTLAND</p>
     </div>
 
-    <div class="cert-wrapper">
-        <img src="logo.png" class="cert-logo">
-        <span class="legacy-header">The Inchgower 16 Legacy</span>
-        <span class="experience-tag">The Experience</span>
-
-        <div class="world-first">A World First in Whisky Maturation</div>
-
-        <div class="section-title">The Provenance</div>
-        <div class="provenance-info">
-            <b>Distillery:</b> Inchgower<br>
-            <b>Cask Reference:</b> #812264B (1st Fill Bourbon)<br>
-            <b>Strength:</b> 55.9% ABV<br>
-            <b>Distilled:</b> 15 / 12 / 2009<br>
-            <b>Drawn:</b> 21 / 01 / 2026
+    <div class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="https://signature-cask-experience-blob-lhr1.public.blob.vercel-storage.com/1774511307741.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content">
+            <img src="logo.png" class="logo">
+            <h1 style="letter-spacing:10px; font-size:1rem; font-weight:300; margin:15px 0 0 0; color:#fff;">THE INCHGOWER 16 LEGACY</h1>
+            <p style="font-size:0.75rem; letter-spacing:5px; font-style:italic; opacity:0.8;">The Zenith Experience</p>
         </div>
-        
-        <p class="body-text">
-            Aged for 16 years, this expression carries the coastal salt of the Speyside coast matched with deep, honeyed nuttiness.
-            <br><br>
-            <b>The Innovation:</b> Your ritual smoking chips were harvested from the original 1st Fill Bourbon barrel (#812264B). Igniting the wood that nurtured the spirit for 16 years creates the ultimate provenance marriage.
-        </p>
+    </div>
 
-        <div class="interactive-box">
-            <div class="box-label">Bottle Ledger Authentication</div>
+    <div class="container">
+        
+        <div class="box">
+            <div class="world-badge">A World First in Whisky Maturation</div>
+            <h2 class="header-label">The Provenance</h2>
+            <p class="story-text">
+                "Aged for 16 years, this expression carries the coastal salt of the Speyside coast matched with deep, honeyed nuttiness from the first-fill American oak."
+            </p>
+            <span class="stave-highlight">
+                Your ritual smoking chips were harvested from the original 1st Fill Bourbon barrel (#812264B) that nurtured the spirit for 16 years.
+            </span>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; text-align:left; font-size:0.7rem;">
+                <div><b>CASK</b><br>#812264B</div>
+                <div><b>STRENGTH</b><br>55.9% ABV</div>
+            </div>
+        </div>
+
+        <div class="box">
             <div id="gauge" class="gauge-container">
                 <div class="needle" id="needle"></div>
-                <div style="position:absolute; bottom:10px; width:100%; font-size:0.5rem; color:#fff;">55.9% VOL</div>
+                <div style="position: absolute; bottom: 10px; width: 100%; font-size: 0.5rem; letter-spacing:1px; font-weight: bold;">55.9% VOL</div>
             </div>
-            <div style="font-size: 0.65rem; color:#666; margin-bottom: 15px;">BOTTLE 01 OF 89</div>
+            <h2 class="header-label">Bottle Verification</h2>
             <input type="number" id="num" placeholder="00" inputmode="numeric">
-            <button onclick="check()">CONSULT LEDGER</button>
+            <button onclick="check()">Consult Ledger</button>
             <div id="display"></div>
         </div>
 
-        <div class="interactive-box">
-            <div class="box-label">Closed Loop Infusion Ritual</div>
-            <div id="timer-num" style="font-size: 4.5rem; color: #fff; margin: 15px 0; font-weight: 300;">30</div>
-            <button class="ritual-btn" id="timer-btn" onclick="startRitual()">BEGIN CLOSED LOOP INFUSION</button>
-            
-            <button id="share-btn" class="share-btn" onclick="shareExperience()">SHARE YOUR EXPERIENCE</button>
-        </div>
+        <div class="box">
+            <h2 class="header-label">Closed Loop Ritual</h2>
+            <p style="font-size: 0.75rem; color: #888; margin-bottom: 20px; font-style:italic;">Allow the spirit to marry with the peat-smoked air as the Atlantic sounds activate.</p>
+            <div id="timer-num" style="font-size: 4.5rem; color: #fff; font-weight: 300;">30</div>
+            <button id="timer-btn" class="btn-outline" onclick="startRitual()">Begin Marriage</button>
 
-        <div class="footer-cert">
-            <p>Hand-finished in St Andrews, Scotland.</p>
-            <p>Date Drawn: 21 / 01 / 2026</p>
-            <div class="signature">Lee Messenger</div>
-            <p style="font-size: 0.55rem; color:var(--gold); letter-spacing:1px;">Founder, Signature Cask Ltd.</p>
+            <div class="signature-area">
+                <p style="font-size: 0.5rem; letter-spacing: 2px; color: #555; margin: 0;">MASTER CRAFTSMAN</p>
+                <div class="sig">Lee Messenger</div>
+                <p style="font-size: 0.5rem; color: var(--gold); margin: 0;">Founder, Signature Cask Ltd.</p>
+            </div>
         </div>
     </div>
+
+    <footer>SIGNATURE CASK © 2026 | ST ANDREWS</footer>
 
     <script>
         let audioCtx;
 
-        function verify() {
+        function unlock() {
             document.getElementById('gate').style.opacity = '0';
-            setTimeout(() => { document.getElementById('gate').style.display = 'none'; }, 800);
+            setTimeout(() => { document.getElementById('gate').style.display = 'none'; }, 1000);
             
             if(!audioCtx) {
                 audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-                createWaves();
+                const noise = audioCtx.createBufferSource();
+                const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate*2, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for(let i=0; i<audioCtx.sampleRate*2; i++) data[i]=Math.random()*2-1;
+                noise.buffer=buffer; noise.loop=true;
+                const filter=audioCtx.createBiquadFilter(); filter.type='lowpass';
+                const gain=audioCtx.createGain(); gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                const lfo=audioCtx.createOscillator(); lfo.frequency.setValueAtTime(0.12, audioCtx.currentTime);
+                const lfoGain=audioCtx.createGain(); lfoGain.gain.setValueAtTime(450, audioCtx.currentTime);
+                lfo.connect(lfoGain); lfoGain.connect(filter.frequency);
+                noise.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
+                lfo.start(); noise.start();
             }
         }
 
-        function createWaves() {
-            const noise = audioCtx.createBufferSource();
-            const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 2, audioCtx.sampleRate);
-            const data = buffer.getChannelData(0);
-            for(let i=0; i<audioCtx.sampleRate*2; i++) data[i] = Math.random() * 2 - 1;
-            noise.buffer = buffer; noise.loop = true;
-            const filter = audioCtx.createBiquadFilter(); filter.type = 'lowpass';
-            const gain = audioCtx.createGain(); gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            const lfo = audioCtx.createOscillator(); lfo.frequency.setValueAtTime(0.12, audioCtx.currentTime);
-            const lfoGain = audioCtx.createGain(); lfoGain.gain.setValueAtTime(450, audioCtx.currentTime);
-            lfo.connect(lfoGain); lfoGain.connect(filter.frequency);
-            noise.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
-            lfo.start(); noise.start();
-        }
-
         async function check() {
-            const n = document.getElementById('num').value;
-            const needle = document.getElementById('needle');
-            const g = document.getElementById('gauge');
-            const d = document.getElementById('display');
+            const n=document.getElementById('num').value;
+            const needle=document.getElementById('needle');
+            const g=document.getElementById('gauge');
             if(!n) return;
-            d.innerHTML = "<p style='font-size:0.6rem; letter-spacing:2px; margin-top:10px;'>SEARCHING LEDGER...</p>";
             try {
                 const res = await fetch(`/api/edge?key=${n}`);
                 const data = await res.json();
                 if(data.result) {
-                    g.style.display = 'block';
-                    setTimeout(() => { needle.style.transform = 'rotate(55.9deg)'; }, 500);
-                    d.innerHTML = `<p style="margin-top:20px; font-weight:bold; letter-spacing:2px; color:#fff;">${data.result.toUpperCase()}</p>`;
+                    g.style.display='block';
+                    setTimeout(() => { needle.style.transform='rotate(55.9deg)'; }, 500);
+                    document.getElementById('display').innerHTML = `<p style="margin-top:20px; letter-spacing:2px; color:#fff;">AUTHENTICATED</p>`;
                 }
-            } catch { d.innerHTML = "ERROR: LEDGER OFFLINE"; }
+            } catch { document.getElementById('display').innerText="SYSTEM ERROR"; }
         }
 
         function startRitual() {
-            let t = 30; const b = document.getElementById('timer-btn'); b.disabled = true;
-            const c = setInterval(() => {
-                t--; document.getElementById('timer-num').innerText = t;
-                if(t <= 0) {
-                    clearInterval(c);
-                    document.getElementById('timer-num').innerText = "REUNITE";
-                    document.getElementById('share-btn').style.display = 'block';
-                }
-            }, 1000);
-        }
-
-        function shareExperience() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Signature Cask Zenith',
-                    text: 'Just experienced the World First Closed Loop Infusion with Inchgower 16.',
-                    url: window.location.href
-                });
-            } else {
-                alert("Capture your ritual and tag #SignatureCask");
-            }
+            let t=30; const b=document.getElementById('timer-btn'); b.disabled=true;
+            const c=setInterval(() => { t--; document.getElementById('timer-num').innerText=t; if(t<=0){ clearInterval(c); document.getElementById('timer-num').innerText="REUNITE"; b.disabled=false;} }, 1000);
         }
     </script>
 </body>
