@@ -70,21 +70,13 @@
         <div class="box">
             <h2 class="info-header">THE PROVENANCE</h2>
             <p class="pairing-text">
-                Distilled 15/12/09. Drawn 21/01/26. Matured for 16 years in a 1st Fill Bourbon Barrel (812264B). Bottled at a natural cask strength of 55.9% Vol.
+                Distilled 15/12/09. Drawn 21/01/26. Matured for 16 years in a single 1st Fill Bourbon Barrel (812264B) at 55.9% Vol.
             </p>
             <div style="display: flex; justify-content: space-around; font-size: 0.55rem; letter-spacing: 1px;">
                 <div><b>CASK</b><br>812264B</div>
                 <div><b>AYS</b><br>15/12/09</div>
                 <div><b>DRAWN</b><br>21/01/26</div>
             </div>
-        </div>
-
-        <div class="box">
-            <h2 class="info-header">WORLD FIRST EXPERIENCE</h2>
-            <p class="pairing-text">
-                Your ritual smoking chips were harvested directly from the <strong>original 1st Fill Bourbon cask</strong>. Igniting the wood that matured the spirit for 16 years creates a perfect matched provenance marriage.
-            </p>
-            <button class="btn-outline" onclick="openModal('tastingModal')">Watch Guided Tasting</button>
         </div>
 
         <div class="box">
@@ -96,10 +88,6 @@
             <input type="number" id="num" placeholder="0" inputmode="numeric">
             <button onclick="check()">Consult Ledger</button>
             <div id="display"></div>
-            <div id="reg-area" style="display:none; margin-top:20px;">
-                <input type="text" id="reg-name" style="font-size:1rem; width:100%; border-bottom:1px solid #333;" placeholder="YOUR FULL NAME">
-                <button onclick="submitReg()" class="btn-outline">Register Bottle</button>
-            </div>
         </div>
 
         <div class="box">
@@ -109,19 +97,6 @@
         </div>
     </div>
 
-    <div id="tastingModal" class="modal"><div class="modal-content">
-        <h3 style="font-size:0.8rem; letter-spacing:3px;">THE MASTER'S NOTES</h3>
-        <video id="tastingVideo" width="100%" controls playsinline><source src="PASTE_TASTING_URL.mp4" type="video/mp4"></video>
-        <button onclick="closeModal('tastingModal')" class="btn-outline">Close</button>
-    </div></div>
-
-    <div id="founderModal" class="modal"><div class="modal-content">
-        <h3 style="font-size:0.8rem; letter-spacing:3px;">FOUNDER'S WELCOME</h3>
-        <video id="founderVideo" width="100%" controls playsinline><source src="PASTE_FOUNDER_URL.mp4" type="video/mp4"></video>
-        <button onclick="closeModal('founderModal')" class="btn-outline">Enter Experience</button>
-    </div></div>
-
-    <canvas id="shareCanvas" style="display:none;"></canvas>
     <footer>© 2026 SIGNATURE CASK | AUTHORIZED BY IU</footer>
 
     <script>
@@ -130,17 +105,10 @@
 
         function startExperience() {
             document.getElementById('calibration').style.display = 'none';
-            waves.volume = 0.4;
-            fire.volume = 0.3;
-            waves.play().catch(e => console.error("Audio blocked"));
-            fire.play().catch(e => console.error("Audio blocked"));
-        }
-
-        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function closeModal(id) { 
-            const v = document.getElementById(id).querySelector('video');
-            if(v) v.pause();
-            document.getElementById(id).style.display = 'none'; 
+            waves.volume = 0.5;
+            fire.volume = 0.35;
+            waves.play();
+            fire.play();
         }
 
         async function check() {
@@ -149,37 +117,24 @@
             const g = document.getElementById('gauge');
             const needle = document.getElementById('needle');
             if(!n) return;
-            d.innerHTML = "<p style='font-size:0.7rem;'>CONSULTING LEDGER...</p>";
+            d.innerHTML = "<p style='font-size:0.7rem;'>VERIFYING...</p>";
             try {
                 const res = await fetch(`/api/edge?key=${n}`);
                 const data = await res.json();
-                if (data.result && data.result !== "Unregistered") {
-                    const owner = data.result.toUpperCase();
-                    openModal('founderModal');
+                if (data.result) {
                     g.style.display = 'block';
                     setTimeout(() => { needle.style.transform = 'rotate(55.9deg)'; }, 500);
                     d.innerHTML = `<div style="margin-top:20px; border-top:1px solid var(--gold); padding-top:20px;">
-                        <h2 style="color:white; font-style:italic;">${owner}</h2>
-                        <button class="btn-outline" onclick="shareCert('${owner}', '${n}')">Generate Certificate</button>
-                        <button class="btn-outline" style="background:white; color:black;" onclick="window.location.href='mailto:contact@signaturecask.com?subject=VIP%20Access%20Bottle%20${n}'">JOIN THE 89 CLUB</button>
+                        <h2 style="color:white; font-style:italic;">${data.result.toUpperCase()}</h2>
+                        <button class="btn-outline" style="background:white; color:black;">JOIN THE 89 CLUB</button>
                     </div>`;
-                } else { document.getElementById('reg-area').style.display = 'block'; d.innerHTML = ""; }
+                }
             } catch { d.innerHTML = "OFFLINE"; }
         }
 
         function startRitual() {
             let t = 30; const b = document.getElementById('timer-btn'); b.disabled = true;
             const c = setInterval(() => { t--; document.getElementById('timer-num').innerText = t; if(t <= 0) { clearInterval(c); document.getElementById('timer-num').innerText = "POUR"; b.disabled = false; } }, 1000);
-        }
-
-        function shareCert(name, num) {
-            const canvas = document.getElementById('shareCanvas');
-            const ctx = canvas.getContext('2d'); canvas.width = 1000; canvas.height = 1200;
-            ctx.fillStyle = '#050505'; ctx.fillRect(0,0,1000,1200);
-            ctx.strokeStyle = '#c5a059'; ctx.lineWidth = 20; ctx.strokeRect(50,50,900,1100);
-            ctx.fillStyle = 'white'; ctx.textAlign = 'center'; ctx.font = 'italic 80px Georgia'; ctx.fillText(name, 500, 500);
-            ctx.fillStyle = '#c5a059'; ctx.font = '30px Georgia'; ctx.fillText('BOTTLE ' + num + ' OF 89 | 55.9% VOL', 500, 750);
-            canvas.toBlob(blob => { const file = new File([blob], "cert.jpg", {type:"image/jpeg"}); navigator.share({title: 'Verified', files: [file]}); }, 'image/jpeg');
         }
     </script>
 </body>
