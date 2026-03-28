@@ -9,7 +9,6 @@
         :root { --gold: #c5a059; --dark: #050505; --glow: rgba(197, 160, 89, 0.4); }
         body { background-color: var(--dark); color: var(--gold); font-family: 'Georgia', serif; margin: 0; padding: 0; text-align: center; overflow-x: hidden; }
         
-        /* Calibration Overlay */
         #calibration { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         #calibration img { width: 120px; margin-bottom: 30px; filter: drop-shadow(0 0 15px var(--glow)); }
         
@@ -21,6 +20,10 @@
         .container { padding: 30px 20px; max-width: 500px; margin: 0 auto; }
         .box { border: 1px solid var(--gold); padding: 25px; background: rgba(255,255,255,0.02); margin-bottom: 25px; position: relative; }
         
+        /* Gauge */
+        .gauge-container { width: 100px; height: 100px; margin: 0 auto 15px; border: 2px solid var(--gold); border-radius: 50%; position: relative; display: none; }
+        .needle { width: 2px; height: 45px; background: var(--gold); position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; transform: rotate(-90deg); transition: transform 2s ease-in-out; }
+
         button { background: var(--gold); color: black; border: none; padding: 18px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 3px; width: 100%; font-size: 0.8rem; border-radius: 0; }
         .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); margin-top: 15px; }
         input { background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-size: 2.5rem; width: 120px; text-align: center; margin-bottom: 20px; outline: none; }
@@ -33,8 +36,7 @@
 
     <div id="calibration">
         <img src="logo.png" alt="Signature Cask">
-        <p style="letter-spacing: 2px; font-size: 0.65rem; color: var(--gold); margin-bottom: 10px;">1. FLIP SILENT SWITCH OFF (SIDE OF PHONE)</p>
-        <p style="letter-spacing: 2px; font-size: 0.65rem; color: var(--gold); margin-bottom: 30px;">2. TURN MEDIA VOLUME TO MAX</p>
+        <p style="letter-spacing: 2px; font-size: 0.65rem; color: var(--gold); margin-bottom: 30px;">ENSURE SILENT SWITCH IS OFF</p>
         <button onclick="startExperience()">ENTER THE EXPERIENCE</button>
     </div>
 
@@ -46,12 +48,12 @@
     </audio>
 
     <div class="hero">
-        <video class="hero-video" autoplay muted loop playsinline preload="auto">
+        <video class="hero-video" autoplay muted loop playsinline>
             <source src="https://signature-cask-experience-blob-lhr1.public.blob.vercel-storage.com/1774511307741.mp4" type="video/mp4">
         </video>
         <div class="hero-content">
-            <img src="logo.png" class="logo" alt="Signature Cask">
-            <h1 style="letter-spacing:10px; font-size:1.1rem; font-weight:300; margin:0;">SIGNATURE CASK</h1>
+            <img src="logo.png" class="logo" alt="Signature Cask Logo">
+            <h1 style="letter-spacing:10px; font-size:1.1rem; font-weight:300; margin:0; text-transform: uppercase;">SIGNATURE CASK</h1>
             <p style="font-size:0.8rem; letter-spacing:3px; font-style:italic; margin-top: 5px;">The Inchgower 16 Legacy</p>
         </div>
     </div>
@@ -60,13 +62,21 @@
         <div class="box">
             <h2 style="font-size: 0.8rem; letter-spacing: 4px;">THE PROVENANCE</h2>
             <p style="font-size: 0.75rem; color: #bbb; font-style: italic;">Distilled 15/12/09. Drawn 21/01/26. Matured for 16 years in a 1st Fill Bourbon Barrel (812264B) at 55.9% Vol.</p>
-            <button class="btn-outline" onclick="openModal()">Guided Tasting</button>
+            <div style="display: flex; justify-content: space-around; font-size: 0.5rem; letter-spacing: 1px;">
+                <div>CASK: 812264B</div>
+                <div>AYS: 15/12/09</div>
+                <div>DRAWN: 21/01/26</div>
+            </div>
         </div>
 
         <div class="box">
+            <div id="gauge" class="gauge-container">
+                <div class="needle" id="needle"></div>
+                <div style="position: absolute; bottom: 8px; width: 100%; font-size: 0.5rem;">55.9% VOL</div>
+            </div>
             <span style="font-size:0.6rem; letter-spacing:3px; opacity:0.6;">AUTHENTICATE BOTTLE</span><br>
             <input type="number" id="num" placeholder="0" inputmode="numeric">
-            <button onclick="check()">Verify Ownership</button>
+            <button onclick="check()">Consult Ledger</button>
             <div id="display"></div>
         </div>
 
@@ -77,32 +87,32 @@
         </div>
     </div>
 
+    <footer>© 2026 SIGNATURE CASK | AUTHORIZED BY IU</footer>
+
     <script>
         const waves = document.getElementById('audioWaves');
         const fire = document.getElementById('audioFire');
 
         function startExperience() {
-            // Hide overlay
             document.getElementById('calibration').style.display = 'none';
-            
-            // Set volumes
-            waves.volume = 0.5;
-            fire.volume = 0.4;
-            
-            // Start playback
-            waves.play().catch(e => console.log("Waves blocked"));
-            fire.play().catch(e => console.log("Fire blocked"));
+            waves.volume = 0.4;
+            fire.volume = 0.25;
+            waves.play();
+            fire.play();
         }
 
         function check() {
             const n = document.getElementById('num').value;
             const d = document.getElementById('display');
+            const g = document.getElementById('gauge');
+            const needle = document.getElementById('needle');
             if(!n) return;
             d.innerHTML = "<p style='font-size:0.7rem;'>VERIFYING...</p>";
             fetch(`/api/edge?key=${n}`).then(res => res.json()).then(data => {
                 if (data.result) {
+                    g.style.display = 'block';
+                    setTimeout(() => { needle.style.transform = 'rotate(55.9deg)'; }, 500);
                     d.innerHTML = `<div style="margin-top:20px; border-top:1px solid var(--gold); padding-top:20px;">
-                        <span style="font-size:0.5rem; letter-spacing:3px;">OWNER</span>
                         <h2 style="color:white; font-style:italic;">${data.result.toUpperCase()}</h2>
                         <button class="btn-outline" style="background:white; color:black;">JOIN THE 89 CLUB</button>
                     </div>`;
