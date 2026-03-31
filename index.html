@@ -3,214 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Signature Cask | The Inchgower 16 Legacy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <title>Signature Cask | The 89 Ledger</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;600&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
     
     <style>
-        :root { --gold: #c5a059; --dark: #050505; --glass: rgba(255, 255, 255, 0.02); }
+        :root { --gold: #c5a059; --dark: #050505; --soft-gold: rgba(197, 160, 89, 0.2); }
         
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            background: var(--dark); 
-            color: #fff; 
-            font-family: 'Montserrat', sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            overflow-x: hidden;
-            line-height: 1.6;
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        body { background: var(--dark); color: #fff; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
+
+        /* --- LUXURY ANIMATIONS --- */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+        @keyframes goldShimmer { 0% { background-position: -200% ; } 100% { background-position: 200%; } }
+
+        /* --- HEADER & LOGO --- */
+        header { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle, #111 0%, #050505 100%); }
+        .logo-container { animation: pulse 4s infinite ease-in-out; text-align: center; }
+        .logo { width: 160px; filter: drop-shadow(0 0 10px rgba(197, 160, 89, 0.3)); margin-bottom: 20px; }
+        .scroll-hint { position: absolute; bottom: 30px; font-size: 0.5rem; letter-spacing: 5px; opacity: 0.4; text-transform: uppercase; }
+
+        /* --- LUXURY SECTIONS --- */
+        .section { padding: 80px 25px; max-width: 500px; margin: 0 auto; opacity: 0; transform: translateY(30px); transition: 1.5s all ease; }
+        .section.visible { opacity: 1; transform: translateY(0); }
+
+        .glass-card { 
+            background: rgba(255,255,255,0.02); 
+            border: 1px solid var(--soft-gold); 
+            padding: 40px 20px; 
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* --- 1. AGE GATE OVERLAY --- */
-        #gate { 
-            position: fixed; inset: 0; background: #000; z-index: 10000; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            transition: opacity 1s ease; 
-        }
-        #gate h2 { letter-spacing: 10px; font-weight: 200; font-size: 0.9rem; margin-bottom: 40px; }
+        .label { font-size: 0.5rem; letter-spacing: 5px; color: var(--gold); text-transform: uppercase; margin-bottom: 30px; display: block; font-weight: 600; }
 
-        /* --- 2. CINEMATIC HERO --- */
-        .hero { position: relative; height: 45vh; overflow: hidden; border-bottom: 1px solid rgba(197, 160, 89, 0.2); }
-        .hero-video { 
-            position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; 
-            transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.4); 
-        }
-        .hero-overlay { 
-            position: relative; z-index: 1; height: 100%; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: linear-gradient(to bottom, transparent 60%, var(--dark));
-        }
-
-        /* --- 3. LUXURY LAYOUT --- */
-        .container { padding: 40px 25px; max-width: 450px; margin: 0 auto; animation: fadeIn 2s ease; }
-        
-        .box { 
-            border: 1px solid rgba(197, 160, 89, 0.15); 
-            padding: 35px 25px; 
-            background: var(--glass); 
-            backdrop-filter: blur(25px); 
-            margin-bottom: 40px; 
-            text-align: center;
-        }
-
-        .label { 
-            font-size: 0.55rem; letter-spacing: 0.4rem; text-transform: uppercase; 
-            color: var(--gold); margin-bottom: 25px; display: block; font-weight: 600; 
-        }
-
-        /* --- 4. INTERACTIVES --- */
+        /* --- THE DIGITAL LEDGER --- */
+        .ledger-input-wrap { margin-bottom: 30px; }
         input { 
-            background: transparent; border: none; border-bottom: 1px solid var(--gold); 
-            color: #fff; font-size: 3rem; width: 120px; text-align: center; 
-            margin-bottom: 25px; outline: none; font-weight: 200; font-family: 'Playfair Display', serif;
+            background: transparent; border: none; border-bottom: 1px solid var(--soft-gold); 
+            color: #fff; font-size: 4rem; width: 100%; text-align: center; 
+            outline: none; font-family: 'Playfair Display', serif; transition: 0.5s;
         }
+        input:focus { border-bottom: 1px solid var(--gold); }
 
-        button { 
-            background: transparent; border: 1px solid var(--gold); color: #fff; 
-            padding: 18px; font-weight: 400; letter-spacing: 0.3rem; width: 100%; 
-            transition: 0.5s; cursor: pointer; text-transform: uppercase; font-size: 0.65rem; 
+        .verify-btn { 
+            background: transparent; border: 1px solid var(--gold); color: var(--gold); 
+            padding: 20px; width: 100%; letter-spacing: 4px; text-transform: uppercase; 
+            font-size: 0.6rem; cursor: pointer; transition: 0.5s; 
         }
-        button:hover { background: var(--gold); color: #000; }
+        .verify-btn:hover { background: var(--gold); color: #000; }
 
-        .video-container { 
-            width: 100%; aspect-ratio: 16/9; background: #000; 
-            border: 1px solid rgba(197, 160, 89, 0.3); margin-top: 10px;
-        }
-
-        /* --- 5. LEDGER REVEAL --- */
-        .owner-name { 
-            font-size: 1.5rem; font-family: 'Playfair Display', serif; 
-            color: var(--gold); margin: 15px 0; font-style: italic;
-        }
+        .result-reveal { margin-top: 40px; display: none; text-align: center; }
         .wax-seal { 
-            width: 50px; height: 50px; background: #600; border-radius: 50%; 
+            width: 60px; height: 60px; background: #600; border-radius: 50%; 
             margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
-            box-shadow: inset 0 0 10px #000; color: var(--gold); font-size: 0.7rem;
-            border: 1px solid #400;
+            border: 2px solid #400; box-shadow: inset 0 0 15px #000; color: var(--gold);
+            font-weight: bold; font-family: 'Playfair Display', serif;
         }
+        .custodian-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-style: italic; color: #fff; margin: 10px 0; display: block; }
 
-        /* --- 6. RITUAL ICONS --- */
-        .ritual-grid { display: flex; justify-content: space-around; margin: 25px 0; opacity: 0.8; }
-        .ritual-item img { width: 25px; filter: sepia(1) saturate(5) hue-rotate(10deg); margin-bottom: 10px; }
-        .ritual-item p { font-size: 0.5rem; letter-spacing: 2px; text-transform: uppercase; margin: 0; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* --- THE RITUAL TIMER --- */
+        #timer-num { font-size: 6rem; font-weight: 100; color: var(--gold); margin: 20px 0; font-family: 'Montserrat', sans-serif; }
+        
     </style>
 </head>
 <body>
 
-    <div id="gate">
-        <h2 style="font-family: 'Montserrat', sans-serif;">SIGNATURE CASK</h2>
-        <p style="font-size: 0.6rem; letter-spacing: 2px; margin-bottom: 30px;">I AM OF LEGAL DRINKING AGE</p>
-        <button onclick="unlock()" style="width: 200px;">Enter</button>
-    </div>
-
-    <div class="hero">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="https://signature-cask-experience-blob-lhr1.public.blob.vercel-storage.com/1774511307741.mp4" type="video/mp4">
-        </video>
-        <div class="hero-overlay">
-            <h1>INCHGOWER 16</h1>
-            <p style="font-size: 0.5rem; letter-spacing: 5px; opacity: 0.7;">THE LEGACY RELEASE</p>
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Signature Cask" class="logo">
+            <h1 style="font-weight: 100; letter-spacing: 8px; font-size: 0.7rem; opacity: 0.8;">THE INCHGOWER 16 LEGACY</h1>
         </div>
-    </div>
+        <div class="scroll-hint">Scroll to Authenticate</div>
+    </header>
 
     <div class="container">
 
-        <div class="box">
-            <span class="label">Founder's Message</span>
-            <div class="video-container">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/YOUR_VIDEO_ID?rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+        <section class="section" id="ledger-section">
+            <div class="glass-card">
+                <span class="label">Digital Ledger</span>
+                <div class="ledger-input-wrap">
+                    <input type="number" id="bNumber" placeholder="00" inputmode="numeric">
+                </div>
+                <button class="verify-btn" onclick="consultArchives()">Consult Archives</button>
+
+                <div id="revealArea" class="result-reveal">
+                    <div class="wax-seal">SC</div>
+                    <span style="font-size: 0.5rem; letter-spacing: 3px; color: var(--gold);">VERIFIED CUSTODIAN</span>
+                    <span id="cName" class="custodian-name"></span>
+                    <span id="bID" style="letter-spacing: 6px; font-size: 0.6rem; opacity: 0.6;"></span>
+                </div>
             </div>
-            <p style="font-family: 'Playfair Display', serif; margin-top: 20px; font-size: 0.9rem;">"Welcome to the Circle."</p>
-        </div>
+        </section>
 
-        <div class="box" id="ledgerBox">
-            <span class="label">Digital Ledger</span>
-            <input type="number" id="bottleNum" placeholder="00" inputmode="numeric">
-            <button onclick="checkLedger()">Consult Archives</button>
-            <div id="ledgerResult"></div>
-        </div>
-
-        <div class="box" style="border: 1px solid var(--gold);">
-            <span class="label">Club 89 Membership</span>
-            <p style="font-size: 0.65rem; color: #ccc; margin-bottom: 25px;">Verified owners receive exclusive access to future cask allocations and private events.</p>
-            <button onclick="joinClub()">Apply for Entry</button>
-        </div>
-
-        <div class="box">
-            <span class="label">The Infusion Ritual</span>
-            <div class="ritual-grid">
-                <div class="ritual-item"><span>🔥</span><p>Prepare</p></div>
-                <div class="ritual-item"><span>💨</span><p>Ignite</p></div>
-                <div class="ritual-item"><span>⌛</span><p>Infuse</p></div>
-                <div class="ritual-item"><span>🥃</span><p>Reunite</p></div>
+        <section class="section">
+            <div class="glass-card">
+                <span class="label">The Infusion Ritual</span>
+                <p style="font-size: 0.6rem; letter-spacing: 2px; line-height: 2; opacity: 0.7;">
+                    IGNITE THE STAVE CHIPS. INVERT THE GLASS.<br>REUNITE THE SPIRIT WITH THE WOOD.
+                </p>
+                <div id="timer-num">30</div>
+                <button class="verify-btn" onclick="startRitual()">Initiate Smoke</button>
             </div>
-            <div id="timerDisplay" style="font-size: 4rem; font-weight: 200; margin: 20px 0;">30</div>
-            <button onclick="startTimer()">Initiate Infusion</button>
-        </div>
+        </section>
 
-        <div style="text-align: center; margin-top: 60px; padding-bottom: 40px;">
-            <p style="font-family: 'Playfair Display', serif; font-size: 2rem; margin: 0;">Lee Messenger</p>
-            <p style="font-size: 0.45rem; letter-spacing: 4px; opacity: 0.6;">FOUNDER | SIGNATURE CASK</p>
-        </div>
+        <section class="section" style="text-align: center; padding-bottom: 100px;">
+            <p style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 0;">Lee Messenger</p>
+            <p style="font-size: 0.4rem; letter-spacing: 5px; opacity: 0.5;">FOUNDER • SIGNATURE CASK</p>
+        </section>
 
     </div>
 
     <script>
-        function unlock() {
-            document.getElementById('gate').style.opacity = '0';
-            setTimeout(() => { document.getElementById('gate').style.display = 'none'; }, 1000);
-        }
+        // --- DATASET: BOTTLES 1-89 ---
+        // I have set "Lee Messenger" for #1 and #89. 
+        // All others will show "Awaiting Allocation" unless you add them here.
+        const custodians = {
+            "1": "Lee Messenger",
+            "89": "Lee Messenger"
+        };
 
-        async function checkLedger() {
-            const num = document.getElementById('bottleNum').value;
-            const resArea = document.getElementById('ledgerResult');
-            if(!num) return;
+        // Scroll Observer for luxury fade-in effect
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
 
-            resArea.innerHTML = "<p style='font-size:0.5rem; letter-spacing:2px; margin-top:30px; opacity:0.5;'>CONSULTING LEDGER...</p>";
+        document.querySelectorAll('.section').forEach(section => observer.observe(section));
 
-            try {
-                // Connecting to your existing Vercel API
-                const response = await fetch(`/api/edge?key=${num}`);
-                const data = await response.json();
+        function consultArchives() {
+            const num = document.getElementById('bNumber').value;
+            const reveal = document.getElementById('revealArea');
+            const nameField = document.getElementById('cName');
+            const idField = document.getElementById('bID');
 
-                if(data.result === "AUTHENTICATED" || data.owner) {
-                    resArea.innerHTML = `
-                        <div style="margin-top:40px; animation: fadeIn 1s ease;">
-                            <div class="wax-seal">SC</div>
-                            <span style="font-size:0.55rem; letter-spacing:3px; color:var(--gold);">CUSTODIAN RECORDED</span><br>
-                            <span class="owner-name">${data.owner.toUpperCase()}</span><br>
-                            <span style="font-size:0.7rem; letter-spacing:4px; font-weight:200;">BOTTLE ${num} OF 89</span>
-                        </div>`;
-                } else {
-                    resArea.innerHTML = "<p style='color:var(--gold); font-size:0.6rem; margin-top:30px; letter-spacing:2px;'>UNALLOCATED OR UNKNOWN</p>";
-                }
-            } catch (e) {
-                resArea.innerHTML = "<p style='color:#666; font-size:0.6rem; margin-top:30px;'>CONNECTION TIMEOUT</p>";
+            if(!num || num < 1 || num > 89) {
+                alert("Please enter a valid bottle number (1-89)");
+                return;
             }
+
+            // High-end reveal logic
+            nameField.innerText = custodians[num] ? custodians[num].toUpperCase() : "AWAITING ALLOCATION";
+            idField.innerText = "BOTTLE " + num + " OF 89";
+            
+            reveal.style.display = 'block';
+            window.scrollTo({ top: document.getElementById('ledger-section').offsetTop + 100, behavior: 'smooth' });
         }
 
-        function startTimer() {
-            let t = 30;
+        function startRitual() {
+            let time = 30;
+            const display = document.getElementById('timer-num');
             const btn = event.target;
             btn.disabled = true;
-            btn.innerText = "INFUSING...";
-            const disp = document.getElementById('timerDisplay');
-            const itv = setInterval(() => {
-                t--;
-                disp.innerText = t;
-                if(t <= 0) { 
-                    clearInterval(itv); 
-                    disp.innerText = "REUNITE"; 
+            btn.innerText = "INFUSING SPIRIT...";
+
+            const countdown = setInterval(() => {
+                time--;
+                display.innerText = time;
+                if(time <= 0) {
+                    clearInterval(countdown);
+                    display.innerText = "REUNITE";
                     btn.innerText = "RITUAL COMPLETE";
                 }
             }, 1000);
-        }
-
-        function joinClub() {
-            const num = document.getElementById('bottleNum').value || "Unknown";
-            window.location.href = `mailto:info@signaturecask.com?subject=Club 89 Entry Request&body=I am the custodian of bottle #${num}. Please provide access to the inner circle.`;
         }
     </script>
 </body>
