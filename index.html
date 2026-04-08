@@ -3,171 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Signature Cask | The 89 Ledger</title>
+    <title>Signature Cask | The Experience</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;600&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
     
     <style>
-        :root { --gold: #c5a059; --dark: #050505; --soft-gold: rgba(197, 160, 89, 0.2); }
-        
+        :root { --gold: #c5a059; --dark: #050505; --soft-gold: rgba(197, 160, 89, 0.15); }
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         body { background: var(--dark); color: #fff; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
 
-        /* --- LUXURY ANIMATIONS --- */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
-        @keyframes goldShimmer { 0% { background-position: -200% ; } 100% { background-position: 200%; } }
-
-        /* --- HEADER & LOGO --- */
-        header { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle, #111 0%, #050505 100%); }
-        .logo-container { animation: pulse 4s infinite ease-in-out; text-align: center; }
-        .logo { width: 160px; filter: drop-shadow(0 0 10px rgba(197, 160, 89, 0.3)); margin-bottom: 20px; }
-        .scroll-hint { position: absolute; bottom: 30px; font-size: 0.5rem; letter-spacing: 5px; opacity: 0.4; text-transform: uppercase; }
-
-        /* --- LUXURY SECTIONS --- */
-        .section { padding: 80px 25px; max-width: 500px; margin: 0 auto; opacity: 0; transform: translateY(30px); transition: 1.5s all ease; }
+        /* --- UI COMPONENTS --- */
+        #gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 1s ease; }
+        header { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle, #151515 0%, #050505 100%); text-align: center; }
+        .logo { width: 150px; margin-bottom: 20px; animation: pulse 4s infinite; }
+        
+        .container { max-width: 500px; margin: 0 auto; padding: 0 20px; }
+        .section { padding: 80px 0; opacity: 0; transform: translateY(40px); transition: 1.2s all ease; }
         .section.visible { opacity: 1; transform: translateY(0); }
 
         .glass-card { 
-            background: rgba(255,255,255,0.02); 
-            border: 1px solid var(--soft-gold); 
-            padding: 40px 20px; 
-            backdrop-filter: blur(15px);
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--soft-gold); padding: 40px 25px; backdrop-filter: blur(10px); text-align: center;
         }
 
-        .label { font-size: 0.5rem; letter-spacing: 5px; color: var(--gold); text-transform: uppercase; margin-bottom: 30px; display: block; font-weight: 600; }
-
-        /* --- THE DIGITAL LEDGER --- */
-        .ledger-input-wrap { margin-bottom: 30px; }
-        input { 
-            background: transparent; border: none; border-bottom: 1px solid var(--soft-gold); 
-            color: #fff; font-size: 4rem; width: 100%; text-align: center; 
-            outline: none; font-family: 'Playfair Display', serif; transition: 0.5s;
-        }
-        input:focus { border-bottom: 1px solid var(--gold); }
-
-        .verify-btn { 
-            background: transparent; border: 1px solid var(--gold); color: var(--gold); 
-            padding: 20px; width: 100%; letter-spacing: 4px; text-transform: uppercase; 
-            font-size: 0.6rem; cursor: pointer; transition: 0.5s; 
-        }
-        .verify-btn:hover { background: var(--gold); color: #000; }
-
-        .result-reveal { margin-top: 40px; display: none; text-align: center; }
-        .wax-seal { 
-            width: 60px; height: 60px; background: #600; border-radius: 50%; 
-            margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
-            border: 2px solid #400; box-shadow: inset 0 0 15px #000; color: var(--gold);
-            font-weight: bold; font-family: 'Playfair Display', serif;
-        }
-        .custodian-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-style: italic; color: #fff; margin: 10px 0; display: block; }
-
-        /* --- THE RITUAL TIMER --- */
-        #timer-num { font-size: 6rem; font-weight: 100; color: var(--gold); margin: 20px 0; font-family: 'Montserrat', sans-serif; }
+        .label { font-size: 0.55rem; letter-spacing: 6px; color: var(--gold); text-transform: uppercase; margin-bottom: 30px; display: block; }
+        h2 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.8rem; font-weight: 400; margin-bottom: 20px; color: var(--gold); }
         
+        /* --- VIDEO SECTION --- */
+        .video-box { width: 100%; aspect-ratio: 16/9; background: #000; border: 1px solid var(--soft-gold); margin-bottom: 15px; position: relative; overflow: hidden; }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* --- RECIPE CARDS --- */
+        .recipe-item { border-left: 1px solid var(--gold); padding-left: 20px; text-align: left; margin-bottom: 35px; }
+        .recipe-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 8px; }
+        .recipe-step { font-size: 0.75rem; line-height: 1.6; opacity: 0.7; }
+
+        input { background: transparent; border: none; border-bottom: 1px solid var(--soft-gold); color: #fff; font-size: 4rem; width: 100%; text-align: center; outline: none; font-family: 'Playfair Display', serif; margin-bottom: 20px; }
+        .action-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 18px; width: 100%; letter-spacing: 3px; text-transform: uppercase; font-size: 0.6rem; cursor: pointer; transition: 0.5s; margin-top: 10px; }
+        .action-btn:hover { background: var(--gold); color: #000; }
+
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
     </style>
 </head>
 <body>
 
+    <div id="gate">
+        <img src="logo.png" class="logo" style="width: 100px;">
+        <p style="font-size: 0.6rem; letter-spacing: 4px; margin-bottom: 40px;">VERIFY LEGAL AGE (18+)</p>
+        <button class="action-btn" style="width: 220px;" onclick="unlock()">ENTER THE VAULT</button>
+    </div>
+
     <header>
-        <div class="logo-container">
-            <img src="logo.png" alt="Signature Cask" class="logo">
-            <h1 style="font-weight: 100; letter-spacing: 8px; font-size: 0.7rem; opacity: 0.8;">THE INCHGOWER 16 LEGACY</h1>
-        </div>
-        <div class="scroll-hint">Scroll to Authenticate</div>
+        <img src="logo.png" alt="Signature Cask" class="logo">
+        <h1 style="font-weight: 100; letter-spacing: 10px; font-size: 0.7rem; opacity: 0.8;">INCHGOWER 16 LEGACY</h1>
     </header>
 
     <div class="container">
 
+        <section class="section">
+            <div class="glass-card">
+                <span class="label">The Founder's Message</span>
+                <h2>A Legacy in the Making</h2>
+                <div class="video-box">
+                    <iframe src="https://www.youtube.com/embed/YOUR_ID_1" allowfullscreen></iframe>
+                </div>
+                <p style="font-size: 0.7rem; opacity: 0.6; line-height: 1.6;">Lee Messenger explains the vision behind the 89 custodians and the journey of Cask #812264B.</p>
+            </div>
+        </section>
+
         <section class="section" id="ledger-section">
             <div class="glass-card">
                 <span class="label">Digital Ledger</span>
-                <div class="ledger-input-wrap">
-                    <input type="number" id="bNumber" placeholder="00" inputmode="numeric">
-                </div>
-                <button class="verify-btn" onclick="consultArchives()">Consult Archives</button>
-
-                <div id="revealArea" class="result-reveal">
-                    <div class="wax-seal">SC</div>
-                    <span style="font-size: 0.5rem; letter-spacing: 3px; color: var(--gold);">VERIFIED CUSTODIAN</span>
-                    <span id="cName" class="custodian-name"></span>
-                    <span id="bID" style="letter-spacing: 6px; font-size: 0.6rem; opacity: 0.6;"></span>
+                <input type="number" id="bNumber" placeholder="00">
+                <button class="action-btn" onclick="consultArchives()">Verify Provenance</button>
+                <div id="revealArea" style="display:none; margin-top:30px;">
+                    <span id="cName" style="font-family:'Playfair Display'; font-size: 2rem; color: var(--gold); display:block;"></span>
+                    <span id="bID" style="font-size:0.6rem; letter-spacing:4px; opacity:0.5;"></span>
                 </div>
             </div>
         </section>
 
         <section class="section">
             <div class="glass-card">
-                <span class="label">The Infusion Ritual</span>
-                <p style="font-size: 0.6rem; letter-spacing: 2px; line-height: 2; opacity: 0.7;">
-                    IGNITE THE STAVE CHIPS. INVERT THE GLASS.<br>REUNITE THE SPIRIT WITH THE WOOD.
-                </p>
-                <div id="timer-num">30</div>
-                <button class="verify-btn" onclick="startRitual()">Initiate Smoke</button>
+                <span class="label">The Ritual Masterclass</span>
+                <h2>The Closed-Loop Infusion</h2>
+                <div class="video-box">
+                    <iframe src="https://www.youtube.com/embed/YOUR_ID_2" allowfullscreen></iframe>
+                </div>
+                <p style="font-size: 0.7rem; opacity: 0.6;">Watch the definitive guide to smoking your Inchgower 16 with its own cask wood.</p>
             </div>
         </section>
 
-        <section class="section" style="text-align: center; padding-bottom: 100px;">
-            <p style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 0;">Lee Messenger</p>
-            <p style="font-size: 0.4rem; letter-spacing: 5px; opacity: 0.5;">FOUNDER • SIGNATURE CASK</p>
+        <section class="section">
+            <div class="glass-card">
+                <span class="label">The Alchemist’s Journal</span>
+                <h2>Signature Infusions</h2>
+                
+                <div class="recipe-item">
+                    <div class="recipe-title">1. The Neat Reunion</div>
+                    <div class="recipe-step">Smoke the cloche for 30s using 3 cask chips. Pour 50ml Inchgower 16. Let the smoke settle for 10s. The purest form of the "Closed Loop."</div>
+                </div>
+
+                <div class="recipe-item" style="border-color: #555;">
+                    <div class="recipe-title">2. The Founder’s Old Fashioned</div>
+                    <div class="recipe-step">50ml Inchgower 16, 10ml honey syrup, 2 dashes walnut bitters. Stir with ice, strain into a smoked glass. The wood smoke elevates the honey notes.</div>
+                </div>
+
+                <div class="recipe-item" style="border-color: #555;">
+                    <div class="recipe-title">3. The Cask-Charred Sour</div>
+                    <div class="recipe-step">Shake 50ml whisky, 25ml lemon, 15ml sugar, and egg white. Double strain into a glass that has been cold-smoked for 45s. A creamy, smoky revelation.</div>
+                </div>
+            </div>
         </section>
 
+        <footer style="text-align: center; padding: 60px 0;">
+            <p style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); margin:0;">Lee Messenger</p>
+            <p style="font-size: 0.5rem; letter-spacing: 5px; opacity: 0.4;">SIGNATURE CASK FOUNDER</p>
+        </footer>
     </div>
 
     <script>
-        // --- DATASET: BOTTLES 1-89 ---
-        // I have set "Lee Messenger" for #1 and #89. 
-        // All others will show "Awaiting Allocation" unless you add them here.
-        const custodians = {
-            "1": "Lee Messenger",
-            "89": "Lee Messenger"
-        };
-
-        // Scroll Observer for luxury fade-in effect
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.section').forEach(section => observer.observe(section));
-
-        function consultArchives() {
-            const num = document.getElementById('bNumber').value;
-            const reveal = document.getElementById('revealArea');
-            const nameField = document.getElementById('cName');
-            const idField = document.getElementById('bID');
-
-            if(!num || num < 1 || num > 89) {
-                alert("Please enter a valid bottle number (1-89)");
-                return;
-            }
-
-            // High-end reveal logic
-            nameField.innerText = custodians[num] ? custodians[num].toUpperCase() : "AWAITING ALLOCATION";
-            idField.innerText = "BOTTLE " + num + " OF 89";
-            
-            reveal.style.display = 'block';
-            window.scrollTo({ top: document.getElementById('ledger-section').offsetTop + 100, behavior: 'smooth' });
+        function unlock() {
+            document.getElementById('gate').style.opacity = '0';
+            setTimeout(() => { document.getElementById('gate').style.display = 'none'; }, 1000);
         }
 
-        function startRitual() {
-            let time = 30;
-            const display = document.getElementById('timer-num');
-            const btn = event.target;
-            btn.disabled = true;
-            btn.innerText = "INFUSING SPIRIT...";
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.section').forEach(s => observer.observe(s));
 
-            const countdown = setInterval(() => {
-                time--;
-                display.innerText = time;
-                if(time <= 0) {
-                    clearInterval(countdown);
-                    display.innerText = "REUNITE";
-                    btn.innerText = "RITUAL COMPLETE";
-                }
-            }, 1000);
+        async function consultArchives() {
+            const num = document.getElementById('bNumber').value;
+            const nameField = document.getElementById('cName');
+            const idField = document.getElementById('bID');
+            const reveal = document.getElementById('revealArea');
+
+            if(!num || num < 1 || num > 89) return alert("Bottle 1-89 only.");
+            
+            nameField.innerText = "CONSULTING...";
+            reveal.style.display = 'block';
+
+            try {
+                const response = await fetch(`/api/ledger?bottle=${num}`);
+                const data = await response.json();
+                nameField.innerText = (data && data.owner) ? data.owner.toUpperCase() : "AWAITING ALLOCATION";
+            } catch (e) {
+                // Fail-safe logic
+                if(num == "1") nameField.innerText = "SIGNATURE CASK";
+                else if(num == "89") nameField.innerText = "LEE MESSENGER";
+                else nameField.innerText = "ARCHIVE OFFLINE";
+            }
+            idField.innerText = "BOTTLE " + num + " OF 89";
+            window.scrollTo({ top: document.getElementById('ledger-section').offsetTop + 100, behavior: 'smooth' });
         }
     </script>
 </body>
