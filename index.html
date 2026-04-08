@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Signature Cask | The Ultimate Experience</title>
+    <title>Signature Cask | The Experience</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;600&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
     
     <style>
@@ -11,10 +11,10 @@
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         body { background: var(--dark); color: #fff; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
 
-        /* --- UI COMPONENTS --- */
+        /* UI ELEMENTS */
         #gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 1s ease; }
         header { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle, #151515 0%, #050505 100%); text-align: center; }
-        .logo { width: 150px; margin-bottom: 20px; animation: pulse 4s infinite; }
+        .logo { width: 140px; margin-bottom: 20px; animation: pulse 4s infinite; }
         
         .container { max-width: 500px; margin: 0 auto; padding: 0 20px; }
         .section { padding: 80px 0; opacity: 0; transform: translateY(40px); transition: 1.2s all ease; }
@@ -31,14 +31,13 @@
         .video-box { width: 100%; aspect-ratio: 16/9; background: #000; border: 1px solid var(--soft-gold); margin-bottom: 15px; overflow: hidden; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* --- LEDGER & CERTIFICATE --- */
         input { background: transparent; border: none; border-bottom: 1px solid var(--soft-gold); color: #fff; font-size: 4rem; width: 100%; text-align: center; outline: none; font-family: 'Playfair Display', serif; margin-bottom: 20px; }
         .action-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 18px; width: 100%; letter-spacing: 3px; text-transform: uppercase; font-size: 0.6rem; cursor: pointer; transition: 0.5s; margin-top: 10px; }
         .action-btn:hover { background: var(--gold); color: #000; }
 
         .wax-seal { width: 60px; height: 60px; background: #710000; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border: 2px solid #4a0000; box-shadow: inset 0 0 10px #000; color: var(--gold); font-family: 'Playfair Display', serif; font-weight: bold; }
 
-        /* --- RECIPES --- */
+        /* RECIPES */
         .recipe-item { border-left: 1px solid var(--gold); padding-left: 20px; text-align: left; margin-bottom: 35px; }
         .recipe-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 8px; color: var(--gold); }
         .recipe-step { font-size: 0.75rem; line-height: 1.6; opacity: 0.7; }
@@ -55,7 +54,10 @@
     <div id="gate">
         <img src="logo.png" class="logo" style="width: 100px;">
         <p style="font-size: 0.6rem; letter-spacing: 4px; margin-bottom: 40px;">VERIFY LEGAL AGE (18+)</p>
-        <button class="action-btn" style="width: 220px;" onclick="unlock()">ENTER THE VAULT</button>
+        <div style="display: flex; gap: 15px;">
+            <button class="action-btn" style="width: 110px;" onclick="unlock()">YES</button>
+            <button class="action-btn" style="width: 110px; border-color: #444; color: #444;" onclick="location.href='https://google.com'">NO</button>
+        </div>
     </div>
 
     <header>
@@ -71,9 +73,8 @@
                 <span class="label">The Founder's Message</span>
                 <h2>A Legacy in the Making</h2>
                 <div class="video-box">
-                    <iframe src="https://www.youtube.com/embed/YOUR_FOUNDER_VIDEO_ID" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/YOUR_ID_1" allowfullscreen></iframe>
                 </div>
-                <p style="font-size: 0.7rem; opacity: 0.6; line-height: 1.6;">Lee Messenger explains the vision behind the 89 custodians.</p>
             </div>
         </section>
 
@@ -83,13 +84,13 @@
                 <input type="number" id="bNumber" placeholder="00" inputmode="numeric">
                 <button class="action-btn" onclick="consultArchives()">Verify Provenance</button>
 
-                <div id="revealArea" style="display:none; margin-top:40px; border-top: 1px solid var(--soft-gold); pt: 40px;">
+                <div id="revealArea" style="display:none; margin-top:40px; border-top: 1px solid var(--soft-gold); padding-top: 40px;">
                     <div class="wax-seal">SC</div>
                     <span class="label" style="margin-bottom:10px;">Certificate of Authenticity</span>
-                    <span id="cName" style="font-family:'Playfair Display'; font-size: 2.2rem; color: var(--gold); display:block; margin-bottom: 5px; text-transform: uppercase;"></span>
+                    <span id="cName" style="font-family:'Playfair Display'; font-size: 2.2rem; color: var(--gold); display:block; text-transform: uppercase;"></span>
                     <span id="bID" style="font-size:0.7rem; letter-spacing:4px; opacity:0.8; display:block; margin-bottom: 25px;"></span>
                     
-                    <div style="text-align: left; font-size: 0.65rem; line-height: 2; opacity: 0.9; background: rgba(0,0,0,0.3); padding: 15px; border: 1px solid var(--soft-gold);">
+                    <div style="text-align: left; font-size: 0.65rem; line-height: 2; background: rgba(0,0,0,0.3); padding: 15px; border: 1px solid var(--soft-gold);">
                         <p><strong>CASK:</strong> First-Fill Bourbon Barrel #812264B</p>
                         <p><strong>DISTILLED:</strong> 15/12/2009 | <strong>STRENGTH:</strong> 55.9%</p>
                         <p><strong>NOTES:</strong> Sea Salt, Charred Oak, Honeyed Malt</p>
@@ -108,7 +109,7 @@
                 <span class="label">Ritual Masterclass</span>
                 <h2>The Closed-Loop Infusion</h2>
                 <div class="video-box">
-                    <iframe src="https://www.youtube.com/embed/YOUR_RETAIL_VIDEO_ID" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/YOUR_ID_2" allowfullscreen></iframe>
                 </div>
                 <div id="timer-num" style="font-size: 5rem; font-weight: 100; color: var(--gold); margin: 10px 0;">30</div>
                 <button id="ritualBtn" class="action-btn" onclick="startRitual()">Initiate Infusion Timer</button>
@@ -119,9 +120,14 @@
             <div class="glass-card">
                 <span class="label">The Alchemist’s Journal</span>
                 <h2>Signature Infusions</h2>
-                <div class="recipe-item"><div class="recipe-title">1. The Neat Reunion</div><div class="recipe-step">30s smoke infusion with original cask chips. 50ml neat. The purest reunion.</div></div>
-                <div class="recipe-item"><div class="recipe-title">2. Founder’s Old Fashioned</div><div class="recipe-step">Whisky, honey syrup, walnut bitters. Stirred over ice in a smoked glass.</div></div>
-                <div class="recipe-item"><div class="recipe-title">3. Cask-Charred Sour</div><div class="recipe-step">Whisky, lemon, sugar, egg white. Double strained into a cold-smoked coup.</div></div>
+                <div class="recipe-item">
+                    <div class="recipe-title">1. The Neat Reunion</div>
+                    <div class="recipe-step">Smoke for 30s using cask chips. 50ml neat. The purest form.</div>
+                </div>
+                <div class="recipe-item">
+                    <div class="recipe-title">2. Founder’s Old Fashioned</div>
+                    <div class="recipe-step">Whisky, honey syrup, walnut bitters. Smoked glass.</div>
+                </div>
             </div>
         </section>
 
@@ -151,18 +157,24 @@
 
             if(!num || num < 1 || num > 89) return alert("Bottle 1-89 only.");
             
-            // Play atmospheric waves
             waveAudio.volume = 0.2;
             waveAudio.play();
 
-            nameField.innerText = "VERIFYING...";
+            nameField.innerText = "VERIFYING PROVENANCE...";
             reveal.style.display = 'block';
 
             try {
+                // RECONNECTING TO YOUR VERCEL DB
                 const response = await fetch(`https://signature-cask-experience.vercel.app/api/ledger?bottle=${num}`);
                 const data = await response.json();
-                nameField.innerText = (data && data.owner) ? data.owner.toUpperCase() : "AWAITING ALLOCATION";
+                
+                if (data && data.owner) {
+                    nameField.innerText = data.owner.toUpperCase();
+                } else {
+                    nameField.innerText = "AWAITING ALLOCATION";
+                }
             } catch (e) {
+                // FAILSAFE IF DATABASE DISCONNECTS
                 if(num == "1") nameField.innerText = "SIGNATURE CASK";
                 else if(num == "89") nameField.innerText = "LEE MESSENGER";
                 else nameField.innerText = "AWAITING ALLOCATION";
