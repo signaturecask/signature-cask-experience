@@ -35,22 +35,20 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 50px 25px 30px 25px;
+            padding: 40px 25px 30px 25px;
             box-sizing: border-box;
         }
 
         .header-branding {
             width: 100%;
             text-align: center;
-            min-height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-bottom: 10px;
         }
 
+        /* Dynamically scales your St Andrews landscape image to look premium on any phone screen size */
         .logo-img {
             width: 100%;
-            max-width: 280px;
+            max-width: 320px;
             height: auto;
             display: block;
             margin: 0 auto;
@@ -70,7 +68,7 @@
             color: var(--gold-solid);
             text-transform: uppercase;
             letter-spacing: 3px;
-            margin: 20px 0 5px 0;
+            margin: 15px 0 5px 0;
             font-weight: 500;
         }
 
@@ -79,7 +77,7 @@
             font-family: 'Georgia', serif;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin: 0 0 25px 0;
+            margin: 0 0 20px 0;
             color: #ffffff;
             font-weight: 400;
         }
@@ -90,7 +88,7 @@
             line-height: 1.6;
             letter-spacing: 1px;
             max-width: 320px;
-            margin: 0 auto 35px auto;
+            margin: 0 auto 30px auto;
             text-transform: uppercase;
             opacity: 0.9;
         }
@@ -116,7 +114,7 @@
             justify-content: center;
             align-items: center;
             gap: 12px;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
         }
 
         .age-field-group {
@@ -269,7 +267,7 @@
     <div class="app-shell">
         
         <div class="header-branding">
-            <img src="https://image.shutterstock.com/image-photo/vintage-brushed-brass-coin-engraved-260nw-211516766.jpg" alt="Signature Cask Provenance Coin" class="logo-img" onerror="this.style.display='none'; document.getElementById('fallback-logo-box').style.display='block';">
+            <img src="11770041307145.jpg" alt="Signature Cask Logo" class="logo-img" onerror="this.style.display='none'; document.getElementById('fallback-logo-box').style.display='block';">
             <div id="fallback-logo-box" style="display:none;">
                 <div class="fallback-logo">Signature Cask</div>
                 <div style="font-size:10px; text-transform:uppercase; letter-spacing:4px; opacity:0.6;">The Experience</div>
@@ -419,7 +417,6 @@
             }
         }
 
-        // View management routine mechanics
         function transitionToSection(targetSectionID, targetButtonID) {
             const blocks = document.getElementsByClassName('viewport-section');
             for(let b of blocks) { b.style.display = 'none'; b.classList.remove('active-view'); }
