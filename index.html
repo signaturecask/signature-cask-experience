@@ -42,6 +42,10 @@
         .header-branding {
             width: 100%;
             text-align: center;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .logo-img {
@@ -66,7 +70,7 @@
             color: var(--gold-solid);
             text-transform: uppercase;
             letter-spacing: 3px;
-            margin: 25px 0 5px 0;
+            margin: 20px 0 5px 0;
             font-weight: 500;
         }
 
@@ -232,7 +236,6 @@
         .ledger-value { color: #ffffff; font-weight: 300; }
         .gold-italic-text { color: var(--gold-solid); font-family: 'Georgia', serif; font-style: italic; font-weight: 600; }
 
-        /* Admin Dashboard UI Panel styling */
         .admin-trigger-zone {
             margin-top: 60px;
             border-top: 1px dashed #222;
@@ -243,7 +246,7 @@
         .admin-panel {
             display: none;
             background: #000000;
-            border: 1px solid var(--dark-gold);
+            border: 1px solid var(--border-gold);
             padding: 20px;
             margin-top: 20px;
             text-align: left;
@@ -266,7 +269,7 @@
     <div class="app-shell">
         
         <div class="header-branding">
-            <img src="1000088664.jpg" alt="Signature Cask Logo" class="logo-img" onerror="this.style.display='none'; document.getElementById('fallback-logo-box').style.display='block';">
+            <img src="1770041307145.jpg" alt="Signature Cask Logo" class="logo-img" onerror="this.style.display='none'; document.getElementById('fallback-logo-box').style.display='block';">
             <div id="fallback-logo-box" style="display:none;">
                 <div class="fallback-logo">Signature Cask</div>
                 <div style="font-size:10px; text-transform:uppercase; letter-spacing:4px; opacity:0.6;">The Experience</div>
@@ -394,7 +397,6 @@
     </div>
 
     <script>
-        // Default built-in base records
         const defaultDatabase = {
             "01": "Vault Allocated • Private Collector",
             "02": "Vault Allocated • The Rusacks Hotel, St Andrews",
@@ -402,7 +404,6 @@
             "17": "Vault Allocated • Leeds United FC Hospitality"
         };
 
-        // Initialize dynamic storage system on your phone browser memory
         if (!localStorage.getItem('signature_cask_ledger')) {
             localStorage.setItem('signature_cask_ledger', JSON.stringify(defaultDatabase));
         }
@@ -436,7 +437,6 @@
                 const standardizedId = numKey.toString().padStart(2, '0');
                 document.getElementById('displayUnit').innerText = `Bottle ${standardizedId} of 89`;
                 
-                // Read fresh up-to-date inputs from memory
                 const activeRegistry = JSON.parse(localStorage.getItem('signature_cask_ledger'));
                 
                 if(activeRegistry[standardizedId]) {
@@ -451,12 +451,9 @@
             }
         }
 
-        // Hidden Manager Logic Tool
         function verifyAdminAccess() {
             const passkeyInput = document.getElementById('adminPasskey').value;
             const adminPanel = document.getElementById('adminPanel');
-            
-            // Your secret password is set to 'cask89'
             if (passkeyInput === 'cask89') {
                 adminPanel.style.display = 'block';
             } else {
@@ -470,15 +467,12 @@
 
             if (targetNum >= 1 && targetNum <= 89 && newName.trim() !== "") {
                 const paddedId = targetNum.toString().padStart(2, '0');
-                
-                // Fetch, update, and lock new inputs into storage memory
                 const currentRegistry = JSON.parse(localStorage.getItem('signature_cask_ledger'));
                 currentRegistry[paddedId] = "Vault Allocated • " + newName;
                 localStorage.setItem('signature_cask_ledger', JSON.stringify(currentRegistry));
 
                 alert(`Registry updated perfectly! Bottle ${paddedId} is now registered to ${newName}.`);
                 
-                // Clear inputs out and reload verification box context
                 document.getElementById('targetBottleNum').value = '';
                 document.getElementById('newOwnerName').value = '';
                 document.getElementById('ledgerSearchInput').value = targetNum;
