@@ -6,14 +6,15 @@
     <title>Signature Cask | The Experience</title>
     <style>
         :root {
-            --gold: #dfb76c;
-            --dark-gold: #b38f4f;
-            --bg-black: #050505;
-            --text-muted: #8e9095;
+            --gold-gradient: linear-gradient(180deg, #dfb76c 0%, #b38f4f 100%);
+            --gold-solid: #dfb76c;
+            --dark-bg: #0b0c10;
+            --text-muted: #7a7d85;
+            --border-gold: rgba(223, 183, 108, 0.3);
         }
 
         body {
-            background-color: var(--bg-black);
+            background-color: var(--dark-bg);
             color: #ffffff;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             margin: 0;
@@ -22,14 +23,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Deep cinematic background styling matching your coastal photo vibe */
-            background: radial-gradient(circle at center, #1a1c1e 0%, #030405 100%);
+            background-image: radial-gradient(circle at center, #181a20 0%, #050608 100%);
             overflow-x: hidden;
         }
 
-        /* Full-screen app wrapper to match the mock image layout perfectly */
-        .app-container {
-            max-width: 414px; /* Standard mobile screen width max */
+        .app-shell {
+            max-width: 414px;
             width: 100%;
             min-height: 100vh;
             display: flex;
@@ -38,147 +37,146 @@
             align-items: center;
             padding: 50px 25px 30px 25px;
             box-sizing: border-box;
-            position: relative;
         }
 
-        .brand-header {
+        .header-branding {
             width: 100%;
             text-align: center;
-            margin-bottom: 20px;
         }
 
-        /* Displays your actual gold logo file cleanly centered */
-        .logo-display {
+        .logo-img {
             width: 100%;
-            max-width: 260px;
+            max-width: 280px;
             height: auto;
-            margin-bottom: 15px;
+            display: block;
+            margin: 0 auto;
         }
 
-        .portal-headline {
-            font-size: 13px;
-            color: var(--gold);
+        .fallback-logo {
+            font-family: 'Georgia', serif;
+            font-size: 32px;
+            font-style: italic;
+            color: var(--gold-solid);
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .location-banner {
+            font-size: 11px;
+            color: var(--gold-solid);
             text-transform: uppercase;
-            letter-spacing: 2.5px;
-            margin: 0 0 10px 0;
+            letter-spacing: 3px;
+            margin: 25px 0 5px 0;
             font-weight: 500;
         }
 
-        .portal-subheadline {
-            font-size: 20px;
+        .portal-title {
+            font-size: 22px;
             font-family: 'Georgia', serif;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             margin: 0 0 25px 0;
             color: #ffffff;
+            font-weight: 400;
         }
 
-        .instruction-text {
+        .intro-text {
             font-size: 12px;
             color: #ffffff;
             line-height: 1.6;
             letter-spacing: 1px;
             max-width: 320px;
-            margin: 0 auto 30px auto;
+            margin: 0 auto 35px auto;
             text-transform: uppercase;
+            opacity: 0.9;
         }
 
-        /* Dynamic view states */
-        .app-view {
+        .viewport-section {
             width: 100%;
             display: none;
             text-align: center;
-            animation: elegantReveal 0.4s ease forwards;
+            animation: fadeInView 0.5s ease forwards;
         }
 
-        .app-view.active-view {
+        .viewport-section.active-view {
             display: block;
         }
 
-        @keyframes elegantReveal {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        @keyframes fadeInView {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Clean gold box age gate design from the image */
-        .age-box-container {
+        .age-form-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 35px;
+            gap: 12px;
+            margin-bottom: 40px;
         }
 
-        .age-box {
+        .age-field-group {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .age-box label {
+        .age-field-group label {
             font-size: 11px;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 8px;
+            letter-spacing: 1.5px;
+            margin-top: 10px;
         }
 
-        .age-input {
-            width: 65px;
-            height: 45px;
+        .luxury-input {
+            width: 70px;
+            height: 50px;
             background: transparent;
-            border: 1px solid var(--gold);
+            border: 1px solid var(--border-gold);
             color: #ffffff;
             font-family: 'Georgia', serif;
-            font-size: 18px;
-            text-align: center;
-            border-radius: 4px;
-        }
-
-        .age-input-yr {
-            width: 85px;
-        }
-
-        .age-divider {
-            font-family: 'Georgia', serif;
             font-size: 20px;
-            color: var(--gold);
-            margin-bottom: 20px;
+            text-align: center;
+            border-radius: 6px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
         }
 
-        /* Solid rectangular gold button from your design */
-        .action-button {
-            background: linear-gradient(180deg, #dfb76c 0%, #b38f4f 100%);
+        .luxury-input-yr { width: 95px; }
+        .age-separator { font-family: 'Georgia', serif; font-size: 22px; color: var(--gold-solid); margin-bottom: 25px; }
+
+        .gold-action-btn {
+            background: var(--gold-gradient);
             color: #000000;
             border: none;
             width: 100%;
-            max-width: 290px;
-            padding: 15px 0;
+            max-width: 310px;
+            padding: 16px 0;
             font-size: 12px;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             cursor: pointer;
             border-radius: 4px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
-        /* Bottom Luxury Navigation Tabs */
-        .footer-navigation {
+        .bottom-nav-bar {
             width: 100%;
             display: flex;
             justify-content: space-between;
             border-top: 1px solid rgba(223, 183, 108, 0.15);
             padding-top: 20px;
             margin-top: 30px;
+            gap: 5px;
         }
 
-        .nav-item {
+        .nav-tab-btn {
             flex: 1;
             background: none;
             border: none;
             color: var(--text-muted);
-            font-size: 10px;
+            font-size: 9px;
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
@@ -189,162 +187,304 @@
             transition: color 0.3s;
         }
 
-        .nav-item.active-tab, .nav-item:hover {
-            color: var(--gold);
-        }
+        .nav-tab-btn span { font-size: 16px; opacity: 0.7; }
+        .nav-tab-btn.tab-active, .nav-tab-btn:hover { color: var(--gold-solid); }
+        .nav-tab-btn.tab-active span { opacity: 1; }
 
-        /* Data display layouts for sub-pages */
-        .content-panel {
+        .luxury-text-block {
             text-align: left;
             font-size: 14px;
-            line-height: 1.6;
-            color: #e0e0e0;
-            padding: 0 10px;
+            line-height: 1.7;
+            color: #e2e4e9;
+            padding: 0 5px;
         }
 
-        .data-row {
+        .ritual-step {
+            margin-bottom: 24px;
+            border-left: 2px solid var(--gold-solid);
+            padding-left: 15px;
+        }
+
+        .step-num {
+            font-family: 'Georgia', serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--gold-solid);
+            letter-spacing: 1.5px;
+            margin: 0 0 4px 0;
+        }
+
+        .step-heading {
+            font-size: 15px;
+            font-weight: bold;
+            margin: 0 0 6px 0;
+            color: #ffffff;
+        }
+
+        .ledger-row {
             display: flex;
             justify-content: space-between;
             padding: 14px 0;
-            border-bottom: 1px solid #16181c;
+            border-bottom: 1px solid #16181d;
         }
 
-        .data-label { color: var(--text-muted); text-transform: uppercase; font-size: 10px; letter-spacing: 1.5px; }
-        .gold-text { color: var(--gold); font-family: 'Georgia', serif; font-style: italic; }
+        .ledger-label { color: var(--text-muted); text-transform: uppercase; font-size: 10px; letter-spacing: 1.5px; }
+        .ledger-value { color: #ffffff; font-weight: 300; }
+        .gold-italic-text { color: var(--gold-solid); font-family: 'Georgia', serif; font-style: italic; font-weight: 600; }
+
+        /* Admin Dashboard UI Panel styling */
+        .admin-trigger-zone {
+            margin-top: 60px;
+            border-top: 1px dashed #222;
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .admin-panel {
+            display: none;
+            background: #000000;
+            border: 1px solid var(--dark-gold);
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+            border-radius: 4px;
+        }
+
+        .admin-input {
+            width: 100%;
+            padding: 10px;
+            background: #111;
+            border: 1px solid #333;
+            color: white;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
+    <div class="app-shell">
         
-        <div class="brand-header">
-            <img src="1000088664.jpg" alt="Signature Cask The Experience Logo" class="logo-display">
+        <div class="header-branding">
+            <img src="1000088664.jpg" alt="Signature Cask Logo" class="logo-img" onerror="this.style.display='none'; document.getElementById('fallback-logo-box').style.display='block';">
+            <div id="fallback-logo-box" style="display:none;">
+                <div class="fallback-logo">Signature Cask</div>
+                <div style="font-size:10px; text-transform:uppercase; letter-spacing:4px; opacity:0.6;">The Experience</div>
+            </div>
         </div>
 
-        <div id="viewAgeGate" class="app-view active-view">
-            <p class="portal-headline">Signature Cask | St Andrews | Scotland</p>
-            <p class="portal-subheadline">Verification Portal</p>
-            <p class="instruction-text">To access ‘The Experience’ and the exclusive digital ledger, please confirm your legal age.</p>
+        <div id="sectionAgeGate" class="viewport-section active-view">
+            <p class="location-banner">Signature Cask | St Andrews | Scotland</p>
+            <h2 class="portal-title">Verification Portal</h2>
+            <p class="intro-text">To access ‘The Experience’ and the exclusive digital ledger, please confirm your legal age.</p>
             
-            <div class="age-box-container">
-                <div class="age-box"><input type="number" id="gateDD" placeholder="DD" class="age-input"><label>Day</label></div>
-                <div class="age-divider">/</div>
-                <div class="age-box"><input type="number" id="gateMM" placeholder="MM" class="age-input"><label>Month</label></div>
-                <div class="age-divider">/</div>
-                <div class="age-box"><input type="number" id="gateYYYY" placeholder="YYYY" class="age-input age-input-yr"><label>Year</label></div>
+            <div class="age-form-container">
+                <div class="age-field-group"><input type="number" id="inputDD" placeholder="DD" class="luxury-input"><label>Day</label></div>
+                <div class="age-separator">/</div>
+                <div class="age-field-group"><input type="number" id="inputMM" placeholder="MM" class="luxury-input"><label>Month</label></div>
+                <div class="age-separator">/</div>
+                <div class="age-field-group"><input type="number" id="inputYYYY" placeholder="YYYY" class="luxury-input luxury-input-yr"><label>Year</label></div>
             </div>
 
-            <button class="action-button" onclick="unlockExperiencePortal()">Enter The Experience</button>
-            <p style="font-size: 9px; color: #cc3333; margin-top: 25px; letter-spacing: 1px; max-width: 300px; margin-left: auto; margin-right: auto;">
+            <button class="gold-action-btn" onclick="authorizeAgeVerification()">Enter The Experience</button>
+            <p style="font-size: 9px; color: #cc3333; margin-top: 30px; letter-spacing: 1px; max-width: 320px; margin-left: auto; margin-right: auto; text-transform: uppercase; font-weight: bold;">
                 [WARNING: ALCOHOL MAY ONLY BE ACCESSED BY THOSE OF LEGAL AGE]
             </p>
         </div>
 
-        <div id="viewStory" class="app-view">
-            <div class="content-panel">
-                <h3 style="color: var(--gold); font-family: 'Georgia', serif; font-style: italic; font-size: 18px; margin-top:0;">Our Story</h3>
+        <div id="sectionStory" class="viewport-section">
+            <div class="luxury-text-block">
+                <h3 style="color: var(--gold-solid); font-family: 'Georgia', serif; font-style: italic; font-size: 19px; margin-top:0; letter-spacing: 0.5px;">Our Story</h3>
                 <p>Born beneath the coastal winds of St Andrews, Scotland, Signature Cask bridges pure liquid history with sensory theatre.</p>
                 <p>Our flagship release breathes new life into a unique 16-Year-Old single cask Inchgower profile. We harvested the exact timber from Cask #812264B to engineer our bespoke smoking staves.</p>
-                <p>When ignited tableside, the wood uncoils vanilla, sea spray, and deep oak tannins back directly into the dram—closing an elemental circle broken nearly two decades ago.</p>
+                <p>When ignited tableside, the physical wood structure uncoils vanilla, sea spray, and deep oak tannins back directly into the dram—closing an elemental circle broken nearly two decades ago.</p>
             </div>
         </div>
 
-        <div id="viewRecipes" class="app-view">
-            <div class="content-panel">
-                <h3 style="color: var(--gold); font-family: 'Georgia', serif; font-style: italic; font-size: 18px; margin-top:0;">Smoked Cocktail Recipes</h3>
-                <p><strong>The 2009 Cask Old Fashioned</strong><br>50ml Inchgower 16 Legacy, 1 Bar Spoon Demerara, 2 Dashes Angostura. Smoke with Cask #812264B oak chips for 20 seconds before serving.</p>
-                <p style="margin-top:20px;"><strong>The St Andrews Coastal Sour</strong><br>50ml Inchgower Whisky, 25ml Fresh Lemon, 15ml Honey Syrup, Egg White. Flash-smoke over the foam top before presentation.</p>
-            </div>
-        </div>
+        <div id="sectionRitual" class="viewport-section">
+            <div class="luxury-text-block">
+                <h3 style="color: var(--gold-solid); font-family: 'Georgia', serif; font-style: italic; font-size: 19px; margin-top:0; letter-spacing: 0.5px;">The Smoking Ritual</h3>
+                <p style="margin-bottom: 25px; font-size:13px; color:var(--text-muted);"><em>Follow these precision steps to correctly awaken the original 2009 cask DNA:</em></p>
 
-        <div id="viewLedger" class="app-view">
-            <div class="content-panel" style="text-align: center;">
-                <p class="portal-headline" style="margin-bottom:20px;">Digital Ledger Access</p>
-                <div style="margin-bottom: 25px;">
-                    <input type="number" id="bottleSearch" placeholder="00" class="age-input" style="width: 80px; font-size: 20px;">
-                    <button class="action-button" onclick="queryLedgerRegistry()" style="width: auto; padding: 12px 20px; margin-left: 10px;">Verify</button>
+                <div class="ritual-step">
+                    <p class="step-num">Step I</p>
+                    <p class="step-heading">Prepare the Dram</p>
+                    <p style="margin:0; font-size:13px;">Pour exactly 50ml of your Inchgower 16-Year-Old Legacy into a premium luxury tumbler or rocks glass.</p>
                 </div>
 
-                <div id="ledgerOutput" style="display: none; text-align: left; margin-top: 20px;">
-                    <div class="data-row"><span class="data-label">Asset Identity</span><span class="data-value">Inchgower Aged 16 Years</span></div>
-                    <div class="data-row"><span class="data-label">Cask Reference</span><span class="data-value">#812264B</span></div>
-                    <div class="data-row"><span class="data-label">Profile Specs</span><span class="data-value">Single Cask • 55.9% ABV</span></div>
-                    <div class="data-row"><span class="data-label">Allocation Limit</span><span class="data-value gold-text" id="lblUnit">Bottle -- of 89</span></div>
-                    <div class="data-row"><span class="data-label">Custodian Status</span><span class="data-value gold-text" id="lblOwner">--</span></div>
+                <div class="ritual-step">
+                    <p class="step-num">Step II</p>
+                    <p class="step-heading">Load the Cask Chips</p>
+                    <p style="margin:0; font-size:13px;">Place your wooden top-glass smoker directly onto the rim of the tumbler. Add a small pinch of the authentic Cask #812264B wood chips into the central metal mesh chimney basket.</p>
+                </div>
+
+                <div class="ritual-step">
+                    <p class="step-num">Step III</p>
+                    <p class="step-heading">Ignite with Precision</p>
+                    <p style="margin:0; font-size:13px;">Hold your professional butane torch lighter 2 inches away. Direct the flame straight down onto the wood chips for 3 to 5 seconds until they ember and thick smoke cascades down into the glass.</p>
+                </div>
+
+                <div class="ritual-step">
+                    <p class="step-num">Step IV</p>
+                    <p class="step-heading">Infuse and Serve</p>
+                    <p style="margin:0; font-size:13px;">Leave the smoker lid seated on top of the glass for 15-20 seconds. This traps the heavy oak tannins and vanilla oils, infusing the whisky before presentation.</p>
                 </div>
             </div>
         </div>
 
-        <div id="portalNav" class="footer-navigation" style="visibility: hidden;">
-            <button class="nav-item active-tab" id="tabStory" onclick="navigateToSection('viewStory', 'tabStory')">
-                <span>📜</span> Our Story
+        <div id="sectionRecipes" class="viewport-section">
+            <div class="luxury-text-block">
+                <h3 style="color: var(--gold-solid); font-family: 'Georgia', serif; font-style: italic; font-size: 19px; margin-top:0; letter-spacing: 0.5px;">Bespoke Smoked Cocktails</h3>
+                <p style="margin-bottom: 20px;"><em>Utilizing original oak smoking chips sourced directly from Cask #812264B:</em></p>
+                
+                <p><strong>The 2009 Cask Old Fashioned</strong><br>50ml Inchgower 16 Legacy, 1 Bar Spoon Demerara Sugar, 2 Dashes Angostura Bitters. Infuse glass using your cask smoking chips for 20 seconds before expressing the citrus peel.</p>
+                
+                <p style="margin-top:25px;"><strong>The St Andrews Coastal Sour</strong><br>50ml Inchgower Whisky, 25ml Fresh Lemon Juice, 15ml Honey Syrup, Organic Egg White. Dry shake, strain over solid ice, and flash-smoke the foam top directly at the tableside.</p>
+            </div>
+        </div>
+
+        <div id="sectionLedger" class="viewport-section">
+            <div class="luxury-text-block" style="text-align: center;">
+                <p class="location-banner" style="margin-top: 0; margin-bottom: 20px;">Secure Cryptographic Ledger Access</p>
+                <div style="margin-bottom: 30px;">
+                    <input type="number" id="ledgerSearchInput" placeholder="00" class="luxury-input" style="width: 85px; font-size: 22px;">
+                    <button class="gold-action-btn" onclick="executeLedgerLookup()" style="width: auto; padding: 13px 24px; margin-left: 10px;">Verify Asset</button>
+                </div>
+
+                <div id="ledgerDataBox" style="display: none; text-align: left; margin-top: 25px; animation: fadeInView 0.4s ease;">
+                    <div class="ledger-row"><span class="ledger-label">Distillery Origin</span><span class="ledger-value">Inchgower Aged 16 Years</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Cask Matrix</span><span class="ledger-value">Single Bourbon Cask • #812264B</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Spirit Profile</span><span class="ledger-value">Cask Strength • 55.9% ABV</span></div>
+                    <div class="ledger-row"><span class="gold-italic-text" id="displayUnit">Bottle -- of 89</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Custodian Status</span><span class="gold-italic-text" id="displayOwner">--</span></div>
+                </div>
+
+                <div class="admin-trigger-zone">
+                    <input type="password" id="adminPasskey" placeholder="🔑 Enter Key to Manage System Registry" class="luxury-input" style="width: 100%; font-size: 12px; height: 35px; border-style: dashed; padding: 5px;" oninput="verifyAdminAccess()">
+                    
+                    <div id="adminPanel" class="admin-panel">
+                        <h4 style="color: var(--gold-solid); margin-top: 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">System Registry Manager</h4>
+                        <label style="display:block; font-size:10px; color:#aaa; margin-bottom:4px;">Bottle Target Number</label>
+                        <input type="number" id="targetBottleNum" placeholder="e.g. 17" class="admin-input">
+                        
+                        <label style="display:block; font-size:10px; color:#aaa; margin-bottom:4px;">Assigned Venue or Owner Name</label>
+                        <input type="text" id="newOwnerName" placeholder="e.g. Leeds United FC Hospitality" class="admin-input">
+                        
+                        <button class="gold-action-btn" style="padding: 10px 0; font-size: 11px;" onclick="saveNewCustodianRecord()">Apply System Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="appNavigationBar" class="bottom-nav-bar" style="visibility: hidden;">
+            <button class="nav-tab-btn tab-active" id="btnTabStory" onclick="transitionToSection('sectionStory', 'btnTabStory')">
+                <span>📜</span> Story
             </button>
-            <button class="nav-item" id="tabRecipes" onclick="navigateToSection('viewRecipes', 'tabRecipes')">
-                <span>🥃</span> Recipes
+            <button class="nav-tab-btn" id="btnTabRitual" onclick="transitionToSection('sectionRitual', 'btnTabRitual')">
+                <span>🔥</span> Ritual
             </button>
-            <button class="nav-item" id="tabLedger" onclick="navigateToSection('viewLedger', 'tabLedger')">
-                <span>🔑</span> Ledger Access
+            <button class="nav-tab-btn" id="btnTabRecipes" onclick="transitionToSection('sectionRecipes', 'btnTabRecipes')">
+                <span>🥃</span> Drinks
+            </button>
+            <button class="nav-tab-btn" id="btnTabLedger" onclick="transitionToSection('sectionLedger', 'btnTabLedger')">
+                <span>🔑</span> Ledger
             </button>
         </div>
 
     </div>
 
     <script>
-        // Verified active owner mappings
-        const registryData = {
+        // Default built-in base records
+        const defaultDatabase = {
             "01": "Vault Allocated • Private Collector",
             "02": "Vault Allocated • The Rusacks Hotel, St Andrews",
             "03": "Vault Allocated • Grand Central Restaurant",
             "17": "Vault Allocated • Leeds United FC Hospitality"
         };
 
-        function unlockExperiencePortal() {
-            const d = document.getElementById('gateDD').value;
-            const m = document.getElementById('gateMM').value;
-            const y = document.getElementById('gateYYYY').value;
+        // Initialize dynamic storage system on your phone browser memory
+        if (!localStorage.getItem('signature_cask_ledger')) {
+            localStorage.setItem('signature_cask_ledger', JSON.stringify(defaultDatabase));
+        }
 
-            if(!d || !m || !y) {
-                alert('Please input a valid registration date.');
-                return;
-            }
-
+        function authorizeAgeVerification() {
+            const y = document.getElementById('inputYYYY').value;
             if ((2026 - parseInt(y)) >= 18) {
-                document.getElementById('viewAgeGate').style.display = 'none';
-                document.getElementById('portalNav').style.visibility = 'visible';
-                navigateToSection('viewStory', 'tabStory');
+                document.getElementById('sectionAgeGate').style.display = 'none';
+                document.getElementById('appNavigationBar').style.visibility = 'visible';
+                transitionToSection('sectionStory', 'btnTabStory');
             } else {
-                alert('Access Denied: Must be of legal drinking age.');
+                alert('Access Denied: Legal age limitations apply.');
             }
         }
 
-        function navigateToSection(targetView, targetTab) {
-            const panels = document.getElementsByClassName('app-view');
-            for(let p of panels) { p.style.display = 'none'; }
-
-            const tabs = document.getElementsByClassName('nav-item');
-            for(let t of tabs) { t.classList.remove('active-tab'); }
-
-            document.getElementById(targetView).style.display = 'block';
-            document.getElementById(targetTab).classList.add('active-tab');
+        function transitionToSection(targetSectionID, targetButtonID) {
+            const blocks = document.getElementsByClassName('viewport-section');
+            for(let b of blocks) { b.style.display = 'none'; b.classList.remove('active-view'); }
+            const links = document.getElementsByClassName('nav-tab-btn');
+            for(let l of links) { l.classList.remove('tab-active'); }
+            document.getElementById(targetSectionID).style.display = 'block';
+            document.getElementById(targetSectionID).classList.add('active-view');
+            document.getElementById(targetButtonID).classList.add('tab-active');
         }
 
-        function queryLedgerRegistry() {
-            const searchVal = document.getElementById('bottleSearch').value;
-            const displayBlock = document.getElementById('ledgerOutput');
+        function executeLedgerLookup() {
+            const numKey = document.getElementById('ledgerSearchInput').value;
+            const resultsPanel = document.getElementById('ledgerDataBox');
             
-            if(searchVal >= 1 && searchVal <= 89) {
-                const formattedKey = searchVal.toString().padStart(2, '0');
-                document.getElementById('lblUnit').innerText = `Bottle ${formattedKey} of 89`;
+            if(numKey >= 1 && numKey <= 89) {
+                const standardizedId = numKey.toString().padStart(2, '0');
+                document.getElementById('displayUnit').innerText = `Bottle ${standardizedId} of 89`;
                 
-                if(registryData[formattedKey]) {
-                    document.getElementById('lblOwner').innerHTML = `<span style="color:var(--gold);">${registryData[formattedKey]}</span>`;
+                // Read fresh up-to-date inputs from memory
+                const activeRegistry = JSON.parse(localStorage.getItem('signature_cask_ledger'));
+                
+                if(activeRegistry[standardizedId]) {
+                    document.getElementById('displayOwner').innerHTML = `<span style="color:var(--gold-solid);">${activeRegistry[standardizedId]}</span>`;
                 } else {
-                    document.getElementById('lblOwner').innerHTML = `<span style="color:#4dfa73;">Available for AWRS Acquisition</span>`;
+                    document.getElementById('displayOwner').innerHTML = `<span style="color:#4dfa73;">Available for AWRS Acquisition</span>`;
                 }
-                displayBlock.style.display = 'block';
+                resultsPanel.style.display = 'block';
             } else {
-                alert('Range Index Violation: Must look up allocations between 01 and 89.');
-                displayBlock.style.display = 'none';
+                alert('Database Error: Index parameters out of bounds.');
+                resultsPanel.style.display = 'none';
+            }
+        }
+
+        // Hidden Manager Logic Tool
+        function verifyAdminAccess() {
+            const passkeyInput = document.getElementById('adminPasskey').value;
+            const adminPanel = document.getElementById('adminPanel');
+            
+            // Your secret password is set to 'cask89'
+            if (passkeyInput === 'cask89') {
+                adminPanel.style.display = 'block';
+            } else {
+                adminPanel.style.display = 'none';
+            }
+        }
+
+        function saveNewCustodianRecord() {
+            const targetNum = document.getElementById('targetBottleNum').value;
+            const newName = document.getElementById('newOwnerName').value;
+
+            if (targetNum >= 1 && targetNum <= 89 && newName.trim() !== "") {
+                const paddedId = targetNum.toString().padStart(2, '0');
+                
+                // Fetch, update, and lock new inputs into storage memory
+                const currentRegistry = JSON.parse(localStorage.getItem('signature_cask_ledger'));
+                currentRegistry[paddedId] = "Vault Allocated • " + newName;
+                localStorage.setItem('signature_cask_ledger', JSON.stringify(currentRegistry));
+
+                alert(`Registry updated perfectly! Bottle ${paddedId} is now registered to ${newName}.`);
+                
+                // Clear inputs out and reload verification box context
+                document.getElementById('targetBottleNum').value = '';
+                document.getElementById('newOwnerName').value = '';
+                document.getElementById('ledgerSearchInput').value = targetNum;
+                executeLedgerLookup();
+            } else {
+                alert('Error: Please enter a valid bottle selection (1-89) and Owner Name.');
             }
         }
     </script>
