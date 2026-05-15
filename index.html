@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signature Cask | Digital Provenance Ledger</title>
+    <title>Signature Cask | The Experience Ledger</title>
     <style>
         :root {
             --gold: #dfb76c;
             --dark-gold: #aa8445;
-            --black: #0a0a0a;
-            --grey: #161616;
+            --black: #050505;
+            --grey: #121212;
             --light-grey: #8a8a8a;
-            --border-glow: rgba(223, 183, 108, 0.2);
+            --border-glow: rgba(223, 183, 108, 0.15);
         }
 
         body {
@@ -24,51 +24,43 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-image: radial-gradient(circle at center, #1c1c1c 0%, #050505 100%);
+            background-image: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
         }
 
         .ledger-card {
             max-width: 480px;
             width: 90%;
-            background: linear-gradient(145deg, #121212 0%, #0d0d0d 100%);
+            background: linear-gradient(145deg, #101010 0%, #080808 100%);
             border: 1px solid var(--dark-gold);
             border-radius: 16px;
             padding: 40px 30px;
             text-align: center;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 30px var(--border-glow);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 40px var(--border-glow);
             box-sizing: border-box;
         }
 
+        /* Luxury Logo Section */
         .brand-header {
             margin-bottom: 35px;
         }
 
-        .title {
-            font-size: 26px;
-            font-weight: 300;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin: 0 0 8px 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        .logo-svg {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            margin-bottom: 15px;
         }
 
         .tagline {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--light-grey);
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             margin: 0;
         }
 
-        .divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent 15%, var(--dark-gold) 50%, transparent 85%);
-            margin: 25px 0;
-        }
-
         .input-section {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         label {
@@ -90,7 +82,7 @@
             width: 100%;
             padding: 14px;
             background: #000000;
-            border: 1px solid #2a2a2a;
+            border: 1px solid #252525;
             border-radius: 8px;
             color: #ffffff;
             font-size: 18px;
@@ -133,9 +125,35 @@
         .action-btn:hover {
             opacity: 0.95;
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(223, 183, 108, 0.2);
         }
 
+        /* Timer Block styling */
+        .timer-box {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(0,0,0,0.5);
+            border: 1px dashed var(--dark-gold);
+            border-radius: 8px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .timer-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .countdown-num {
+            font-size: 32px;
+            font-weight: 300;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        /* Ledger Output panel styling */
         .display-panel {
             margin-top: 30px;
             padding-top: 25px;
@@ -145,6 +163,7 @@
             animation: slideUp 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
@@ -162,6 +181,7 @@
             border-radius: 50px;
             margin-bottom: 20px;
             border: 1px solid rgba(223, 183, 108, 0.25);
+            gap: 8px;
         }
 
         .data-row {
@@ -170,12 +190,9 @@
             padding: 12px 0;
             border-bottom: 1px solid #1a1a1a;
             font-size: 13px;
-            letter-spacing: 0.5px;
         }
 
-        .data-row:last-of-type {
-            border-bottom: none;
-        }
+        .data-row:last-of-type { border-bottom: none; }
 
         .data-label {
             color: var(--light-grey);
@@ -184,15 +201,8 @@
             letter-spacing: 1.5px;
         }
 
-        .data-value {
-            color: #ffffff;
-            font-weight: 400;
-        }
-
-        .gold-text {
-            color: var(--gold);
-            font-weight: 600;
-        }
+        .data-value { color: #ffffff; }
+        .gold-text { color: var(--gold); font-weight: 600; }
 
         .audio-status {
             margin-top: 25px;
@@ -201,10 +211,6 @@
             letter-spacing: 1px;
             text-align: center;
             opacity: 0.8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
 
         .pulse-dot {
@@ -226,7 +232,10 @@
 
     <div class="ledger-card">
         <div class="brand-header">
-            <h1 class="title">Signature Cask</h1>
+            <svg class="logo-svg" viewBox="0 0 500 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50,100 L70,100 L70,80 L85,80 L85,100 L110,100 L115,75 L130,75 L135,100 L180,100 L185,90 L210,90 L215,100 L260,100 L270,50 L290,50 L300,100 L320,100 L320,60 L360,60 L360,100 L400,100" stroke="#dfb76c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="35" y="125" font-family="'Georgia', serif" font-size="34" font-style="italic" fill="#dfb76c" letter-spacing="1">Signature Cask</text>
+            </svg>
             <p class="tagline">The Experience Ledger</p>
         </div>
 
@@ -235,7 +244,12 @@
             <div class="input-wrapper">
                 <input type="number" id="bottleInput" min="1" max="89" placeholder="01" autocomplete="off">
             </div>
-            <button class="action-btn" onclick="checkProvenance()">Verify Provenance</button>
+            <button class="action-btn" onclick="startRitualTimer()">Verify Provenance</button>
+        </div>
+
+        <div id="timerBox" class="timer-box">
+            <div class="timer-title">Reuniting Spirit with Cask DNA...</div>
+            <div class="countdown-num" id="secondsDisplay">20s</div>
         </div>
 
         <div id="displayPanel" class="display-panel">
@@ -244,7 +258,7 @@
             </div>
             
             <div class="data-row">
-                <span class="data-label">Asset Elite</span>
+                <span class="data-label">Asset Identity</span>
                 <span class="data-value">Inchgower 16-Year Single Cask</span>
             </div>
             <div class="data-row">
@@ -252,11 +266,11 @@
                 <span class="data-value">#812264B</span>
             </div>
             <div class="data-row">
-                <span class="data-label">Distillation Date</span>
+                <span class="data-label">Distillation Profile</span>
                 <span class="data-value">15 | 12 | 09</span>
             </div>
             <div class="data-row">
-                <span class="data-label">Drawn Date</span>
+                <span class="data-label">Drawn Profile</span>
                 <span class="data-value">21 | 01 | 26</span>
             </div>
             <div class="data-row">
@@ -265,7 +279,7 @@
             </div>
             <div class="data-row">
                 <span class="data-label">Trade Status</span>
-                <span class="data-value" id="tradeStatus">Secured by AWRS Partner</span>
+                <span class="data-value" id="tradeStatus">Processing...</span>
             </div>
 
             <div class="audio-status">
@@ -275,28 +289,69 @@
     </div>
 
     <script>
-        function checkProvenance() {
+        // 🏛️ MAIN CUSTODIAN REGISTER LIST
+        // Edit owner names directly inside the quotes down below:
+        const custodianRegistry = {
+            "01": "Leeds United FC Hospitality",
+            "02": "The Rusacks Hotel, St Andrews",
+            "03": "Grand Central Restaurant",
+            "04": "Available for AWRS Acquisition",
+            "05": "Available for AWRS Acquisition"
+            // Continue your registry list here as necessary (e.g. "06": "Name")
+        };
+
+        let countdownInterval;
+
+        function startRitualTimer() {
             const input = document.getElementById('bottleInput').value;
+            const panel = document.getElementById('displayPanel');
+            const timerBox = document.getElementById('timerBox');
+            const secondsDisplay = document.getElementById('secondsDisplay');
+
+            // Reset UI States securely
+            clearInterval(countdownInterval);
+            panel.style.display = 'none';
+
+            if (input >= 1 && input <= 89) {
+                const cleanNum = input.toString().padStart(2, '0');
+                timerBox.style.display = 'block';
+                
+                let secondsLeft = 20;
+                secondsDisplay.innerText = secondsLeft + "s";
+
+                // Initialize the premium countdown workflow matching a table serve
+                countdownInterval = setInterval(() => {
+                    secondsLeft--;
+                    secondsDisplay.innerText = secondsLeft + "s";
+
+                    if (secondsLeft <= 0) {
+                        clearInterval(countdownInterval);
+                        timerBox.style.display = 'none';
+                        showLedgerRecords(cleanNum);
+                    }
+                }, 1000);
+
+            } else {
+                alert('Authentication Failed: Please enter a registered bottle number between 1 and 89.');
+                timerBox.style.display = 'none';
+            }
+        }
+
+        function showLedgerRecords(bottleNum) {
             const panel = document.getElementById('displayPanel');
             const allocationDisplay = document.getElementById('bottleAllocation');
             const statusDisplay = document.getElementById('tradeStatus');
 
-            if (input >= 1 && input <= 89) {
-                const cleanNum = input.toString().padStart(2, '0');
-                allocationDisplay.innerText = `Bottle ${cleanNum} of 89`;
-                
-                // Demo tracking for your pitches (e.g., simulating bottles already held by your early partners)
-                if (['01', '02', '03', '04', '05'].includes(cleanNum)) {
-                    statusDisplay.innerHTML = '<span style="color: #dfb76c; font-weight:600;">Vault Restricting • Allocated</span>';
-                } else {
-                    statusDisplay.innerHTML = '<span style="color: #55ff55;">Available for AWRS Acquisition</span>';
-                }
-
-                panel.style.display = 'block';
+            allocationDisplay.innerText = `Bottle ${bottleNum} of 89`;
+            
+            // Check status against your custodian registry lookup table
+            if (custodianRegistry[bottleNum] && custodianRegistry[bottleNum] !== "Available for AWRS Acquisition") {
+                statusDisplay.innerHTML = `<span style="color: #dfb76c; font-weight:600;">Vault Restricted • ${custodianRegistry[bottleNum]}</span>`;
             } else {
-                alert('Authentication Failed: Please enter a registered bottle number between 1 and 89.');
-                panel.style.display = 'none';
+                statusDisplay.innerHTML = '<span style="color: #55ff55;">Available for AWRS Acquisition</span>';
             }
+
+            panel.style.display = 'block';
         }
     </script>
 
