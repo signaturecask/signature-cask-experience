@@ -3,316 +3,346 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signature Cask | Digital Provenance Ledger</title>
+    <title>Signature Cask | The Experience Portal</title>
     <style>
         :root {
             --gold: #dfb76c;
             --dark-gold: #b38f4f;
-            --bg-dark: #090a0a;
-            --card-bg: #111215;
+            --bg-black: #050505;
+            --surface-gray: #111215;
+            --border-glow: rgba(223, 183, 108, 0.15);
             --text-muted: #8e9095;
-            --border-gold-alpha: rgba(223, 183, 108, 0.2);
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-black);
             color: #ffffff;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 20px 0;
+            padding: 0;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            /* High-end slate gradient mimicking the coastal stone from the video */
-            background-image: radial-gradient(circle at center, #1b1d22 0%, #08090a 100%);
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.75)), radial-gradient(circle at center, #1b1d22 0%, #050505 100%);
+            background-size: cover;
+            background-position: center;
         }
 
-        .ledger-card {
+        /* Luxury Modular Layout Wrapper */
+        .portal-frame {
             max-width: 460px;
             width: 90%;
-            background: var(--card-bg);
-            /* Double border style inspired directly by the Certificate of Authenticity */
+            background: var(--surface-gray);
             border: 1px solid var(--dark-gold);
-            outline: 3px solid var(--bg-dark);
-            box-shadow: 0 0 0 4px var(--border-gold-alpha), 0 30px 60px rgba(0,0,0,0.85);
-            padding: 45px 30px;
+            outline: 3px solid var(--bg-black);
+            box-shadow: 0 0 0 4px var(--border-glow), 0 35px 70px rgba(0,0,0,0.9);
+            padding: 40px 25px;
             text-align: center;
             box-sizing: border-box;
-            position: relative;
+            border-radius: 4px;
         }
 
-        .brand-header {
-            margin-bottom: 35px;
+        /* Pure CSS Golden St Andrews Skyline Logo */
+        .logo-box {
+            margin-bottom: 25px;
+        }
+        
+        .skyline-vector {
+            width: 180px;
+            height: auto;
+            margin-bottom: 10px;
         }
 
-        .brand-origin {
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--gold);
-            margin: 0 0 12px 0;
-        }
-
-        .main-title {
+        .brand-title {
             font-family: 'Georgia', serif;
-            font-size: 30px;
+            font-size: 32px;
+            font-style: italic;
             font-weight: 400;
-            letter-spacing: 2px;
-            color: #ffffff;
-            margin: 0 0 4px 0;
-        }
-
-        .main-title span {
-            font-style: italic;
             color: var(--gold);
-        }
-
-        .tagline {
-            font-family: 'Georgia', serif;
-            font-style: italic;
-            font-size: 14px;
-            color: var(--text-muted);
-            letter-spacing: 1px;
             margin: 0;
+            letter-spacing: 1px;
         }
 
-        .input-section {
-            margin-bottom: 30px;
+        .brand-subtitle {
+            font-size: 11px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin: 5px 0 0 0;
         }
 
-        label {
-            display: block;
+        .portal-headline {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        /* Navigation Footer Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            border-top: 1px solid #1e2126;
+            padding-top: 20px;
+        }
+
+        .tab-link {
+            flex: 1;
+            color: var(--text-muted);
             font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: color 0.3s;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .tab-link.active, .tab-link:hover {
+            color: var(--gold);
+        }
+
+        /* View State Management Controls */
+        .app-view {
+            display: none;
+            animation: elegantReveal 0.5s ease forwards;
+        }
+
+        .app-view.active-view {
+            display: block;
+        }
+
+        @keyframes elegantReveal {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Age Gate Inputs */
+        .age-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .input-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-block label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             color: var(--text-muted);
-            margin-bottom: 12px;
+            margin-top: 5px;
         }
 
-        .input-wrapper {
-            max-width: 160px;
-            margin: 0 auto;
-        }
-
-        input {
-            width: 100%;
+        .num-field {
+            width: 70px;
             padding: 12px;
             background: #000000;
             border: 1px solid #2d3037;
             color: #ffffff;
             font-family: 'Georgia', serif;
-            font-size: 22px;
+            font-size: 20px;
             text-align: center;
-            letter-spacing: 1px;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
         }
 
-        input:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 10px rgba(223, 183, 108, 0.15);
-        }
+        .num-field-yr { width: 95px; }
 
-        /* Removes modern input default number arrows */
-        input::-webkit-inner-spin-button, 
-        input::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-            margin: 0; 
-        }
-
-        .action-btn {
-            background: transparent;
-            color: var(--gold);
-            border: 1px solid var(--gold);
-            padding: 14px 30px;
+        .gold-btn {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--dark-gold) 100%);
+            color: #000000;
+            border: none;
+            padding: 15px 0;
             font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .action-btn:hover {
-            background: var(--gold);
-            color: var(--bg-dark);
-        }
-
-        .display-panel {
-            margin-top: 35px;
-            padding-top: 25px;
-            border-top: 1px solid #23262d;
-            display: none;
-            text-align: left;
-            animation: elegantFade 0.5s ease forwards;
-        }
-
-        @keyframes elegantFade {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .verified-badge {
-            display: inline-flex;
-            align-items: center;
-            color: var(--gold);
-            font-size: 9px;
+            font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 20px;
-            gap: 8px;
+            width: 100%;
+            cursor: pointer;
+            transition: opacity 0.3s;
         }
 
-        .pulse-dot {
-            width: 5px;
-            height: 5px;
-            background-color: var(--gold);
-            border-radius: 50%;
-            animation: gentlePulse 2s infinite;
+        .gold-btn:hover { opacity: 0.9; }
+
+        /* General Data Display Layouts */
+        .story-content, .recipe-card {
+            text-align: left;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #e0e0e0;
         }
 
-        @keyframes gentlePulse {
-            0% { opacity: 0.3; }
-            50% { opacity: 1; }
-            100% { opacity: 0.3; }
+        .recipe-card {
+            border-bottom: 1px dashed #2d3037;
+            padding: 15px 0;
+        }
+        .recipe-card:last-of-type { border-bottom: none; }
+
+        .recipe-title {
+            font-family: 'Georgia', serif;
+            color: var(--gold);
+            font-size: 16px;
+            margin: 0 0 5px 0;
         }
 
         .data-row {
             display: flex;
             justify-content: space-between;
-            padding: 13px 0;
+            padding: 12px 0;
             border-bottom: 1px solid #191b20;
             font-size: 13px;
         }
 
-        .data-row:last-of-type {
-            border-bottom: none;
-        }
-
-        .data-label {
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-size: 10px;
-            letter-spacing: 1.5px;
-        }
-
-        .data-value {
-            color: #ffffff;
-            font-weight: 300;
-        }
-
-        .gold-value {
-            color: var(--gold);
-            font-family: 'Georgia', serif;
-            font-style: italic;
-            font-weight: 600;
-        }
-
-        .status-text {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .audio-status {
-            margin-top: 25px;
-            font-size: 10px;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            text-align: center;
-            font-style: italic;
-        }
+        .data-label { color: var(--text-muted); text-transform: uppercase; font-size: 10px; letter-spacing: 1px; }
+        .gold-value { color: var(--gold); font-family: 'Georgia', serif; font-style: italic; }
     </style>
 </head>
 <body>
 
-    <div class="ledger-card">
+    <div class="portal-frame">
         <div class="brand-header">
-            <p class="brand-origin">Signature Cask Ltd • St Andrews, Scotland</p>
-            <h1 class="main-title">Signature Cask</h1>
-            <p class="tagline">The Experience</p>
+            <div class="logo-box">
+                <svg class="skyline-vector" viewBox="0 0 300 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10,50 L35,50 L35,38 L45,38 L45,50 L75,50 L80,25 L100,25 L105,50 L140,50 L145,40 L170,40 L175,50 L210,50 L220,15 L245,15 L255,50 L290,50" stroke="#dfb76c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h1 class="brand-title">Signature Cask</h1>
+                <p class="brand-subtitle">The Experience</p>
+            </div>
         </div>
 
-        <div class="input-section">
-            <label for="bottleInput">Verify Bottle Number</label>
-            <div class="input-wrapper">
-                <input type="number" id="bottleInput" min="1" max="89" placeholder="01" autocomplete="off">
-            </div>
-            <button class="action-btn" onclick="verifyProvenance()">Access Ledger Records</button>
-        </div>
-
-        <div id="displayPanel" class="display-panel">
-            <div class="verified-badge">
-                <span class="pulse-dot"></span> Provenance Authenticated
-            </div>
+        <div id="viewAgeGate" class="app-view active-view">
+            <p class="portal-headline">Signature Cask Ltd • St Andrews • Scotland<br>Verification Portal</p>
+            <p style="font-size: 11px; color: var(--text-muted);">To access 'The Experience' and the exclusive digital ledger, please confirm your legal age.</p>
             
-            <div class="data-row">
-                <span class="data-label">Distillery Asset</span>
-                <span class="data-value">Inchgower Aged 16 Years</span>
+            <div class="age-inputs">
+                <div class="input-block"><input type="number" id="ageDD" placeholder="DD" class="num-field"><label>Day</label></div>
+                <div class="input-block"><input type="number" id="ageMM" placeholder="MM" class="num-field"><label>Month</label></div>
+                <div class="input-block"><input type="number" id="ageYYYY" placeholder="YYYY" class="num-field num-field-yr"><label>Year</label></div>
             </div>
-            <div class="data-row">
-                <span class="data-label">Cask Reference</span>
-                <span class="data-value">#812264B</span>
+            <button class="gold-btn" onclick="verifyAgeGate()">Enter The Experience</button>
+            <p style="font-size: 9px; color: #cc3333; margin-top: 15px; letter-spacing: 1px;">[WARNING: ALCOHOL MAY ONLY BE ACCESSED BY THOSE OF LEGAL AGE]</p>
+        </div>
+
+        <div id="viewStory" class="app-view">
+            <div class="story-content">
+                <h3 style="color: var(--gold); font-family: 'Georgia', serif; font-size: 18px;">Reclaiming Cask DNA</h3>
+                <p>Born beneath the coastal winds of St Andrews, Scotland, Signature Cask bridges pure liquid history with sensory theatre.</p>
+                <p>Our flagship release breathes new life into a unique 16-Year-Old single cask Inchgower profile. Rather than letting the historic wood sleep forever, we systematically harvested the exact timber from Cask #812264B to engineer our bespoke smoking staves.</p>
+                <p>When ignited tableside, the physical wood structure uncoils vanilla, sea spray, and deep oak tannins back directly into the dram—closing an elemental circle broken nearly two decades ago.</p>
             </div>
-            <div class="data-row">
-                <span class="data-label">Profile Specs</span>
-                <span class="data-value">Single Cask • 55.9% ABV</span>
+        </div>
+
+        <div id="viewRecipes" class="app-view">
+            <div class="recipe-card">
+                <h4 class="recipe-title">The 2009 Cask Old Fashioned</h4>
+                <p style="margin: 5px 0;">50ml Inchgower 16 Legacy, 1 Bar Spoon Demerara, 2 Dashes Angostura.</p>
+                <p style="font-size: 11px; color: var(--gold);">🔥 Smoke Activation: Trap embers from your Cask #812264B oak chips inside the glass for 20 seconds prior to expressing the orange twist.</p>
             </div>
-            <div class="data-row">
-                <span class="data-label">Chronology</span>
-                <span class="data-value">Distilled 15/12/09 • Drawn 21/01/26</span>
+            <div class="recipe-card">
+                <h4 class="recipe-title">The St Andrews Coastal Sour</h4>
+                <p style="margin: 5px 0;">50ml Inchgower Whisky, 25ml Fresh Lemon, 15ml Honey Syrup, Egg White.</p>
+                <p style="font-size: 11px; color: var(--gold);">🔥 Smoke Activation: Dry shake, strain over clean ice cube, flash-smoke with the hand smoker directly over the foam top before presentation.</p>
             </div>
-            <div class="data-row">
-                <span class="data-label">Allocation Limit</span>
-                <span class="data-value gold-value" id="bottleAllocation">Bottle -- of 89</span>
-            </div>
-            <div class="data-row">
-                <span class="data-label">Custodian Status</span>
-                <span class="data-value status-text" id="tradeStatus">Checking Archive...</span>
+        </div>
+
+        <div id="viewLedger" class="app-view">
+            <p class="portal-headline" style="margin-top: 0;">Secured Ledger Vault Mapping</p>
+            <div style="margin-bottom: 20px;">
+                <input type="number" id="bottleInput" placeholder="00" class="num-field" style="width: 100px; font-size: 18px; padding: 8px;">
+                <button class="gold-btn" onclick="lookupLedgerAsset()" style="width: auto; padding: 10px 20px; margin-left: 10px;">Search</button>
             </div>
 
-            <div class="audio-status">
-                🔊 Immersive Coastal Soundscape Active
+            <div id="ledgerOutput" style="display:none; text-align: left;">
+                <div class="data-row"><span class="data-label">Asset Identity</span><span class="data-value">Inchgower Aged 16 Years</span></div>
+                <div class="data-row"><span class="data-label">Cask Source</span><span class="data-value">Single Bourbon Barrel • #812264B</span></div>
+                <div class="data-row"><span class="data-label">Profile Strength</span><span class="data-value">55.9% ABV • Natural Strength</span></div>
+                <div class="data-row"><span class="data-label">Allocation Index</span><span class="data-value gold-value" id="outBottle">Bottle -- of 89</span></div>
+                <div class="data-row"><span class="data-label">Custodian Mapping</span><span class="data-value gold-value" id="outOwner" style="font-size: 12px;">--</span></div>
             </div>
+        </div>
+
+        <div id="portalNav" class="nav-tabs" style="display: none;">
+            <button class="tab-link active" id="btnStory" onclick="switchTab('viewStory', 'btnStory')">📜 Our Story</button>
+            <button class="tab-link" id="btnRecipes" onclick="switchTab('viewRecipes', 'btnRecipes')">🥃 Cocktail Specs</button>
+            <button class="tab-link" id="btnLedger" onclick="switchTab('viewLedger', 'btnLedger')">🔑 Digital Ledger</button>
         </div>
     </div>
 
     <script>
-        // 🏛️ SECURE MASTER LEDGER REGISTRY
-        const custodianRegistry = {
+        // 🏛️ CENTRAL CUSTODIAN LEDGER DATA REGISTRY
+        const globalLedgerDB = {
             "01": "Vault Allocated • Private Collector",
             "02": "Vault Allocated • The Rusacks Hotel, St Andrews",
             "03": "Vault Allocated • Grand Central Restaurant",
             "17": "Vault Allocated • Leeds United FC Hospitality"
         };
 
-        function verifyProvenance() {
-            const input = document.getElementById('bottleInput').value;
-            const panel = document.getElementById('displayPanel');
-            const allocationDisplay = document.getElementById('bottleAllocation');
-            const statusDisplay = document.getElementById('tradeStatus');
+        function verifyAgeGate() {
+            const day = document.getElementById('ageDD').value;
+            const month = document.getElementById('ageMM').value;
+            const year = document.getElementById('ageYYYY').value;
 
-            if (input >= 1 && input <= 89) {
-                const cleanNum = input.toString().padStart(2, '0');
-                allocationDisplay.innerText = `Bottle ${cleanNum} of 89`;
-                
-                if (custodianRegistry[cleanNum]) {
-                    statusDisplay.innerHTML = `<span style="color: var(--gold); font-weight: 500;">${custodianRegistry[cleanNum]}</span>`;
-                } else {
-                    statusDisplay.innerHTML = '<span style="color: #4dfa73; font-weight: 500; opacity: 0.95;">Available for AWRS Acquisition</span>';
-                }
+            if(!day || !month || !year) {
+                alert('Please submit full cryptographic date parameters.');
+                return;
+            }
 
-                panel.style.display = 'block';
+            // Simple legal year boundary algorithm check
+            const ageThreshold = 2026 - parseInt(year);
+            if(ageThreshold >= 18) {
+                document.getElementById('viewAgeGate').style.display = 'none';
+                document.getElementById('portalNav').style.display = 'flex';
+                switchTab('viewStory', 'btnStory');
             } else {
-                alert('Authentication Aborted: Please supply an entry parameter between 01 and 89.');
-                panel.style.display = 'none';
+                alert('Access Revoked: Authentication requires legal age limit criteria.');
+            }
+        }
+
+        function switchTab(targetViewID, activeBtnID) {
+            // Deactivate completely all open viewport panels
+            const views = document.getElementsByClassName('app-view');
+            for(let v of views) { v.classList.remove('active-view'); v.style.display = 'none'; }
+
+            // Turn off highlight styles on all link tabs
+            const tabs = document.getElementsByClassName('tab-link');
+            for(let t of tabs) { t.classList.remove('active'); }
+
+            // Turn on target layout blocks
+            document.getElementById(targetViewID).style.display = 'block';
+            document.getElementById(targetViewID).classList.add('active-view');
+            document.getElementById(activeBtnID).classList.add('active');
+        }
+
+        function lookupLedgerAsset() {
+            const bId = document.getElementById('bottleInput').value;
+            const outputBox = document.getElementById('ledgerOutput');
+            const lblBottle = document.getElementById('outBottle');
+            const lblOwner = document.getElementById('outOwner');
+
+            if(bId >= 1 && bId <= 89) {
+                const cleanKey = bId.toString().padStart(2, '0');
+                lblBottle.innerText = `Bottle ${cleanKey} of 89`;
+                
+                if(globalLedgerDB[cleanKey]) {
+                    lblOwner.innerHTML = `<span style="color: #dfb76c;">${globalLedgerDB[cleanKey]}</span>`;
+                } else {
+                    lblOwner.innerHTML = `<span style="color: #4dfa73;">Unallocated • Held In Bond</span>`;
+                }
+                outputBox.style.display = 'block';
+            } else {
+                alert('Invalid Unit Array: Enter standard index values from 01 to 89.');
+                outputBox.style.display = 'none';
             }
         }
     </script>
-
 </body>
 </html>
