@@ -7,15 +7,15 @@
     <style>
         :root {
             --gold: #dfb76c;
-            --dark-gold: #aa8445;
-            --black: #0a0a0a;
-            --grey: #161616;
-            --light-grey: #8a8a8a;
-            --border-glow: rgba(223, 183, 108, 0.2);
+            --dark-gold: #b38f4f;
+            --bg-dark: #090a0a;
+            --card-bg: #111215;
+            --text-muted: #8e9095;
+            --border-gold-alpha: rgba(223, 183, 108, 0.2);
         }
 
         body {
-            background-color: var(--black);
+            background-color: var(--bg-dark);
             color: #ffffff;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             margin: 0;
@@ -24,40 +24,56 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-image: radial-gradient(circle at center, #1c1c1c 0%, #050505 100%);
+            /* High-end slate gradient mimicking the coastal stone from the video */
+            background-image: radial-gradient(circle at center, #1b1d22 0%, #08090a 100%);
         }
 
         .ledger-card {
-            max-width: 480px;
+            max-width: 460px;
             width: 90%;
-            background: linear-gradient(145deg, #121212 0%, #0d0d0d 100%);
+            background: var(--card-bg);
+            /* Double border style inspired directly by the Certificate of Authenticity */
             border: 1px solid var(--dark-gold);
-            border-radius: 16px;
-            padding: 40px 30px;
+            outline: 3px solid var(--bg-dark);
+            box-shadow: 0 0 0 4px var(--border-gold-alpha), 0 30px 60px rgba(0,0,0,0.85);
+            padding: 45px 30px;
             text-align: center;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 30px var(--border-glow);
             box-sizing: border-box;
+            position: relative;
         }
 
         .brand-header {
             margin-bottom: 35px;
         }
 
-        .title {
-            font-size: 26px;
-            font-weight: 300;
-            letter-spacing: 5px;
+        .brand-origin {
+            font-size: 9px;
             text-transform: uppercase;
+            letter-spacing: 3px;
             color: var(--gold);
-            margin: 0 0 8px 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            margin: 0 0 12px 0;
+        }
+
+        .main-title {
+            font-family: 'Georgia', serif;
+            font-size: 30px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: #ffffff;
+            margin: 0 0 4px 0;
+        }
+
+        .main-title span {
+            font-style: italic;
+            color: var(--gold);
         }
 
         .tagline {
-            font-size: 11px;
-            color: var(--light-grey);
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
             margin: 0;
         }
 
@@ -67,40 +83,39 @@
 
         label {
             display: block;
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: var(--gold);
+            color: var(--text-muted);
             margin-bottom: 12px;
         }
 
         .input-wrapper {
-            position: relative;
-            max-width: 200px;
+            max-width: 160px;
             margin: 0 auto;
         }
 
         input {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background: #000000;
-            border: 1px solid #2a2a2a;
-            border-radius: 8px;
+            border: 1px solid #2d3037;
             color: #ffffff;
-            font-size: 18px;
+            font-family: 'Georgia', serif;
+            font-size: 22px;
             text-align: center;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             box-sizing: border-box;
             transition: all 0.3s ease;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
         }
 
         input:focus {
             outline: none;
             border-color: var(--gold);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(223, 183, 108, 0.3);
+            box-shadow: 0 0 10px rgba(223, 183, 108, 0.15);
         }
 
+        /* Removes modern input default number arrows */
         input::-webkit-inner-spin-button, 
         input::-webkit-outer-spin-button { 
             -webkit-appearance: none; 
@@ -108,61 +123,69 @@
         }
 
         .action-btn {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--dark-gold) 100%);
-            color: #000000;
-            border: none;
-            padding: 16px 35px;
-            font-size: 12px;
-            font-weight: 700;
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 14px 30px;
+            font-size: 11px;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 3px;
-            border-radius: 8px;
             cursor: pointer;
             width: 100%;
-            margin-top: 15px;
+            margin-top: 20px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
         .action-btn:hover {
-            opacity: 0.95;
-            transform: translateY(-1px);
+            background: var(--gold);
+            color: var(--bg-dark);
         }
 
         .display-panel {
-            margin-top: 30px;
+            margin-top: 35px;
             padding-top: 25px;
-            border-top: 1px solid #222;
+            border-top: 1px solid #23262d;
             display: none;
             text-align: left;
-            animation: slideUp 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation: elegantFade 0.5s ease forwards;
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(15px); }
+        @keyframes elegantFade {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .verified-badge {
             display: inline-flex;
             align-items: center;
-            background: rgba(223, 183, 108, 0.08);
             color: var(--gold);
-            padding: 6px 14px;
-            font-size: 10px;
+            font-size: 9px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            border-radius: 50px;
             margin-bottom: 20px;
-            border: 1px solid rgba(223, 183, 108, 0.25);
             gap: 8px;
+        }
+
+        .pulse-dot {
+            width: 5px;
+            height: 5px;
+            background-color: var(--gold);
+            border-radius: 50%;
+            animation: gentlePulse 2s infinite;
+        }
+
+        @keyframes gentlePulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
         }
 
         .data-row {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #1a1a1a;
+            padding: 13px 0;
+            border-bottom: 1px solid #191b20;
             font-size: 13px;
         }
 
@@ -171,42 +194,37 @@
         }
 
         .data-label {
-            color: var(--light-grey);
+            color: var(--text-muted);
             text-transform: uppercase;
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 1.5px;
         }
 
         .data-value {
             color: #ffffff;
+            font-weight: 300;
         }
 
-        .gold-text {
+        .gold-value {
             color: var(--gold);
+            font-family: 'Georgia', serif;
+            font-style: italic;
             font-weight: 600;
+        }
+
+        .status-text {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .audio-status {
             margin-top: 25px;
-            font-size: 11px;
-            color: var(--gold);
+            font-size: 10px;
+            color: var(--text-muted);
             letter-spacing: 1px;
             text-align: center;
-            opacity: 0.8;
-        }
-
-        .pulse-dot {
-            width: 6px;
-            height: 6px;
-            background-color: var(--gold);
-            border-radius: 50%;
-            animation: pulse 1.6s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.8); opacity: 0.5; }
-            50% { transform: scale(1.3); opacity: 1; }
-            100% { transform: scale(0.8); opacity: 0.5; }
+            font-style: italic;
         }
     </style>
 </head>
@@ -214,16 +232,17 @@
 
     <div class="ledger-card">
         <div class="brand-header">
-            <h1 class="title">Signature Cask</h1>
-            <p class="tagline">The Experience Ledger</p>
+            <p class="brand-origin">Signature Cask Ltd • St Andrews, Scotland</p>
+            <h1 class="main-title">Signature Cask</h1>
+            <p class="tagline">The Experience</p>
         </div>
 
         <div class="input-section">
-            <label for="bottleInput">Enter Custodian Bottle Number</label>
+            <label for="bottleInput">Verify Bottle Number</label>
             <div class="input-wrapper">
                 <input type="number" id="bottleInput" min="1" max="89" placeholder="01" autocomplete="off">
             </div>
-            <button class="action-btn" onclick="checkProvenance()">Verify Provenance</button>
+            <button class="action-btn" onclick="verifyProvenance()">Access Ledger Records</button>
         </div>
 
         <div id="displayPanel" class="display-panel">
@@ -232,9 +251,68 @@
             </div>
             
             <div class="data-row">
-                <span class="data-label">Asset Identity</span>
-                <span class="data-value">Inchgower 16-Year Single Cask</span>
+                <span class="data-label">Distillery Asset</span>
+                <span class="data-value">Inchgower Aged 16 Years</span>
             </div>
             <div class="data-row">
                 <span class="data-label">Cask Reference</span>
-                <span class="data-value">#
+                <span class="data-value">#812264B</span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Profile Specs</span>
+                <span class="data-value">Single Cask • 55.9% ABV</span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Chronology</span>
+                <span class="data-value">Distilled 15/12/09 • Drawn 21/01/26</span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Allocation Limit</span>
+                <span class="data-value gold-value" id="bottleAllocation">Bottle -- of 89</span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Custodian Status</span>
+                <span class="data-value status-text" id="tradeStatus">Checking Archive...</span>
+            </div>
+
+            <div class="audio-status">
+                🔊 Immersive Coastal Soundscape Active
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 🏛️ SECURE MASTER LEDGER REGISTRY
+        const custodianRegistry = {
+            "01": "Vault Allocated • Private Collector",
+            "02": "Vault Allocated • The Rusacks Hotel, St Andrews",
+            "03": "Vault Allocated • Grand Central Restaurant",
+            "17": "Vault Allocated • Leeds United FC Hospitality"
+        };
+
+        function verifyProvenance() {
+            const input = document.getElementById('bottleInput').value;
+            const panel = document.getElementById('displayPanel');
+            const allocationDisplay = document.getElementById('bottleAllocation');
+            const statusDisplay = document.getElementById('tradeStatus');
+
+            if (input >= 1 && input <= 89) {
+                const cleanNum = input.toString().padStart(2, '0');
+                allocationDisplay.innerText = `Bottle ${cleanNum} of 89`;
+                
+                if (custodianRegistry[cleanNum]) {
+                    statusDisplay.innerHTML = `<span style="color: var(--gold); font-weight: 500;">${custodianRegistry[cleanNum]}</span>`;
+                } else {
+                    statusDisplay.innerHTML = '<span style="color: #4dfa73; font-weight: 500; opacity: 0.95;">Available for AWRS Acquisition</span>';
+                }
+
+                panel.style.display = 'block';
+            } else {
+                alert('Authentication Aborted: Please supply an entry parameter between 01 and 89.');
+                panel.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>
